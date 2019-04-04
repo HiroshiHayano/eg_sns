@@ -1,0 +1,15 @@
+# User specific & automatically generated files #
+#################################################
+config.php
+app/webroot/img/icon
+app/Config/core.php
+app/Config/database.php
+app/tmp/logs
+app/Plugin
+lib/Cake/Console/Templates/skel/tmp/
+/plugins
+/vendors
+/build
+/dist
+/tags
+*.mo

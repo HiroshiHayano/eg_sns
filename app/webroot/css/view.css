@@ -1,0 +1,13 @@
+img.icon {
+    width: 150px;
+    height: 200px;
+}
+
+div.name {
+    text-align: center;
+}
+
+div.information {
+    display: inline-block;
+    vertical-align: top;
+}
