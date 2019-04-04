@@ -77,5 +77,13 @@
                 ?>
             </td>
         </tr>
+        <tr>
+            <td>help!</td>
+            <td>
+                <?php
+                    echo nl2br(h($user['User']['problem']));
+                ?>
+            </td>
+        </tr>
     </table>
 </div>
