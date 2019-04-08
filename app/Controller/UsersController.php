@@ -2,7 +2,7 @@
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    public $uses = array('User', 'Department');
+    public $uses = array('User', 'Department', 'Post');
 
     public function isAuthorized($user = null) {
         // 登録済ユーザーはindex, viewページへアクセス許可
@@ -41,6 +41,24 @@ class UsersController extends AppController {
         $this->set('user', $this->User->read());
         $this->Department->id = $this->User->field('department_id');
         $this->set('department', $this->Department->field('name'));
+        $problem = $this->Post->find('first', array(
+            'conditions' => array(
+                'user_id' => $id,
+                'is_problem' => true,
+                'is_resolved' => false,
+
+            ),
+        ));
+        $this->set('problem', $problem);
+        $resolerved_problems = $this->Post->find('all', array(
+            'conditions' => array(
+                'user_id' => $id,
+                'is_problem' => true,
+                'is_resolved' => true,
+
+            ),
+        ));
+        $this->set('resolerved_problems', $resolerved_problems);
     }
 
     public function login() {

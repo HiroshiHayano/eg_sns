@@ -11,3 +11,30 @@ div.information {
     display: inline-block;
     vertical-align: top;
 }
+
+div.profile {
+    display: block;
+}
+
+div.problem {
+    display: block;
+    padding: 5px;
+    margin: 20px;
+    border: 2px solid #000000;
+    width: 70%;
+    text-align: center;
+}
+
+div.not_resloved {
+    display: inline-block;
+    background: skyblue;
+    width: 40%;
+    height: 90%;
+}
+
+div.resloved {
+    display: inline-block;
+    background: orange;
+    width: 40%;
+    height: 90%;
+}

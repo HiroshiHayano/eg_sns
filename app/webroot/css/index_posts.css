@@ -1,0 +1,41 @@
+img.icon {
+    width: 70px;
+    height: 70px;
+}
+
+div.content_wrapper {
+    display: block;
+    padding: 20px;
+    margin: 20px;
+}
+
+div.icon {
+    display: block;
+    text-align: center;
+}
+
+div.name {
+    display: block;
+    text-align: center;
+    /* font-size: 6pt; */
+}
+
+div.post {
+    display: block;
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid #000000;
+}
+
+div.contributor {
+    display: inline-block;
+    width: 10%;
+}
+
+div.post_body {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15pt;
+    width: 80%;
+    /* background: orange; */
+}

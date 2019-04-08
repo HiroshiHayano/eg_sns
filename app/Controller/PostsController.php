@@ -2,7 +2,7 @@
 
 class PostsController extends AppController {
     public $helpers = array('Html', 'Form');
-    public $uses = array('Posts');
+    public $uses = array('Post', 'User');
 
     public function isAuthorized($post = null) {
         // 登録済ユーザーはindex, viewページへアクセス許可
@@ -30,6 +30,14 @@ class PostsController extends AppController {
     public function index() {
         $this->set('login_user', $this->Session->read('Auth.User'));
 
-        $this->set('posts', $this->Posts->find('all'));
+        $this->set('posts', $this->Post->find('all', array(
+            'order' => array('created' => 'desc'),
+            'conditions' => array(
+                'send_to' => NULL,
+                'is_resolved' => 0,
+            )
+        )));
+        $this->set('users_image', $this->User->find('list',array('fields' => array('id','image'))));
+        $this->set('users_name', $this->User->find('list',array('fields' => array('id','name'))));
     }
 }

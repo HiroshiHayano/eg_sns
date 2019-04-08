@@ -1,5 +1,5 @@
 <?php
-    echo $this->Html->css('index');
+    echo $this->Html->css('index_users');
     // echo $this->Html->css('skyblue');
     echo $login_user['name'] . 'さん こんにちは！';
 ?>
@@ -14,12 +14,21 @@
                         'controller' => 'users', 
                         'action' => 'view', 
                         $user['User']['id']
-                    )
+                    ),
+                    'width' => '150',
+                    'height' => '150',
                 ));
             ?>
             <div class="name">
-                <?php
-                    echo h($user['User']['name']);
+                <?php 
+                    echo $this->Html->link(
+                        h($user['User']['name']),
+                        array(
+                            'controller' => 'users', 
+                            'action' => 'view', 
+                            $user['User']['id']
+                        )
+                    );
                 ?>
             </div>
         </div>
