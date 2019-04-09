@@ -43,22 +43,47 @@ class UsersController extends AppController {
         $this->set('department', $this->Department->field('name'));
         $problem = $this->Post->find('first', array(
             'conditions' => array(
-                'user_id' => $id,
+                'sender_id' => $id,
                 'is_problem' => true,
                 'is_resolved' => false,
 
             ),
         ));
         $this->set('problem', $problem);
-        $resolerved_problems = $this->Post->find('all', array(
-            'conditions' => array(
-                'user_id' => $id,
-                'is_problem' => true,
-                'is_resolved' => true,
-
-            ),
+        $this->set('users_image', $this->User->find(
+            'list', array(
+                'fields' => array(
+                    'image'
+                )
+            )
         ));
-        $this->set('resolerved_problems', $resolerved_problems);
+        $this->set('users_name', $this->User->find(
+            'list',array(
+                'fields' => array(
+                    'id',
+                    'name'
+                )
+            )
+        ));
+        if (!empty($problem)) {
+            $answers = $this->Post->find('all', array(
+                'order' => array('id' => 'ASC'),
+                'conditions' => array(
+                    'original_id' => $problem['Post']['id'],
+                    'is_problem' => 0,
+                ),
+            ));
+            $this->set('answers', $answers);    
+        }
+        // $resolerved_problems = $this->Post->find('all', array(
+        //     'conditions' => array(
+        //         'user_id' => $id,
+        //         'is_problem' => true,
+        //         'is_resolved' => true,
+
+        //     ),
+        // ));
+        // $this->set('resolerved_problems', $resolerved_problems);
     }
 
     public function login() {

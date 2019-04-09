@@ -37,7 +37,21 @@ class PostsController extends AppController {
                 'is_resolved' => 0,
             )
         )));
-        $this->set('users_image', $this->User->find('list',array('fields' => array('id','image'))));
-        $this->set('users_name', $this->User->find('list',array('fields' => array('id','name'))));
+        $this->set('users_image', $this->User->find(
+            'list',array(
+                'fields' => array(
+                    'id',
+                    'image'
+                )
+            )
+        ));
+        $this->set('users_name', $this->User->find(
+            'list',array(
+                'fields' => array(
+                    'id',
+                    'name'
+                )
+            )
+        ));
     }
 }

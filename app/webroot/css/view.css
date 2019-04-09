@@ -1,35 +1,92 @@
+#content {
+    text-align: center;    
+}
+
 img.icon {
-    width: 150px;
-    height: 200px;
+    width: 40px;
+    height: 40px;
 }
 
 div.name {
     text-align: center;
+    font-size: 20pt;
+}
+
+div.phonetic {
+    text-align: center;
+    font-size: 10pt;
+}
+
+div.image {
+    display: inline-block;
+    vertical-align: top;
 }
 
 div.information {
     display: inline-block;
     vertical-align: top;
+    width: 50%;
+}
+
+div.wrapper {
+    display: block;
+    width: 99%;
+    margin: auto;
+    /* text-align: center; */
 }
 
 div.profile {
-    display: block;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* border: 2px solid #000000; */
 }
 
 div.problem {
-    display: block;
     padding: 5px;
-    margin: 20px;
-    border: 2px solid #000000;
-    width: 70%;
-    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* border: 2px solid #000000; */
 }
 
 div.not_resloved {
     display: inline-block;
-    background: skyblue;
-    width: 40%;
-    height: 90%;
+    /* background: skyblue; */
+    width: 80%;
+    /* height: 90%; */
+    text-align: left;
+    /* border: 2px solid #000000; */
+}
+
+div.content {
+    font-size: 20pt;
+    color: red;
+    border-top: 2px solid #000000;
+    padding: 5px;
+}
+
+div.answer_wrapper {
+    padding-left: 5%;
+}
+
+div.answer {
+    display: block;
+    /* border: 2px solid #000000; */
+    width: 100%;
+    text-align: left;
+    padding: 5px;
+}
+
+div.answer_icon {
+    display: inline-block;
+    width: 5%;
+}
+
+div.answer_content {
+    display: inline-block;
+    vertical-align: top;
+    font-size: 15pt;
+    width: 90%;
 }
 
 div.resloved {
