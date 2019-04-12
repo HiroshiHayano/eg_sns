@@ -1,6 +1,6 @@
 <?php
 
-class Post extends AppModel {
+class Comment extends AppModel {
     //validation
     public $validate = array(
         'content' => array(

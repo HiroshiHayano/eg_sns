@@ -53,7 +53,7 @@
                 'label' => array('text' => '趣味'),
                 'placeholder' => '自由記入'
             ));
-            echo $this->Form->input('goal', array(
+            echo $this->Form->input('message', array(
                 'type' => 'textarea',
                 'label' => array('text' => '目標'),
                 'placeholder' => '自由記入'

@@ -2,9 +2,14 @@
 
 class UsersController extends AppController {
     public $helpers = array('Html', 'Form');
-    public $uses = array('User', 'Department', 'Post');
+    public $uses = array('User', 'Department', 'Post', 'Question', 'Answer', 'Comment');
 
-    public function isAuthorized($user = null) {
+    public function beforefilter() {
+        $this->Auth->allow('login', 'add');
+    }
+
+    public function isAuthorized($user = null)
+    {
         // 登録済ユーザーはindex, viewページへアクセス許可
         if (in_array($this->action, array('index', 'view', 'logout'))) {
             return true;
@@ -27,66 +32,73 @@ class UsersController extends AppController {
         return parent::isAuthorized($user);
     }
 
-    public function index() {
+    public function index()
+    {
         $this->set('login_user', $this->Session->read('Auth.User'));
-
         $this->set('users', $this->User->find('all'));
         $this->set('title_for_layout', '社員');
     }
 
-    public function view($id = NULL) {
-        $this->set('login_user', $this->Session->read('Auth.User'));
-
+    public function view($id = NULL)
+    {
+        // $this->autoLayout = false;
         $this->User->id = $id;
         $this->set('user', $this->User->read());
         $this->Department->id = $this->User->field('department_id');
         $this->set('department', $this->Department->field('name'));
-        $problem = $this->Post->find('first', array(
+        $question = $this->Question->find('first', array( // 現在はとりあえず一件だけ表示するためにfirstにしている
             'conditions' => array(
-                'sender_id' => $id,
-                'is_problem' => true,
-                'is_resolved' => false,
+                'user_id' => $id,
+                'is_resolved' => 0,
+            )
+        ));
+        $this->set('question', $question);
 
-            ),
-        ));
-        $this->set('problem', $problem);
-        $this->set('users_image', $this->User->find(
-            'list', array(
-                'fields' => array(
-                    'image'
+        if (!empty($question)) {
+            // ユーザーの顔画像パス一覧取得
+            $this->set('users_image', $this->User->find(
+                'list', array(
+                    'fields' => array(
+                        'image'
+                    )
                 )
-            )
-        ));
-        $this->set('users_name', $this->User->find(
-            'list',array(
-                'fields' => array(
-                    'id',
-                    'name'
-                )
-            )
-        ));
-        if (!empty($problem)) {
-            $answers = $this->Post->find('all', array(
-                'order' => array('id' => 'ASC'),
-                'conditions' => array(
-                    'original_id' => $problem['Post']['id'],
-                    'is_problem' => 0,
-                ),
             ));
-            $this->set('answers', $answers);    
-        }
-        // $resolerved_problems = $this->Post->find('all', array(
-        //     'conditions' => array(
-        //         'user_id' => $id,
-        //         'is_problem' => true,
-        //         'is_resolved' => true,
+            // ユーザーの名前一覧取得
+            $this->set('users_name', $this->User->find(
+                'list', array(
+                    'fields' => array(
+                        'name'
+                    )
+                )
+            ));
 
-        //     ),
-        // ));
-        // $this->set('resolerved_problems', $resolerved_problems);
+            $answers = $this->Answer->find('all', array(
+                'conditions' => array(
+                    'question_id' => $question['Question']['id'],
+                )
+            ));
+            $this->set('answers', $answers);
+    
+            $answers_id = array();
+            foreach ($answers as $answer) {
+                $answers_id[] = $answer['Answer']['id'];
+            }
+            $comments = array();
+            foreach ($answers_id as $answer_id) {
+                $comments_set = array();
+                $comments_set += $this->Comment->find('all', array(
+                    'conditions' => array(
+                        'answer_id' => $answer_id,
+                    )
+                ));
+                $comments += array($answer_id => $comments_set);
+            }
+            $this->set('comments', $comments);
+        }
     }
 
-    public function login() {
+    public function login()
+    {
         // すでにログインしている場合
         if ($this->Auth->loggedIn()) {
             $this->redirect($this->Auth->redirectUrl());

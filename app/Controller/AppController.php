@@ -60,10 +60,6 @@ class AppController extends Controller {
         )
     ); //追加
 
-    public function beforefilter() {
-        $this->Auth->allow('login', 'add');
-    }
-
     public function isAuthorized($user) {
         // Adminユーザーは全権限を持つ
         if (isset($user['admin']) && $user['admin'] === true) {
@@ -75,7 +71,10 @@ class AppController extends Controller {
             array('element' => 'default')
         );
         // refererを取得して飛びたいけど上手くいかない...
-        $this->redirect($this->referer(array('controller' => 'users', 'action' => 'index')));
+        $this->redirect($this->referer(array(
+            'controller' => 'users', 
+            'action' => 'index'
+        )));
         return false;
     }
 }

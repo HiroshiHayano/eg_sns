@@ -42,11 +42,12 @@ div.profile {
     /* border: 2px solid #000000; */
 }
 
-div.problem {
-    padding: 5px;
+div.question_space {
+    width: 80%;
+    padding: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-    /* border: 2px solid #000000; */
+    border-top: 2px solid #000000;
 }
 
 div.not_resloved {
@@ -58,15 +59,80 @@ div.not_resloved {
     /* border: 2px solid #000000; */
 }
 
-div.content {
-    font-size: 20pt;
+div.title {
     color: red;
-    border-top: 2px solid #000000;
+    border-bottom: 1px solid #000000;
+    font-size: 20pt;
     padding: 5px;
 }
 
+div.content {
+    font-size: 15pt;
+    padding: 5px;
+}
+
+div.question_information {
+    display: block;
+    text-align: right;
+}
+
+div.answer_button {
+    display: block;
+    width: 200px;
+    height: 35px;
+    font-size: 15pt;
+    text-align: center;
+}
+
+div.answer_form {
+    padding: 10px;
+    border-top: 1px solid #555555;
+    border-bottom: 1px solid #555555;
+}
+
+div.answer_setting {
+    text-align: right;
+}
+
+div.answer_edit {
+    display: inline;
+}
+
+div.answer_edit_opener {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    font-size: 15pt;
+    border: 1px solid #000000;
+}
+
+div.answer_edit_closer {
+    display: block;
+    font-size: 20pt;
+    color: white;
+}
+
+div.answer_resolve {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+div.answer_delete {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+}
+
+div.answer_information {
+    display: block;
+    height: 40px;
+    font-size: 20pt;
+}
+
 div.answer_wrapper {
-    padding-left: 5%;
+    display: block;
+    /* padding-left: 5%; */
 }
 
 div.answer {
@@ -75,23 +141,71 @@ div.answer {
     width: 100%;
     text-align: left;
     padding: 5px;
+    border-top: 1px solid #555555;
+    /* border-bottom: 1px solid #555555; */
 }
 
 div.answer_icon {
-    display: inline-block;
-    width: 5%;
+    display: block;
+    text-align: right;
+}
+
+div.answer_image {
+    display: inline;
+    text-align: center;
+}
+
+div.answer_created {
+    display: inline;
+}
+
+div.answer_name {
+    display: inline;
+    font-size: 10pt;
+    text-align: center;
 }
 
 div.answer_content {
-    display: inline-block;
-    vertical-align: top;
+    display: block;
     font-size: 15pt;
-    width: 90%;
+    width: 85%;
 }
 
-div.resloved {
-    display: inline-block;
-    background: orange;
-    width: 40%;
-    height: 90%;
+div.comment_opener {
+    display: block;
+    width: 150px;
+    text-align: center;
+}
+
+td.comment_icon {
+    width: 100px;
+}
+
+div.comment_image {
+    display: inline;
+}
+
+div.comment_name {
+    display: inline;
+    font-size: 5pt;
+}
+
+div.question_edit_layer {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    top: 10px;
+    bottom: 10px;
+    background: rgba(45,45,45, 0.5);
+}
+
+div.question_edit {
+    display: block;
+    margin: auto;
+    padding: 30px;
+    margin-top: 30px;
+    width: 80%;
+    height: 70%;
+    background: white;
+    text-align: center;
 }
