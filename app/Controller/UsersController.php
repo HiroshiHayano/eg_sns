@@ -55,6 +55,9 @@ class UsersController extends AppController {
         $this->set('question', $question);
 
         if (!empty($question)) {
+            $this->Question->id = $question['Question']['id'];
+            $this->request->data = $this->Question->read();
+
             // ユーザーの顔画像パス一覧取得
             $this->set('users_image', $this->User->find(
                 'list', array(
