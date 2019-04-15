@@ -16,6 +16,7 @@ $(document).ready(function(){
         $(this).next('.comment').toggle(250);
     });
 
+
     $('.answer_form').hide();
     $('.answer_button').on('click', function() {
         var self = $(this);

@@ -7,7 +7,7 @@ class QuestionsController extends AppController {
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('add', 'resolve', 'edit', 'delete'))) {
+        if (in_array($this->action, array('index', 'add', 'resolve', 'edit', 'delete'))) {
             return true;
         }
     
@@ -25,12 +25,29 @@ class QuestionsController extends AppController {
         return parent::isAuthorized($user);
     }
 
+    public function index()
+    {
+        // 未解決
+        $this->set('not_resolved_questions', $this->Question->find('all', array(
+            'conditions' => array('is_resolved' => '0'),
+            'order' => array('id' => 'desc'),
+        )));
+        // 解決済み
+        $this->set('resolved_questions', $this->Question->find('all', array(
+            'conditions' => array('is_resolved' => '1'),
+            'order' => array('id' => 'desc'),
+        )));
+        // // 共有知識
+        // $this->set('knowledges', $this->Knowledge->find('all'), array(
+        //     'order' => array('id' => 'desc'),
+        // ));
+    }
+
     public function resolve()
     {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
-            // debug($this->request->data);
             if ($this->Question->save($this->request->data)) {
                 $this->redirect($this->referer());
                 $this->Flash->set(
@@ -68,11 +85,9 @@ class QuestionsController extends AppController {
 
     public function edit()
     {
-        $this->Question->id = $id;
-
         if ($this->request->is('get')) {
-            $this->request->data = $this->Question->read();
-        } else {
+            throw new MethodNotAllowedException();
+        } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
                 $this->redirect($this->referer());
                 $this->Flash->set(

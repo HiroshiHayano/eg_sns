@@ -12,25 +12,26 @@
 ?>
 <div class='question_edit_layer'>
     <div class='question_edit'>
-            <?php
-                echo $this->Form->create('Question', array(
-                    'url' => array(
-                        'controller' => 'questions',
-                        'action' => 'edit'
-                    )
-                ));
-                echo $this->Form->textarea('title', array(
-                    'placeholder' => 'タイトル',
-                ));
-                echo $this->Form->textarea('content', array(
-                    'placeholder' => '本文'          
-                ));
-                echo $this->Form->hidden('user_id', array(
-                    'value' => $this->Session->read('Auth.User.id')
-                ));
-                echo $this->Form->submit('更新する');
-                echo $this->Form->end();
-            ?>
+        <?php
+            echo $this->Form->create('Question', array(
+                'type' => 'post',
+                'url' => array(
+                    'controller' => 'questions',
+                    'action' => 'edit'
+                )
+            ));
+            echo $this->Form->textarea('title', array(
+                'placeholder' => 'タイトル',
+            ));
+            echo $this->Form->textarea('content', array(
+                'placeholder' => '本文'          
+            ));
+            echo $this->Form->hidden('id', array(
+                'value' => $question['Question']['id']
+            ));
+            echo $this->Form->submit('更新する');
+            echo $this->Form->end();
+        ?>
     </div>
     <div class='answer_edit_closer'>閉じる</div>
 </div>
@@ -165,6 +166,7 @@
                     <div class='answer_resolve'>
                         <?php
                             echo $this->Form->create('Question', array(
+                                'type' => 'post',
                                 'onsubmit' => 'return confirm("解決済みにしてよろしいですか？")',
                                 'url' => array(
                                     'controller' => 'questions',
