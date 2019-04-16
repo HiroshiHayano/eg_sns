@@ -1,8 +1,10 @@
 <?php
 
 class QuestionsController extends AppController {
-    public $helpers = array('Html', 'Form');
-    public $uses = array('Question');
+    public $autoLayout = false;
+
+    public $helpers = array('Html', 'Form', 'Display');
+    public $uses = array('Question', 'Knowledge');
 
     public function isAuthorized($user = null)
     {
@@ -10,24 +12,11 @@ class QuestionsController extends AppController {
         if (in_array($this->action, array('index', 'add', 'resolve', 'edit', 'delete'))) {
             return true;
         }
-    
-        // // 自分自身のアカウントの許可範囲
-        // if (in_array($this->action, array(
-        //     'resolve', 
-        //     ))) {
-        //     $page_id = (int)$this->request->params['pass'][0];
-        //     // 自身のページか判別
-        //     if ($this->User->isOwnedBy($page_id, (int)$user['id'])) {
-        //         return true;
-        //     }
-        // }
-    
         return parent::isAuthorized($user);
     }
 
     public function index()
     {
-        $this->autoLayout = false;
         // 未解決
         $this->set('not_resolved_questions', $this->Question->find('all', array(
             'conditions' => array('is_resolved' => '0'),
@@ -38,10 +27,12 @@ class QuestionsController extends AppController {
             'conditions' => array('is_resolved' => '1'),
             'order' => array('id' => 'desc'),
         )));
-        // // 共有知識
-        // $this->set('knowledges', $this->Knowledge->find('all'), array(
-        //     'order' => array('id' => 'desc'),
-        // ));
+        // 共有知識
+        $this->set('knowledges', $this->Knowledge->find('all'), array(
+            'order' => array('id' => 'desc'),
+        ));
+        $this->set('title_len', 20);
+        $this->set('content_len', 40);
     }
 
     public function resolve()

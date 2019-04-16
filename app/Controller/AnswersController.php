@@ -21,14 +21,14 @@ class AnswersController extends AppController {
         } elseif ($this->request->is('post')) {
             if ($this->Answer->save($this->request->data)) {
                 $this->redirect($this->referer());
-                $this->Flash->set(
+                $this->Session->setFlash(
                     'コメントしました',
-                    array('element' => 'success')
+                    'default'
                 );
             } else {
-                $this->Flash->set(
+                $this->Session->setFlash(
                     'コメントできませんでした',
-                    array('element' => 'error')
+                    'default'
                 );
             } 
         }

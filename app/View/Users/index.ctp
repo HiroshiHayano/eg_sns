@@ -1,7 +1,8 @@
 <?php
     echo $this->Html->css('index_users');
-    // echo $this->Html->css('skyblue');
     echo $login_user['name'] . 'さん こんにちは！';
+    echo $this->element('head', array('title' => '社員一覧'));
+    echo $this->element('header');
 ?>
 <h2>社員一覧</h2>
 

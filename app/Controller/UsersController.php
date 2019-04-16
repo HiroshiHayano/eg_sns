@@ -1,6 +1,8 @@
 <?php
 
 class UsersController extends AppController {
+    public $autoLayout = false;
+
     public $helpers = array('Html', 'Form');
     public $uses = array('User', 'Department', 'Post', 'Question', 'Answer', 'Comment');
 
@@ -41,7 +43,6 @@ class UsersController extends AppController {
 
     public function view($id = NULL)
     {
-        // $this->autoLayout = false;
         $this->User->id = $id;
         $this->set('user', $this->User->read());
         $this->Department->id = $this->User->field('department_id');

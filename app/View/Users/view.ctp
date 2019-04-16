@@ -1,9 +1,8 @@
 <?php
     echo $this->Html->css('view');
-    // echo $this->Html->css('bootstrap/bootstrap');
+    echo $this->element('head', array('title' => 'プロフィール'));
+    echo $this->element('header');
 ?>
-<?= $this->Html->script('jquery/jquery-3.4.0.min.js'); ?>
-<?= $this->Html->script('myscript.js') ?>
 
 <?php 
     if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
@@ -258,7 +257,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class='comment_opener'>コメントを見る</div>
+                    <div class='comment_opener'>
+                        <?php
+                            echo 'コメント' . count($comments[$answer['Answer']['id']]) . '件';
+                        ?>
+                    </div>
                     <div class='comment'>
                         <table>
                             <?php foreach ($comments[$answer['Answer']['id']] as $comment) :?>
