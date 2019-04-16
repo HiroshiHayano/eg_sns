@@ -13,25 +13,6 @@
 <div class='question_edit_layer'>
     <div class='question_edit'>
         <?php
-            // echo $this->Form->create('Question', array(
-            //     'type' => 'post',
-            //     'url' => array(
-            //         'controller' => 'questions',
-            //         'action' => 'edit'
-            //     )
-            // ));
-            // echo $this->Form->input('title', array(
-            //     'placeholder' => 'タイトル',
-            // ));
-            // echo $this->Form->input('content', array(
-            //     'placeholder' => '本文'          
-            // ));
-            // echo $this->Form->input('id', array(
-            //     'type' => 'hidden',
-            //     'value' => $question['Question']['id']
-            // ));
-            // echo $this->Form->submit('更新する');
-            // echo $this->Form->end();
             echo $this->Form->create('Question', array(
                 'type' => 'post',
                 'url' => array(
@@ -39,17 +20,36 @@
                     'action' => 'edit'
                 )
             ));
-            echo $this->Form->textarea('title', array(
+            echo $this->Form->input('title', array(
                 'placeholder' => 'タイトル',
             ));
-            echo $this->Form->textarea('content', array(
+            echo $this->Form->input('content', array(
                 'placeholder' => '本文'          
             ));
-            echo $this->Form->hidden('id', array(
+            echo $this->Form->input('id', array(
+                'type' => 'hidden',
                 'value' => $question['Question']['id']
             ));
             echo $this->Form->submit('更新する');
             echo $this->Form->end();
+            // echo $this->Form->create('Question', array(
+            //     'type' => 'post',
+            //     'url' => array(
+            //         'controller' => 'questions',
+            //         'action' => 'edit'
+            //     )
+            // ));
+            // echo $this->Form->textarea('title', array(
+            //     'placeholder' => 'タイトル',
+            // ));
+            // echo $this->Form->textarea('content', array(
+            //     'placeholder' => '本文'          
+            // ));
+            // echo $this->Form->hidden('id', array(
+            //     'value' => $question['Question']['id']
+            // ));
+            // echo $this->Form->submit('更新する');
+            // echo $this->Form->end();
         ?>
     </div>
     <div class='answer_edit_closer'>閉じる</div>

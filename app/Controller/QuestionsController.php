@@ -51,14 +51,14 @@ class QuestionsController extends AppController {
         } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
                 $this->redirect($this->referer());
-                $this->Flash->set(
+                $this->Session->setFlash(
                     '質問解決しました',
-                    array('element' => 'success')
+                    'default'
                 );
             } else {
-                $this->Flash->set(
+                $this->Session->setFlash(
                     'エラーが起きました',
-                    array('element' => 'error')
+                    'default'
                 );
             }
         }
@@ -71,14 +71,14 @@ class QuestionsController extends AppController {
         } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
                 $this->redirect($this->referer());
-                $this->Flash->set(
+                $this->Session->setFlash(
                     '質問投稿しました',
-                    array('element' => 'success')
+                    'default'
                 );
             } else {
-                $this->Flash->set(
+                $this->Session->setFlash(
                     '質問投稿できませんでした',
-                    array('element' => 'error')
+                    'default'
                 );
             } 
         }
@@ -86,23 +86,22 @@ class QuestionsController extends AppController {
 
     public function edit()
     {
+        // debug($this->request);
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
                 $this->redirect($this->referer());
-                $this->Flash->set(
+                $this->Session->setFlash(
                     '質問を更新しました',
-                    array('element' => 'success')
+                    'default'
                 );
             } else {
-                $this->Flash->set(
+                $this->Session->setFlash(
                     '質問を更新できませんでした',
-                    array('element' => 'error')
+                    'default'
                 );
             }    
-        } else {
-            debug($this->request->param);
         }
     }
 
@@ -114,9 +113,9 @@ class QuestionsController extends AppController {
             $id = $this->request->data['Question']['id'];
             if ($this->Question->delete($id)) {
                 $this->redirect($this->referer());
-                $this->Flash->set(
+                $this->Session->setFlash(
                     '削除しました！',
-                    array('element' => 'success')
+                    'default'
                 );
             }
         }

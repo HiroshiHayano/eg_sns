@@ -37,27 +37,27 @@ class User extends AppModel {
             ),
         ),
         'password_confirm' => array(
-            'rule' => 'notBlank',
+            'rule' => 'notEmpty',
             'message' => '入力は必須です'
         ),
         'name' => array(
-            'rule' => 'notBlank',
+            'rule' => 'notEmpty',
             'message' => '入力は必須です'
         ),
         'phonetic' => array(
-            'rule' => 'notBlank',
+            'rule' => 'notEmpty',
             'message' => '入力は必須です'
         ),
         'birthday' => array(
-            'rule' => 'notBlank',
+            'rule' => 'notEmpty',
             'message' => '入力は必須です'
         ),
         'birthplace' => array(
-            'rule' => 'notBlank',
+            'rule' => 'notEmpty',
             'message' => '入力は必須です'
         ),
         'department_id' => array(
-            'rule' => 'notBlank',
+            'rule' => 'notEmpty',
             'message' => '入力は必須です'
         ),
         'image'=>array(
