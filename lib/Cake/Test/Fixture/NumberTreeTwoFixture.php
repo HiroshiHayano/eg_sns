@@ -4,6 +4,8 @@
  *
  * Enables a model object to act as a node-based tree.
  *
+ * PHP 5
+ *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -19,7 +21,7 @@
  */
 
 /**
- * NumberTreeTwoFixture
+ * Class NumberTreeTwoFixture
  *
  * Generates a tree of data for use testing the tree behavior
  *

@@ -1,6 +1,7 @@
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::
 :: Bake is a shell script for running CakePHP bake script
+:: PHP 5
 ::
 :: CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
 :: Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -16,6 +17,9 @@
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+:: In order for this script to work as intended, the cake\console\ folder must be in your PATH
+
+@echo.
 @echo off
 
 SET app=%0

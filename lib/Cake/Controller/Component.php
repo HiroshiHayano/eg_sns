@@ -1,5 +1,8 @@
 <?php
 /**
+ *
+ * PHP 5
+ *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -37,7 +40,7 @@ App::uses('ComponentCollection', 'Controller');
  * @link          http://book.cakephp.org/2.0/en/controllers/components.html
  * @see Controller::$components
  */
-class Component extends CakeObject {
+class Component extends Object {
 
 /**
  * Component collection class used to lazy load components.
@@ -90,7 +93,7 @@ class Component extends CakeObject {
  */
 	public function __get($name) {
 		if (isset($this->_componentMap[$name]) && !isset($this->{$name})) {
-			$settings = (array)$this->_componentMap[$name]['settings'] + array('enabled' => false);
+			$settings = array_merge((array)$this->_componentMap[$name]['settings'], array('enabled' => false));
 			$this->{$name} = $this->_Collection->load($this->_componentMap[$name]['class'], $settings);
 		}
 		if (isset($this->{$name})) {
@@ -153,9 +156,9 @@ class Component extends CakeObject {
  *
  * @param Controller $controller Controller with components to beforeRedirect
  * @param string|array $url Either the string or URL array that is being redirected to.
- * @param int $status The status code of the redirect
- * @param bool $exit Will the script exit.
- * @return array|null Either an array or null.
+ * @param integer $status The status code of the redirect
+ * @param boolean $exit Will the script exit.
+ * @return array|void Either an array or null.
  * @link http://book.cakephp.org/2.0/en/controllers/components.html#Component::beforeRedirect
  */
 	public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {

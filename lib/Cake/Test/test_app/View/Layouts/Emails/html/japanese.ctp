@@ -2,11 +2,11 @@
 
 <html>
 <head>
-	<title><?php echo $this->fetch('title'); ?></title>
+	<title><?php echo $title_for_layout; ?></title>
 </head>
 
 <body>
-	<?php echo $this->fetch('content'); ?>
+	<?php echo $content_for_layout; ?>
 
 	<p>このメールは <a href="http://cakephp.org">CakePHP Framework</a> を利用して送信しました。</p>
 </body>

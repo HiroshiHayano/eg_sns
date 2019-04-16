@@ -2,6 +2,8 @@
 /**
  * ExceptionRendererTest file
  *
+ * PHP 5
+ *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -20,7 +22,6 @@ App::uses('ExceptionRenderer', 'Error');
 App::uses('Controller', 'Controller');
 App::uses('Component', 'Controller');
 App::uses('Router', 'Routing');
-App::uses('CakeEventManager', 'Event');
 
 /**
  * Short description for class.
@@ -271,8 +272,6 @@ class ExceptionRendererTest extends CakeTestCase {
 
 /**
  * test that helpers in custom CakeErrorController are not lost
- *
- * @return void
  */
 	public function testCakeErrorHelpersNotLost() {
 		$testApp = CAKE . 'Test' . DS . 'test_app' . DS;
@@ -762,74 +761,7 @@ class ExceptionRendererTest extends CakeTestCase {
 		$ExceptionRenderer->render();
 		$this->assertEquals('', $ExceptionRenderer->controller->layoutPath);
 		$this->assertEquals('', $ExceptionRenderer->controller->subDir);
-		$this->assertEquals('Errors', $ExceptionRenderer->controller->viewPath);
-	}
-
-/**
- * Test that missing plugin disables Controller::$plugin if the two are the same plugin.
- *
- * @return void
- */
-	public function testMissingPluginRenderSafe() {
-		$exception = new NotFoundException();
-		$ExceptionRenderer = new ExceptionRenderer($exception);
-
-		$ExceptionRenderer->controller = $this->getMock('Controller', array('render'));
-		$ExceptionRenderer->controller->plugin = 'TestPlugin';
-		$ExceptionRenderer->controller->request = $this->getMock('CakeRequest');
-
-		$exception = new MissingPluginException(array('plugin' => 'TestPlugin'));
-		$ExceptionRenderer->controller->expects($this->once())
-			->method('render')
-			->with('error400')
-			->will($this->throwException($exception));
-
-		$response = $this->getMock('CakeResponse');
-		$response->expects($this->once())
-			->method('body')
-			->with($this->logicalAnd(
-				$this->logicalNot($this->stringContains('test plugin error500')),
-				$this->stringContains('Not Found')
-			));
-
-		$ExceptionRenderer->controller->response = $response;
-		$ExceptionRenderer->render();
-	}
-
-/**
- * Test that missing plugin doesn't disable Controller::$plugin if the two aren't the same plugin.
- *
- * @return void
- */
-	public function testMissingPluginRenderSafeWithPlugin() {
-		App::build(array(
-			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
-		), App::RESET);
-		CakePlugin::load('TestPlugin');
-		$exception = new NotFoundException();
-		$ExceptionRenderer = new ExceptionRenderer($exception);
-
-		$ExceptionRenderer->controller = $this->getMock('Controller', array('render'));
-		$ExceptionRenderer->controller->plugin = 'TestPlugin';
-		$ExceptionRenderer->controller->request = $this->getMock('CakeRequest');
-
-		$exception = new MissingPluginException(array('plugin' => 'TestPluginTwo'));
-		$ExceptionRenderer->controller->expects($this->once())
-			->method('render')
-			->with('error400')
-			->will($this->throwException($exception));
-
-		$response = $this->getMock('CakeResponse');
-		$response->expects($this->once())
-			->method('body')
-			->with($this->logicalAnd(
-				$this->stringContains('test plugin error500'),
-				$this->stringContains('Not Found')
-			));
-
-		$ExceptionRenderer->controller->response = $response;
-		$ExceptionRenderer->render();
-		CakePlugin::unload();
+		$this->assertEquals('Errors/', $ExceptionRenderer->controller->viewPath);
 	}
 
 /**
@@ -877,31 +809,5 @@ class ExceptionRendererTest extends CakeTestCase {
 		$this->assertContains('There was an error in the SQL query', $result);
 		$this->assertContains(h('SELECT * from poo_query < 5 and :seven'), $result);
 		$this->assertContains("'seven' => (int) 7", $result);
-	}
-
-/**
- * Test that rendering exceptions triggers shutdown events.
- *
- * @return void
- */
-	public function testRenderShutdownEvents() {
-		$fired = array();
-		$listener = function ($event) use (&$fired) {
-			$fired[] = $event->name();
-		};
-
-		$EventManager = CakeEventManager::instance();
-		$EventManager->attach($listener, 'Controller.shutdown');
-		$EventManager->attach($listener, 'Dispatcher.afterDispatch');
-
-		$exception = new Exception('Terrible');
-		$ExceptionRenderer = new ExceptionRenderer($exception);
-
-		ob_start();
-		$ExceptionRenderer->render();
-		ob_get_clean();
-
-		$expected = array('Controller.shutdown', 'Dispatcher.afterDispatch');
-		$this->assertEquals($expected, $fired);
 	}
 }

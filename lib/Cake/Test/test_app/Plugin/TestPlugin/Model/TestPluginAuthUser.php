@@ -2,6 +2,8 @@
 /**
  * Test Plugin Auth User Model
  *
+ * PHP 5
+ *
  * CakePHP : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -17,7 +19,7 @@
  */
 
 /**
- * TestPluginAuthUser
+ * Class TestPluginAuthUser
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model
  */
@@ -40,7 +42,7 @@ class TestPluginAuthUser extends TestPluginAppModel {
 /**
  * useDbConfig property
  *
- * @var string
+ * @var string 'test'
  */
 	public $useDbConfig = 'test';
 }

@@ -2,6 +2,8 @@
 /**
  * Short description for file.
  *
+ * PHP 5
+ *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -17,7 +19,7 @@
  */
 
 /**
- * NodeFixture
+ * Class NodeFixture
  *
  * @package       Cake.Test.Fixture
  * @since         CakePHP(tm) v 1.2.0.6879 //Correct version number as needed**

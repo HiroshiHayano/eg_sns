@@ -2,6 +2,8 @@
 /**
  * MemcacheEngineTest file
  *
+ * PHP 5
+ *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -20,7 +22,7 @@ App::uses('Cache', 'Cache');
 App::uses('MemcacheEngine', 'Cache/Engine');
 
 /**
- * TestMemcacheEngine
+ * Class TestMemcacheEngine
  *
  * @package       Cake.Test.Case.Cache.Engine
  */
@@ -159,17 +161,6 @@ class MemcacheEngineTest extends CakeTestCase {
 			)
 		));
 		$this->assertTrue($result);
-	}
-
-/**
- * test domain starts with u
- *
- * @return void
- */
-	public function testParseServerStringWithU() {
-		$Memcached = new TestMemcachedEngine();
-		$result = $Memcached->parseServerString('udomain.net:13211');
-		$this->assertEquals(array('udomain.net', '13211'), $result);
 	}
 
 /**
@@ -489,24 +480,5 @@ class MemcacheEngineTest extends CakeTestCase {
 		$this->assertTrue(Cache::write('test_groups', 'value2', 'memcache_groups'));
 		$this->assertTrue(Cache::clearGroup('group_b', 'memcache_groups'));
 		$this->assertFalse(Cache::read('test_groups', 'memcache_groups'));
-	}
-
-/**
- * Test that failed add write return false.
- *
- * @return void
- */
-	public function testAdd() {
-		Cache::delete('test_add_key', 'memcache');
-
-		$result = Cache::add('test_add_key', 'test data', 'memcache');
-		$this->assertTrue($result);
-
-		$expected = 'test data';
-		$result = Cache::read('test_add_key', 'memcache');
-		$this->assertEquals($expected, $result);
-
-		$result = Cache::add('test_add_key', 'test data 2', 'memcache');
-		$this->assertFalse($result);
 	}
 }

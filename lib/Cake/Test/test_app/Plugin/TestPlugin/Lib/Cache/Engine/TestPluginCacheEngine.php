@@ -2,6 +2,8 @@
 /**
  * Test Suite Test Plugin Cache Engine class.
  *
+ * PHP 5
+ *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -17,7 +19,7 @@
  */
 
 /**
- * TestPluginCacheEngine
+ * Class TestPluginCacheEngine
  *
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Lib.Cache.Engine
  */
@@ -42,8 +44,5 @@ class TestPluginCacheEngine extends CacheEngine {
 	}
 
 	public function clearGroup($group) {
-	}
-
-	public function add($key, $value, $duration) {
 	}
 }

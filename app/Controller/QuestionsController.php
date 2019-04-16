@@ -27,6 +27,7 @@ class QuestionsController extends AppController {
 
     public function index()
     {
+        $this->autoLayout = false;
         // 未解決
         $this->set('not_resolved_questions', $this->Question->find('all', array(
             'conditions' => array('is_resolved' => '0'),
@@ -100,6 +101,8 @@ class QuestionsController extends AppController {
                     array('element' => 'error')
                 );
             }    
+        } else {
+            debug($this->request->param);
         }
     }
 

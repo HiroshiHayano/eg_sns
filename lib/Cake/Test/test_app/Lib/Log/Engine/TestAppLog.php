@@ -2,6 +2,8 @@
 /**
  * Test Suite Test App Logging stream class.
  *
+ * PHP 5
+ *
  * CakePHP(tm) Tests <http://book.cakephp.org/2.0/en/development/testing.html>
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -19,7 +21,7 @@
 App::uses('BaseLog', 'Log/Engine');
 
 /**
- * TestAppLog
+ * Class TestAppLog
  *
  * @package       Cake.Test.TestApp.Lib.Log.Engine
  */

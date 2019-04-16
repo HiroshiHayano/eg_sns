@@ -57,7 +57,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
 	protected $_callbackArguments = array();
 
 /**
- * Create an `alert()` message in JavaScript
+ * Create an `alert()` message in Javascript
  *
  * @param string $message Message you want to alter.
  * @return string completed alert()
@@ -67,8 +67,8 @@ abstract class JsBaseEngineHelper extends AppHelper {
 	}
 
 /**
- * Redirects to a URL. Creates a window.location modification snippet
- * that can be used to trigger 'redirects' from JavaScript.
+ * Redirects to an URL. Creates a window.location modification snippet
+ * that can be used to trigger 'redirects' from Javascript.
  *
  * @param string|array $url URL
  * @return string completed redirect in javascript
@@ -101,7 +101,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
 	}
 
 /**
- * Create a `prompt()` JavaScript function
+ * Create a `prompt()` Javascript function
  *
  * @param string $message Message you want to prompt.
  * @param string $default Default message
@@ -128,7 +128,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
 		$defaultOptions = array(
 			'prefix' => '', 'postfix' => '',
 		);
-		$options += $defaultOptions;
+		$options = array_merge($defaultOptions, $options);
 
 		return $options['prefix'] . json_encode($data) . $options['postfix'];
 	}
@@ -137,8 +137,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
  * Converts a PHP-native variable of any type to a JSON-equivalent representation
  *
  * @param mixed $val A PHP variable to be converted to JSON
- * @param bool $quoteString If false, leaves string values unquoted
- * @param string $key Key name.
+ * @param boolean $quoteString If false, leaves string values unquoted
  * @return string a JavaScript-safe/JSON representation of $val
  */
 	public function value($val = array(), $quoteString = null, $key = 'value') {
@@ -285,7 +284,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
  * Create javascript selector for a CSS rule
  *
  * @param string $selector The selector that is targeted
- * @return self instance of $this. Allows chained methods.
+ * @return JsBaseEngineHelper instance of $this. Allows chained methods.
  */
 	abstract public function get($selector);
 
@@ -298,7 +297,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
  * - `stop` - Whether you want the event to stopped. (defaults to true)
  *
  * @param string $type Type of event to bind to the current dom id
- * @param string $callback The JavaScript function you wish to trigger or the function literal
+ * @param string $callback The Javascript function you wish to trigger or the function literal
  * @param array $options Options for the event.
  * @return string completed event handler
  */
@@ -364,7 +363,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
  * - `type` - Data type for response. 'json' and 'html' are supported. Default is html for most libraries.
  * - `evalScripts` - Whether or not <script> tags should be eval'ed.
  * - `dataExpression` - Should the `data` key be treated as a callback. Useful for supplying `$options['data']` as
- *    another JavaScript expression.
+ *    another Javascript expression.
  *
  * @param string|array $url Array or String URL to target with the request.
  * @param array $options Array of options. See above for cross library supported options
@@ -476,7 +475,7 @@ abstract class JsBaseEngineHelper extends AppHelper {
 	abstract public function serializeForm($options = array());
 
 /**
- * Parse an options assoc array into a JavaScript object literal.
+ * Parse an options assoc array into an Javascript object literal.
  * Similar to object() but treats any non-integer value as a string,
  * does not include `{ }`
  *

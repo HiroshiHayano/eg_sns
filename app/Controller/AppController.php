@@ -34,7 +34,7 @@ class AppController extends Controller {
     public $components = array(
         'DebugKit.Toolbar',
         'Session',
-        'Flash',
+        // 'Flash',
         'Auth' => array(
             'loginAction' => array(
                 'controller' => 'users',

@@ -2,7 +2,9 @@
 /**
  * Model behaviors base class.
  *
- * Adds methods and automagic functionality to CakePHP Models.
+ * Adds methods and automagic functionality to Cake Models.
+ *
+ * PHP 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -30,11 +32,11 @@
  * Behaviors can provide mixin like features by declaring public methods. These methods should expect
  * the model instance to be shifted onto the parameter list.
  *
- * ```
+ * {{{
  * function doSomething(Model $model, $arg1, $arg2) {
  *		//do something
  * }
- * ```
+ * }}}
  *
  * Would be called like `$this->Model->doSomething($arg1, $arg2);`.
  *
@@ -45,13 +47,13 @@
  * be declared in your behaviors `$mapMethods` array. The method signature for a mapped method is slightly different
  * than a normal behavior mixin method.
  *
- * ```
+ * {{{
  * public $mapMethods = array('/do(\w+)/' => 'doSomething');
  *
  * function doSomething(Model $model, $method, $arg1, $arg2) {
  *		//do something
  * }
- * ```
+ * }}}
  *
  * The above will map every doXXX() method call to the behavior. As you can see, the model is
  * still the first parameter, but the called method name will be the 2nd parameter. This allows
@@ -61,7 +63,7 @@
  * @see Model::$actsAs
  * @see BehaviorCollection::load()
  */
-class ModelBehavior extends CakeObject {
+class ModelBehavior extends Object {
 
 /**
  * Contains configuration settings for use with individual model objects. This
@@ -115,7 +117,7 @@ class ModelBehavior extends CakeObject {
  *
  * @param Model $model Model using this behavior
  * @param array $query Data used to execute this query, i.e. conditions, order, etc.
- * @return bool|array False or null will abort the operation. You can return an array to replace the
+ * @return boolean|array False or null will abort the operation. You can return an array to replace the
  *   $query that will be eventually run.
  */
 	public function beforeFind(Model $model, $query) {
@@ -127,10 +129,10 @@ class ModelBehavior extends CakeObject {
  *
  * @param Model $model Model using this behavior
  * @param mixed $results The results of the find operation
- * @param bool $primary Whether this model is being queried directly (vs. being queried as an association)
+ * @param boolean $primary Whether this model is being queried directly (vs. being queried as an association)
  * @return mixed An array value will replace the value of $results - any other value will be ignored.
  */
-	public function afterFind(Model $model, $results, $primary = false) {
+	public function afterFind(Model $model, $results, $primary) {
 	}
 
 /**
@@ -139,11 +141,9 @@ class ModelBehavior extends CakeObject {
  * will allow you to make the validation fail.
  *
  * @param Model $model Model using this behavior
- * @param array $options Options passed from Model::save().
  * @return mixed False or null will abort the operation. Any other result will continue.
- * @see Model::save()
  */
-	public function beforeValidate(Model $model, $options = array()) {
+	public function beforeValidate(Model $model) {
 		return true;
 	}
 
@@ -163,11 +163,9 @@ class ModelBehavior extends CakeObject {
  * will abort the save operation.
  *
  * @param Model $model Model using this behavior
- * @param array $options Options passed from Model::save().
  * @return mixed False if the operation should abort. Any other result will continue.
- * @see Model::save()
  */
-	public function beforeSave(Model $model, $options = array()) {
+	public function beforeSave(Model $model) {
 		return true;
 	}
 
@@ -175,12 +173,10 @@ class ModelBehavior extends CakeObject {
  * afterSave is called after a model is saved.
  *
  * @param Model $model Model using this behavior
- * @param bool $created True if this save created a new record
- * @param array $options Options passed from Model::save().
- * @return bool
- * @see Model::save()
+ * @param boolean $created True if this save created a new record
+ * @return boolean
  */
-	public function afterSave(Model $model, $created, $options = array()) {
+	public function afterSave(Model $model, $created) {
 		return true;
 	}
 
@@ -189,7 +185,7 @@ class ModelBehavior extends CakeObject {
  * beforeDelete is called. Returning false from a beforeDelete will abort the delete.
  *
  * @param Model $model Model using this behavior
- * @param bool $cascade If true records that depend on this record will also be deleted
+ * @param boolean $cascade If true records that depend on this record will also be deleted
  * @return mixed False if the operation should abort. Any other result will continue.
  */
 	public function beforeDelete(Model $model, $cascade = true) {
