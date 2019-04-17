@@ -11,10 +11,17 @@
             <div class='question col-md-3'>
                 <div class='title'>
                     <?php 
-                        echo h($this->Display->shortenString(
-                            $knowledge['Knowledge']['title'], 
-                            $title_len
-                        ));
+                        echo $this->Html->link(
+                            $this->Display->shortenString(
+                                $knowledge['Knowledge']['title'], 
+                                $title_len
+                            ), array(
+                                'controller' => 'knowledges',
+                                'action' => 'view',
+                                $knowledge['Knowledge']['id']
+                            )
+                        );
+
                     ?>
                 </div>
                 <div class='content'>
@@ -34,16 +41,24 @@
             <div class='question col-md-3'>
                 <div class='title'>
                     <?php 
-                        echo h($this->Display->shortenString(
-                            $not_resolved_question['Question']['title'], 
-                            10
-                        ));                   
-                        // echo h(mb_substr($not_resolved_question['Question']['title'], 0, $title_len));
+                        echo $this->Html->link(
+                            $this->Display->shortenString(
+                                $not_resolved_question['Question']['title'], 
+                                $title_len
+                            ), array(
+                                'controller' => 'questions',
+                                'action' => 'view',
+                                $not_resolved_question['Question']['id']
+                            )
+                        );
                     ?>
                 </div>
                 <div class='content'>
                     <?php 
-                        echo h(mb_substr($not_resolved_question['Question']['content'], 0, $content_len));
+                        echo $this->Display->shortenString(
+                                $not_resolved_question['Question']['content'], 
+                                $title_len
+                        );
                     ?>
                 </div>
             </div>
@@ -55,12 +70,24 @@
             <div class='question col-md-3'>
                 <div class='title'>
                     <?php 
-                        echo h(mb_substr($resolved_question['Question']['title'], 0, $title_len));
+                        echo $this->Html->link(
+                            $this->Display->shortenString(
+                                $resolved_question['Question']['title'], 
+                                $title_len
+                            ), array(
+                                'controller' => 'questions',
+                                'action' => 'view',
+                                $resolved_question['Question']['id']
+                            )
+                        );
                     ?>
                 </div>
                 <div class='content'>
                     <?php 
-                        echo h(mb_substr($resolved_question['Question']['content'], 0, $content_len));
+                        echo h($this->Display->shortenString(
+                            $resolved_question['Question']['content'], 
+                            $content_len
+                        ));
                     ?>
                 </div>
             </div>

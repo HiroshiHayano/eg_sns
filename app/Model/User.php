@@ -61,29 +61,29 @@ class User extends AppModel {
             'message' => '入力は必須です'
         ),
         'image'=>array(
-            'upload-file' => array( 
-                'rule' => array( 'uploadError'),
-                'message' => array( 'Error uploading file')
-            ),
+            // 'upload-file' => array( 
+            //     'rule' => array('uploadError'),
+            //     'message' => array( 'ファイルアップロードで障害が起こりました。')
+            // ),
             'extension' => array(
-                'rule' => array( 'extension', array( 
+                'rule' => array('extension', array( 
                     'jpg', 'jpeg', 'png', 'gif')  // 拡張子を配列で定義
                 ),
                 'message' => array('画像を選択してください'),
             ),
             // 'mimetype' => array( 
-            //     'rule' => array( 'mimeType', array( 
+            //     'rule' => array('mimeType', array( 
             //         'image/jpeg', 'image/png', 'image/gif')  // MIMEタイプを配列で定義
             //     ),
-            //     'message' => array( 'MIME type error')
+            //     'message' => array('MIME type error')
             // ),
             // 'size' => array(
             //     'maxFileSize' => array( 
-            //         'rule' => array( 'fileSize', '<=', '5MB'),  // 5MB以下
+            //         'rule' => array('fileSize', '<=', '5MB'),  // 5MB以下
             //         'message' => array( 'file size error')
             //     ),
             //     'minFileSize' => array( 
-            //         'rule' => array( 'fileSize', '>',  0),    // 0バイトより大
+            //         'rule' => array('fileSize', '>',  0),    // 0バイトより大
             //         'message' => array( 'file size error')
             //     ),
             // ),

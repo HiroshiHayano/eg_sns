@@ -66,9 +66,9 @@ class AppController extends Controller {
             return true;
         }
         // デフォルトは拒否
-        $this->Flash->set(
+        $this->Session->setFlash(
             '権限がありません',
-            array('element' => 'default')
+            'default'
         );
         // refererを取得して飛びたいけど上手くいかない...
         $this->redirect($this->referer(array(

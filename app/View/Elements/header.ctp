@@ -33,3 +33,4 @@
         ?>
     </div>
 </header>
+<?php echo $this->Session->flash(); ?>

@@ -4,7 +4,7 @@ class UsersController extends AppController {
     public $autoLayout = false;
 
     public $helpers = array('Html', 'Form');
-    public $uses = array('User', 'Department', 'Post', 'Question', 'Answer', 'Comment');
+    public $uses = array('User', 'Department', 'Question', 'Answer', 'Comment');
 
     public function beforefilter() {
         $this->Auth->allow('login', 'add');

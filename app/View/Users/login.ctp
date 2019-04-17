@@ -1,5 +1,6 @@
 <?php
     echo $this->Html->css('login');
+    echo $this->element('head', array('title' => 'ログイン'));
 ?>
 
 <div class="text-center">

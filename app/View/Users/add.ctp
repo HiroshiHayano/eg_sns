@@ -1,7 +1,6 @@
 <?php
     echo $this->Html->css('add');
-    echo $this->element('Users/head', array("title" => "新規登録"));
-    // echo $this->element('Users/head');
+    echo $this->element('head', array('title' => '新規登録'));
 ?>
 
 <div>

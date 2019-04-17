@@ -31,10 +31,10 @@ $(document).ready(function(){
     });
 
     $('.question_edit_layer').hide();
-    $('.answer_edit_opener').on('click', function() {
+    $('.question_edit_opener').on('click', function() {
         $('.question_edit_layer').show(250);
     });
-    $('.answer_edit_closer').on('click', function() {
+    $('.question_edit_closer').on('click', function() {
         $('.question_edit_layer').hide(250);
     });
 });

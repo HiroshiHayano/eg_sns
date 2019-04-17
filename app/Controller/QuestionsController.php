@@ -4,12 +4,12 @@ class QuestionsController extends AppController {
     public $autoLayout = false;
 
     public $helpers = array('Html', 'Form', 'Display');
-    public $uses = array('Question', 'Knowledge');
+    public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
 
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('index', 'add', 'resolve', 'edit', 'delete'))) {
+        if (in_array($this->action, array('index', 'view', 'add', 'resolve', 'edit', 'delete'))) {
             return true;
         }
         return parent::isAuthorized($user);
@@ -21,18 +21,75 @@ class QuestionsController extends AppController {
         $this->set('not_resolved_questions', $this->Question->find('all', array(
             'conditions' => array('is_resolved' => '0'),
             'order' => array('id' => 'desc'),
+            'limit' => 20,
         )));
         // 解決済み
         $this->set('resolved_questions', $this->Question->find('all', array(
             'conditions' => array('is_resolved' => '1'),
             'order' => array('id' => 'desc'),
+            'limit' => 20,
         )));
         // 共有知識
         $this->set('knowledges', $this->Knowledge->find('all'), array(
             'order' => array('id' => 'desc'),
+            'limit' => 20,
         ));
-        $this->set('title_len', 20);
-        $this->set('content_len', 40);
+        $this->set('title_len', 18);
+        $this->set('content_len', 35);
+    }
+
+    public function view($id=NULL)
+    {
+        $question = $this->Question->find('first', array( // 現在はとりあえず一件だけ表示するためにfirstにしている
+            'conditions' => array(
+                'id' => $id,
+            )
+        ));
+        $this->set('question', $question);
+        if (!empty($question)) {
+            $this->Question->id = $question['Question']['id'];
+            $this->request->data = $this->Question->read();
+
+            // ユーザーの顔画像パス一覧取得
+            $this->set('users_image', $this->User->find(
+                'list', array(
+                    'fields' => array(
+                        'image'
+                    )
+                )
+            ));
+            // ユーザーの名前一覧取得
+            $this->set('users_name', $this->User->find(
+                'list', array(
+                    'fields' => array(
+                        'name'
+                    )
+                )
+            ));
+
+            $answers = $this->Answer->find('all', array(
+                'conditions' => array(
+                    'question_id' => $question['Question']['id'],
+                )
+            ));
+            $this->set('answers', $answers);
+    
+            $answers_id = array();
+            foreach ($answers as $answer) {
+                $answers_id[] = $answer['Answer']['id'];
+            }
+            $comments = array();
+            foreach ($answers_id as $answer_id) {
+                $comments_set = array();
+                $comments_set += $this->Comment->find('all', array(
+                    'conditions' => array(
+                        'answer_id' => $answer_id,
+                    )
+                ));
+                $comments += array($answer_id => $comments_set);
+            }
+            $this->set('comments', $comments);
+        }
     }
 
     public function resolve()

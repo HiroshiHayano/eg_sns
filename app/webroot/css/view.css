@@ -32,7 +32,7 @@ div.wrapper {
     display: block;
     width: 99%;
     margin: auto;
-    /* text-align: center; */
+    text-align: center;
 }
 
 div.profile {
@@ -98,7 +98,7 @@ div.answer_edit {
     display: inline;
 }
 
-div.answer_edit_opener {
+div.question_edit_opener {
     display: inline-block;
     width: 20%;
     text-align: center;
@@ -106,7 +106,7 @@ div.answer_edit_opener {
     border: 1px solid #000000;
 }
 
-div.answer_edit_closer {
+div.question_edit_closer {
     display: block;
     font-size: 20pt;
     color: white;
@@ -150,16 +150,16 @@ div.answer_icon {
     text-align: right;
 }
 
-div.answer_image {
+div.contributor_image {
     display: inline;
     text-align: center;
 }
 
-div.answer_created {
-    display: inline;
+div.created {
+    display: block;
 }
 
-div.answer_name {
+div.contributor_name {
     display: inline;
     font-size: 10pt;
     text-align: center;
