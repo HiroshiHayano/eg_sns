@@ -3,7 +3,7 @@
 class KnowledgesController extends AppController {
     public $autoLayout = false;
 
-    public $helpers = array('Html', 'Form', 'Display', 'Text');
+    public $helpers = array('Html', 'Form', 'Text');
     public $uses = array('Knowledge', 'KnowledgesComment', 'User');
 
     public function isAuthorized($user = null)

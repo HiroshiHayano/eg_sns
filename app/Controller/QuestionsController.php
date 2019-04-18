@@ -3,7 +3,7 @@
 class QuestionsController extends AppController {
     public $autoLayout = false;
 
-    public $helpers = array('Html', 'Form', 'Display');
+    public $helpers = array('Html', 'Form');
     public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
 
     public function isAuthorized($user = null)
