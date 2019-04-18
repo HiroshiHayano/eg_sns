@@ -1,6 +1,6 @@
 <?php
 
-class KnowledgeComment extends AppModel {
+class KnowledgesComment extends AppModel {
     //validation
     public $validate = array(
         'content' => array(

@@ -104,7 +104,8 @@
                             'action' => 'delete',
                         ),
                     ));
-                    echo $this->Form->hidden('id', array(
+                    echo $this->Form->input('id', array(
+                        'type' => 'hidden',
                         'value' => $knowledge['Knowledge']['id'],
                     ));
                     echo $this->Form->submit('投稿を削除');
@@ -152,23 +153,20 @@
                 echo $this->Form->create('KnowledgesComment', array(
                     'type' => 'post',
                     'url' => array(
-                        // 'controller' => 'knowledgesComments', // 可能
-                        // 'controller' => 'knowledges_comments', // 可能
-                        // 'controller' => 'knowledgescomments', // 可能
-                        // 'controller' => 'aaaaaaaaaaaaaaa', // 不可能
-                        // 'controller' => 'knoWLedgesCoMmentS', // 可能
-                        // 'controller' => 'k_n_o_w_l_e_d_g_e_s_C_o_m_m_e_n_t_s', // 可能
-                        // 'controller' => 'knowledgesCommennts', // 可能
+                        'controller' => 'knowledgesComments',
                         'action' => 'add',
                     ),
                 ));
-                echo $this->Form->textarea('content', array(
+                echo $this->Form->input('content', array(
+                    'type' => 'textarea',
                     'placeholder' => 'コメントはこちらへ'          
                 ));
-                echo $this->Form->hidden('knowledge_id', array(
+                echo $this->Form->input('knowledge_id', array(
+                    'type' => 'hidden',
                     'value' => $knowledge['Knowledge']['id']
                 ));
-                echo $this->Form->hidden('user_id', array(
+                echo $this->Form->input('user_id', array(
+                    'type' => 'hidden',
                     'value' => $this->Session->read('Auth.User.id')
                 ));
                 echo $this->Form->submit();
