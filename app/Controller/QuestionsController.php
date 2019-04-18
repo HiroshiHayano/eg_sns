@@ -34,8 +34,8 @@ class QuestionsController extends AppController {
             'order' => array('id' => 'desc'),
             'limit' => 20,
         ));
-        $this->set('title_len', 18);
-        $this->set('content_len', 35);
+        $this->set('title_len', 25);
+        $this->set('content_len', 50);
     }
 
     public function view($id=NULL)
@@ -98,11 +98,11 @@ class QuestionsController extends AppController {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
-                $this->redirect($this->referer());
                 $this->Session->setFlash(
                     '質問解決しました',
                     'default'
                 );
+                $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     'エラーが起きました',
@@ -118,11 +118,11 @@ class QuestionsController extends AppController {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
-                $this->redirect($this->referer());
                 $this->Session->setFlash(
                     '質問投稿しました',
                     'default'
                 );
+                $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '質問投稿できませんでした',
@@ -139,11 +139,11 @@ class QuestionsController extends AppController {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
             if ($this->Question->save($this->request->data)) {
-                $this->redirect($this->referer());
                 $this->Session->setFlash(
                     '質問を更新しました',
                     'default'
                 );
+                $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '質問を更新できませんでした',
@@ -153,19 +153,20 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function delete()
+    public function delete($id)
     {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
-            $id = $this->request->data['Question']['id'];
-            if ($this->Question->delete($id)) {
-                $this->redirect($this->referer());
-                $this->Session->setFlash(
-                    '削除しました！',
-                    'default'
-                );
-            }
+        }
+        if ($this->Question->delete($id)) {
+            $this->Session->setFlash(
+                '削除しました！',
+                'default'
+            );
+            $this->redirect(array(
+                'controller' => 'questions',
+                'action' => 'index'
+            ));
         }
     }
 }

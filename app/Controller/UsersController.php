@@ -36,7 +36,6 @@ class UsersController extends AppController {
 
     public function index()
     {
-        $this->set('login_user', $this->Session->read('Auth.User'));
         $this->set('users', $this->User->find('all'));
         $this->set('title_for_layout', '社員');
     }
@@ -98,6 +97,11 @@ class UsersController extends AppController {
                 $comments += array($answer_id => $comments_set);
             }
             $this->set('comments', $comments);
+        } else {
+            $this->set('answers', array());
+            $this->set('comments', array());
+            $this->set('users_name', array());
+            $this->set('users_image', array());
         }
     }
 
@@ -143,11 +147,11 @@ class UsersController extends AppController {
                 $save_data = $this->request->data;
                 $save_data['User']['image'] = $this->request->data['User']['image']['name'];     
                 if ($this->User->save($save_data)) {
-                    $this->redirect(array('action' => 'login'));
                     $this->Session->setFlash(
                         '登録に成功しました',
                         'default'
                     );
+                    $this->redirect(array('action' => 'login'));
                 } else {
                     $this->Session->setFlash(
                         '登録に失敗しました',
@@ -256,11 +260,11 @@ class UsersController extends AppController {
         }
         if ($this->User->delete($id)) {
             $this->Session->destroy();
-            $this->redirect($this->Auth->logout());
             $this->Session->setFlash(
                 '削除しました！',
                 'default'
             );
+            $this->redirect($this->Auth->logout());
         }
     }
 }

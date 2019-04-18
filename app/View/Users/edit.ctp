@@ -1,25 +1,30 @@
+<?php
+    echo $this->Html->css('index_users');
+    echo $this->element('head', array('title' => 'プロフィール編集'));
+    echo $this->element('header');
+?>
 <div>
-    <h1>
+    <h3>
         <?php 
             echo $this->Html->link('プロフィールに戻る', array(
                 'action'=>'view', 
                 $this->Session->read('Auth.User.id')
             )); 
         ?>
-    </h1>
+    </h3>
 </div>
 
 <div>
-    <h3>プロフィール編集</h3>
+    <h2>プロフィール編集</h2>
     <div>
-        <h1>
+        <h3>
             <?php 
                 echo $this->Html->link('プロフィール画像の変更', array(
                     'action'=>'edit_image', 
                     $this->Session->read('Auth.User.id')
                 )); 
             ?>
-        </h1>
+        </h3>
         <?php
             echo $this->Form->create('User');
             echo $this->Form->input('name', array(
@@ -65,15 +70,15 @@
 </div>
 
 <div>
-    <h1>
+    <h3>
         <?php 
             echo $this->Html->link('パスワードの変更', array(
                 'action'=>'edit_password', 
                 $this->Session->read('Auth.User.id')
             )); 
         ?>
-    </h1>
-    <h1>
+    </h3>
+    <h3>
         <?php 
             echo $this->Form->postLink('アカウントの削除', array(
                 'action' => 'delete', 
@@ -82,5 +87,5 @@
             array('confirm' => 'アカウントを削除しますか？'
             ));
         ?>
-    </h1>
+    </h3>
 </div>

@@ -3,14 +3,13 @@
 class KnowledgesController extends AppController {
     public $autoLayout = false;
 
-    public $helpers = array('Html', 'Form', 'Display');
-    public $uses = array('Knowledge', 'Comment', 'User');
-    // コメントテーブルを新しく追加したほうが良い
+    public $helpers = array('Html', 'Form', 'Display', 'Text');
+    public $uses = array('Knowledge', 'KnowledgesComment', 'User');
 
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('view', 'add'))) {
+        if (in_array($this->action, array('view', 'add', 'edit', 'delete'))) {
             return true;
         }
         return parent::isAuthorized($user);
@@ -24,14 +23,14 @@ class KnowledgesController extends AppController {
             )
         ));
         $this->set('knowledge', $knowledge);
+        $this->Knowledge->id = $id;
+        $this->request->data = $this->Knowledge->read();
 
-        // テーブルを新しく追加すべき
-        // $comments = $this->Comment->find('all', array(
-        //     'conditions' => array(
-        //         'answer_id' => $knowledge['Knowledge']['id'],
-        //     )
-        // ));
-        $comments = array();
+        $comments = $this->KnowledgesComment->find('all', array(
+            'conditions' => array(
+                'knowledge_id' => $id,
+            )
+        ));
         $this->set('comments', $comments);
 
         // ユーザーの顔画像パス一覧取得
@@ -58,17 +57,54 @@ class KnowledgesController extends AppController {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
             if ($this->Knowledge->save($this->request->data)) {
-                $this->redirect($this->referer());
                 $this->Session->setFlash(
-                    '質問投稿しました',
+                    '投稿しました',
                     'default'
                 );
+                $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
-                    '質問投稿できませんでした',
+                    '投稿できませんでした',
                     'default'
                 );
             } 
+        }
+    }
+
+    public function edit()
+    {
+        if ($this->request->is('get')) {
+            throw new MethodNotAllowedException();
+        } elseif ($this->request->is('post')) {
+            if ($this->Knowledge->save($this->request->data)) {
+                $this->Session->setFlash(
+                    '更新しました',
+                    'default'
+                );
+                $this->redirect($this->referer());
+            } else {
+                $this->Session->setFlash(
+                    '更新できませんでした',
+                    'default'
+                );
+            }
+        }
+    }
+
+    public function delete($id)
+    {
+        if ($this->request->is('get')) {
+            throw new MethodNotAllowedException();
+        }
+        if ($this->Knowledge->delete($id)) {
+            $this->Session->setFlash(
+                '削除しました！',
+                'default'
+            );
+            $this->redirect(array(
+                'controller' => 'questions',
+                'action' => 'index'
+            ));
         }
     }
 }

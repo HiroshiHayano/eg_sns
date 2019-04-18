@@ -1,6 +1,5 @@
 <?php
     echo $this->Html->css('index_users');
-    echo $login_user['name'] . 'さん こんにちは！';
     echo $this->element('head', array('title' => '社員一覧'));
     echo $this->element('header');
 ?>

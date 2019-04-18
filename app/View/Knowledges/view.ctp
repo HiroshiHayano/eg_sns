@@ -7,7 +7,7 @@
 <?php
     echo $this->element('knowledges_display', array(
         'knowledge' => $knowledge,
-        // 'comments' => $comments,
+        'comments' => $comments,
         'users_name' => $users_name,
         'users_image' => $users_image,
     ))

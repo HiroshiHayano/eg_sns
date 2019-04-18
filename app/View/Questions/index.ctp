@@ -12,10 +12,7 @@
                 <div class='title'>
                     <?php 
                         echo $this->Html->link(
-                            $this->Display->shortenString(
-                                $knowledge['Knowledge']['title'], 
-                                $title_len
-                            ), array(
+                            $this->Text->truncate($knowledge['Knowledge']['title'], $title_len), array(
                                 'controller' => 'knowledges',
                                 'action' => 'view',
                                 $knowledge['Knowledge']['id']
@@ -26,7 +23,7 @@
                 </div>
                 <div class='content'>
                     <?php 
-                        echo h($this->Display->shortenString(
+                        echo h($this->Text->truncate(
                             $knowledge['Knowledge']['content'], 
                             $content_len
                         ));
@@ -42,7 +39,7 @@
                 <div class='title'>
                     <?php 
                         echo $this->Html->link(
-                            $this->Display->shortenString(
+                            $this->Text->truncate(
                                 $not_resolved_question['Question']['title'], 
                                 $title_len
                             ), array(
@@ -55,7 +52,7 @@
                 </div>
                 <div class='content'>
                     <?php 
-                        echo $this->Display->shortenString(
+                        echo $this->Text->truncate(
                                 $not_resolved_question['Question']['content'], 
                                 $title_len
                         );
@@ -71,7 +68,7 @@
                 <div class='title'>
                     <?php 
                         echo $this->Html->link(
-                            $this->Display->shortenString(
+                            $this->Text->truncate(
                                 $resolved_question['Question']['title'], 
                                 $title_len
                             ), array(
@@ -84,7 +81,7 @@
                 </div>
                 <div class='content'>
                     <?php 
-                        echo h($this->Display->shortenString(
+                        echo h($this->Text->truncate(
                             $resolved_question['Question']['content'], 
                             $content_len
                         ));

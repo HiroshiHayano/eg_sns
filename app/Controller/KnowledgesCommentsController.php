@@ -1,8 +1,8 @@
 <?php
 
-class AnswersController extends AppController {
-    public $helpers = array('Html', 'Form');
-    public $uses = array('Answer');
+class KnowledgesCommentsController extends AppController {
+    public $autoLayout = false;
+    public $uses = array('KnowledgesComment');
 
     public function isAuthorized($user = null)
     {
@@ -10,7 +10,6 @@ class AnswersController extends AppController {
         if (in_array($this->action, array('add'))) {
             return true;
         }
-
         return parent::isAuthorized($user);
     }
 
@@ -19,15 +18,15 @@ class AnswersController extends AppController {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
-            if ($this->Answer->save($this->request->data)) {
+            if ($this->KnowledgesComment->save($this->request->data)) {
                 $this->Session->setFlash(
-                    'コメントしました',
+                    '投稿しました',
                     'default'
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
-                    'コメントできませんでした',
+                    '投稿できませんでした',
                     'default'
                 );
             } 

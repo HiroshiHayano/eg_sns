@@ -48,6 +48,11 @@
                         echo h('投稿 ' . $question['Question']['created']);
                     ?>
                 </div>
+                <div class='contributor_name'>
+                        <?php
+                            echo $users_name[$question['Question']['user_id']];
+                        ?>
+                </div>
                 <div class='contributor_image'>
                     <?php
                         echo $this->Html->image('icon/' . $users_image[$question['Question']['user_id']], array(
@@ -59,11 +64,6 @@
                             'class' => 'icon'
                         )); 
                     ?>
-                </div>
-                <div class='contributor_name'>
-                        <?php
-                            echo $users_name[$question['Question']['user_id']];
-                        ?>
                 </div>
             </div>
             <?php if ($question['Question']['is_resolved'] === false) :?>
