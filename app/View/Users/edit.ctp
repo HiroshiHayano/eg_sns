@@ -3,16 +3,6 @@
     echo $this->element('head', array('title' => 'プロフィール編集'));
     echo $this->element('header');
 ?>
-<div>
-    <h3>
-        <?php 
-            echo $this->Html->link('プロフィールに戻る', array(
-                'action'=>'view', 
-                $this->Session->read('Auth.User.id')
-            )); 
-        ?>
-    </h3>
-</div>
 
 <div>
     <h2>プロフィール編集</h2>
@@ -80,12 +70,27 @@
     </h3>
     <h3>
         <?php 
-            echo $this->Form->postLink('アカウントの削除', array(
-                'action' => 'delete', 
-                $this->Session->read('Auth.User.id')
-            ), 
-            array('confirm' => 'アカウントを削除しますか？'
+            echo $this->Form->create('User', array(
+                'onsubmit' => 'return confirm("アカウントを削除しますか？")',
+                'url' => array(
+                    'controller' => 'users',
+                    'action' => 'delete',
+                )
             ));
+            echo $this->Form->input('id', array(
+                'type' => 'hidden',
+                'value' => $this->Session->read('Auth.User.id'),
+            ));
+            echo $this->Form->input('name', array(
+                'type' => 'hidden',
+                'value' => $this->Session->read('Auth.User.name') . '(退会済み)',
+            ));
+            echo $this->Form->input('is_deleted', array(
+                'type' => 'hidden',
+                'value' => true,
+            ));
+            echo $this->Form->submit('アカウントの削除');
+            echo $this->Form->end();
         ?>
     </h3>
 </div>

@@ -5,7 +5,7 @@
 ?>
 
 <div class='container'>
-    <h2>EC通販情報＆知って得する情報</h2>
+    <h2>共有知識</h2>
     <div class='knowledges row'>
         <?php foreach ($knowledges as $knowledge): ?>
             <div class='question col-md-3'>

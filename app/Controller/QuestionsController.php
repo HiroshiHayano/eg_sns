@@ -17,23 +17,24 @@ class QuestionsController extends AppController {
 
     public function index()
     {
+        $number_of_element = 8;
         // 未解決
         $this->set('not_resolved_questions', $this->Question->find('all', array(
             'conditions' => array('is_resolved' => '0'),
             'order' => array('id' => 'desc'),
-            'limit' => 20,
+            'limit' => 8,
         )));
         // 解決済み
         $this->set('resolved_questions', $this->Question->find('all', array(
             'conditions' => array('is_resolved' => '1'),
             'order' => array('id' => 'desc'),
-            'limit' => 20,
+            'limit' => 8,
         )));
         // 共有知識
-        $this->set('knowledges', $this->Knowledge->find('all'), array(
+        $this->set('knowledges', $this->Knowledge->find('all', array(
             'order' => array('id' => 'desc'),
-            'limit' => 20,
-        ));
+            'limit' => 8,
+        )));
         $this->set('title_len', 25);
         $this->set('content_len', 50);
     }

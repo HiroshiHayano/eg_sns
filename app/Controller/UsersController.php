@@ -12,6 +12,23 @@ class UsersController extends AppController {
 
     public function isAuthorized($user = null)
     {
+        // 退会済みユーザーのviewページはアクセス不可
+        if (!empty($this->params['pass']) & in_array($this->action, array('view'))) {
+            $id = $this->params['pass'][0];
+            $view_user = $this->User->find('first', array(
+                'conditions' => array(
+                    'id' => $id,
+                ),
+            ));
+            if ($view_user['User']['is_deleted']) {
+                $this->Session->setFlash(
+                    '退会済みユーザーです',
+                    'default'
+                );        
+                return false;
+            }
+        }
+        
         // 登録済ユーザーはindex, viewページへアクセス許可
         if (in_array($this->action, array('index', 'view', 'logout'))) {
             return true;
@@ -36,7 +53,11 @@ class UsersController extends AppController {
 
     public function index()
     {
-        $this->set('users', $this->User->find('all'));
+        $this->set('users', $this->User->find('all', array(
+            'conditions' => array(
+                'is_deleted' => false,
+            )
+        )));
         $this->set('title_for_layout', '社員');
     }
 
@@ -116,7 +137,16 @@ class UsersController extends AppController {
             if (!empty($this->request->data)) {
                 //ログイン成功
                 if ($this->Auth->login()) { 
-                    $this->redirect($this->Auth->redirectUrl());
+                    if ($this->Session->read('Auth.User.is_deleted') === true) {
+                        $this->Session->destroy();
+                        $this->redirect($this->Auth->logout());
+                        $this->Session->setFlash(
+                            '退会済みユーザーです',
+                            'default'
+                        );
+                    } else {
+                        $this->redirect($this->Auth->redirectUrl());
+                    }
                 // ログイン失敗
                 } else { 
                     $this->Session->setFlash(
@@ -257,8 +287,9 @@ class UsersController extends AppController {
     {
         if ($this->request->is('get')) {
             throw new MethodNotAllowedException();
-        }
-        if ($this->User->delete($id)) {
+        } else {
+            $this->User->id = $id;
+            if ($this->User->save($this->request->data))
             $this->Session->destroy();
             $this->Session->setFlash(
                 '削除しました！',
@@ -266,5 +297,13 @@ class UsersController extends AppController {
             );
             $this->redirect($this->Auth->logout());
         }
+        // if ($this->User->delete($id)) {
+        //     $this->Session->destroy();
+        //     $this->Session->setFlash(
+        //         '削除しました！',
+        //         'default'
+        //     );
+        //     $this->redirect($this->Auth->logout());
+        // }
     }
 }

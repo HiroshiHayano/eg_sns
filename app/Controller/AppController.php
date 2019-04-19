@@ -65,16 +65,14 @@ class AppController extends Controller {
         if (isset($user['admin']) && $user['admin'] === true) {
             return true;
         }
-        // デフォルトは拒否
-        $this->Session->setFlash(
-            '権限がありません',
-            'default'
-        );
-        // refererを取得して飛びたいけど上手くいかない...
         $this->redirect($this->referer(array(
             'controller' => 'users', 
             'action' => 'index'
         )));
+        $this->Session->setFlash(
+            '権限がありません',
+            'default'
+        );
         return false;
     }
 }
