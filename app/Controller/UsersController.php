@@ -307,13 +307,10 @@ class UsersController extends AppController {
                 $this->redirect($this->Auth->logout());    
             }
         }
-        // if ($this->User->delete($id)) {
-        //     $this->Session->destroy();
-        //     $this->Session->setFlash(
-        //         '削除しました！',
-        //         'default'
-        //     );
-        //     $this->redirect($this->Auth->logout());
-        // }
+    }
+
+    public function login_game()
+    {
+        
     }
 }

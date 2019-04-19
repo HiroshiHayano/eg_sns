@@ -39,7 +39,13 @@
             </div>
             <div class='content'>
                 <?php
-                    echo nl2br(h($question['Question']['content']));
+                    echo $this->Text->autoLink(
+                        nl2br(
+                            $question['Question']['content']
+                        ), array(
+                            'target' => '_blank'
+                        )
+                    );
                 ?>
             </div>
             <div class='question_information'>
@@ -144,7 +150,13 @@
                     <div class='answer'>
                         <div class='answer_content'>
                             <?php 
-                                echo $answer['Answer']['content'];
+                                echo $this->Text->autoLink(
+                                    nl2br(
+                                        $answer['Answer']['content']
+                                    ), array(
+                                        'target' => '_blank'
+                                    )
+                                );
                             ?>
                         </div>
                         <div class='answer_icon'>
@@ -172,10 +184,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class='comment_opener'>
+                    <div>
                         <?php
-                            echo 'コメント' . count($comments[$answer['Answer']['id']]) . '件';
+                            echo 'コメント ' . count($comments[$answer['Answer']['id']]) . '件';
                         ?>
+                    </div>
+                    <div class='comment_opener'>
+                        &#9661;
                     </div>
                     <div class='comment'>
                         <table>
@@ -201,7 +216,15 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <?php echo $comment['Comment']['content'] ?>
+                                        <?php 
+                                            echo $this->Text->autoLink(
+                                                nl2br(
+                                                    $comment['Comment']['content']
+                                                ), array(
+                                                    'target' => '_blank'
+                                                )
+                                            );
+                                        ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>

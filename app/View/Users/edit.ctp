@@ -93,6 +93,10 @@
                 'type' => 'hidden',
                 'value' => 'mark_question.png',
             ));
+            // echo $this->Form->input('mail_address', array(
+            //     'type' => 'hidden',
+            //     'value' => 'dummy@mail.com',
+            // ));
             echo $this->Form->submit('アカウントの削除');
             echo $this->Form->end();
         ?>

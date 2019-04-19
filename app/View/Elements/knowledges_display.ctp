@@ -63,7 +63,13 @@
     </div>
     <div class='content'>
         <?php
-            echo $this->Text->autoLink($knowledge['Knowledge']['content'], array('target' => '_blank'));
+            echo $this->Text->autoLink(
+                nl2br(
+                    $knowledge['Knowledge']['content']
+                ), array(
+                    'target' => '_blank'
+                )
+            );
         ?>
     </div>
     <div class='knowledge_information'>
@@ -114,10 +120,13 @@
             </div>
         </div>
     <?php endif; ?>
-    <div class='comment_opener'>
+    <div>
         <?php
-            echo 'コメント' . count($comments) . '件';
+            echo 'コメント ' . count($comments) . '件';
         ?>
+    </div>
+    <div class='comment_opener'>
+        &#9661;
     </div>
     <div class='comment'>
         <table>
@@ -143,7 +152,15 @@
                         </div>
                     </td>
                     <td>
-                        <?php echo $comment['KnowledgesComment']['content'] ?>
+                        <?php
+                            echo $this->Text->autoLink(
+                                nl2br(
+                                    $comment['KnowledgesComment']['content']
+                                ), array(
+                                    'target' => '_blank'
+                                )
+                            );
+                        ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

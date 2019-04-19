@@ -4,12 +4,6 @@
     echo $this->element('header');
 ?>
 
-<?php 
-    if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
-        echo $this->Html->link('編集', array('action'=>'edit', $user['User']['id']));
-    }
-?>
-
 <div class='wrapper profile'>
     <div class="image">
         <?php
@@ -29,6 +23,11 @@
     </div>
 
     <div class="information">
+        <?php 
+            if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
+                echo $this->Html->link('プロフィールの編集', array('action'=>'edit', $user['User']['id']));
+            }
+        ?>
         <table>
             <tr>
                 <td>所属部署</td>

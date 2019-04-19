@@ -26,7 +26,7 @@
         </div>
         <div class='col-md-3'>
             <?php
-                    echo $this->Html->link('質問一覧', array(
+                    echo $this->Html->link('共有知識一覧', array(
                     'controller' => 'questions', 
                     'action'=>'index',
                 )); 
@@ -34,10 +34,13 @@
         </div>
         <div class='col-md-3'>
             <?php
-                    echo $this->Html->link('ログアウト', array(
-                    'controller' => 'users', 
-                    'action'=>'logout',
-                )); 
+                echo $this->Html->link('ログアウト', 
+                    [
+                        'controller' => 'users', 
+                        'action'=>'logout',
+                    ],
+                    ['confirm' => 'ログアウトしてよろしいですか?']
+                ); 
             ?>
         </div>
     </div>

@@ -7,10 +7,10 @@ $(document).ready(function(){
     $('.comment_opener').on('click', function() {
         var self = $(this);
         if (self.data('opened')) {
-            $(this).text('コメントを見る')
+            $(this).html('&#9661;')
             self.data('opened', false);
         } else {
-            $(this).text('コメントを閉じる')
+            $(this).html('&#9651;')
             self.data('opened', true);
         }
         $(this).next('.comment').toggle(250);

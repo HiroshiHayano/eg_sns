@@ -1,10 +1,13 @@
-<div>
-    <h1>
-        <?php 
-            echo $this->Html->link('プロフィールの変更に戻る', array('action'=>'edit', $this->Session->read('Auth.User.id'))); 
-        ?>
-    </h1>
-</div>
+<?php
+    echo $this->element('head', array('title' => 'プロフィール画像の変更'));
+    echo $this->element('header');
+?>
+
+<h3>
+    <?php 
+        echo $this->Html->link('プロフィールの変更に戻る', array('action'=>'edit', $this->Session->read('Auth.User.id'))); 
+    ?>
+</h3>
 
 <h1>現在のプロフィール画像</h1>
 <div>
