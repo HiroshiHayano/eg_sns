@@ -89,6 +89,10 @@
                 'type' => 'hidden',
                 'value' => true,
             ));
+            echo $this->Form->input('image', array(
+                'type' => 'hidden',
+                'value' => 'mark_question.png',
+            ));
             echo $this->Form->submit('アカウントの削除');
             echo $this->Form->end();
         ?>

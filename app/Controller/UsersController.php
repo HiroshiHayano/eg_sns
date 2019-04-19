@@ -289,13 +289,23 @@ class UsersController extends AppController {
             throw new MethodNotAllowedException();
         } else {
             $this->User->id = $id;
-            if ($this->User->save($this->request->data))
-            $this->Session->destroy();
-            $this->Session->setFlash(
-                '削除しました！',
-                'default'
-            );
-            $this->redirect($this->Auth->logout());
+            if ($this->User->save($this->request->data)){
+                // 退会済みユーザーの質問は解決済みにする
+                $question = $this->Question->find('first', ['conditions' => [
+                    'user_id' => $id,
+                    'is_resolved' => false,
+                ]]);
+                $question['Question']['is_resolved'] = true;
+                $this->Question->id = $id;
+                $this->Question->save($question);
+                // セッションをdestroy
+                $this->Session->destroy();
+                $this->Session->setFlash(
+                    '削除しました！',
+                    'default'
+                );
+                $this->redirect($this->Auth->logout());    
+            }
         }
         // if ($this->User->delete($id)) {
         //     $this->Session->destroy();

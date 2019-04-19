@@ -45,7 +45,7 @@
             <div class='question_information'>
                 <div class='created'>
                     <?php
-                        echo h('投稿 ' . $question['Question']['created']);
+                        echo h('投稿日時 ' . $question['Question']['created']);
                     ?>
                 </div>
                 <div class='contributor_name'>
@@ -150,7 +150,7 @@
                         <div class='answer_icon'>
                             <div class='created'>
                                 <?php
-                                    echo h('投稿 ' . $answer['Answer']['created']);
+                                    echo h('投稿日時 ' . $answer['Answer']['created']);
                                 ?>
                             </div>
                             <div class='contributor_name'>
