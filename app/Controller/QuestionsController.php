@@ -10,7 +10,7 @@ class QuestionsController extends AppController {
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('index', 'view', 'add', 'resolve', 'edit', 'delete'))) {
+        if (in_array($this->action, array('index', 'view', 'add', 'resolve', 'edit', 'delete', 'post'))) {
             return true;
         }
         return parent::isAuthorized($user);
@@ -158,5 +158,10 @@ class QuestionsController extends AppController {
                 'action' => 'index'
             ));
         }
+    }
+
+    public function post()
+    {
+
     }
 }

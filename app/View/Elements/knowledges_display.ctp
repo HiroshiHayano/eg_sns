@@ -28,33 +28,6 @@
     <div class='question_edit_closer'>閉じる</div>
 </div>
 
-<div class='knowledge_form'>
-    <h2>新規投稿</h2>
-    <?php
-        echo $this->Form->create('Knowledge', array(
-            'type' => 'post',
-            'url' => array(
-                'controller' => 'knowledges',
-                'action' => 'add',
-            ),
-        ));
-        echo $this->Form->input('title', array(
-            'placeholder' => 'タイトル',
-            'value' => '',
-        ));
-        echo $this->Form->input('content', array(
-            'placeholder' => '本文',
-            'value' => '',
-        ));
-        echo $this->Form->input('user_id', array(
-            'type' => 'hidden',
-            'value' => $this->Session->read('Auth.User.id')
-        ));
-        echo $this->Form->submit();
-        echo $this->Form->end();                     
-    ?>
-</div>
-
 <div class='container wrapper knowledge_space'>
     <div class='title'>
         <?php
@@ -64,11 +37,8 @@
     <div class='content'>
         <?php
             echo $this->Text->autoLink(
-                nl2br(
-                    $knowledge['Knowledge']['content']
-                ), array(
-                    'target' => '_blank'
-                )
+                $knowledge['Knowledge']['content'],
+                ['target' => '_blank']
             );
         ?>
     </div>
@@ -154,11 +124,8 @@
                     <td>
                         <?php
                             echo $this->Text->autoLink(
-                                nl2br(
-                                    $comment['KnowledgesComment']['content']
-                                ), array(
-                                    'target' => '_blank'
-                                )
+                                $comment['KnowledgesComment']['content'],
+                                ['target' => '_blank']
                             );
                         ?>
                     </td>

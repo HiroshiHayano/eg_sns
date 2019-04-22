@@ -4,7 +4,8 @@ class UsersController extends AppController {
     public $autoLayout = false;
 
     public $helpers = array('Html', 'Form');
-    public $uses = array('User', 'Department', 'Question', 'Answer', 'Comment');
+    // public $uses = array('User', 'Department', 'Question', 'Answer', 'Comment');
+    public $uses = ['User', 'Department', 'Question', 'Knowledge'];
     public $components = ['UsersList'];
 
     public function beforefilter() {
@@ -55,7 +56,7 @@ class UsersController extends AppController {
     public function index()
     {
         $this->set('users', $this->User->find('all', array(
-            'order' => 'phonetic asc',
+            'order' => ['phonetic' => 'asc'],
             'conditions' => array(
                 'is_deleted' => false,
                 'admin' => false,
@@ -69,51 +70,68 @@ class UsersController extends AppController {
         $this->set('user', $this->User->read());
         $this->Department->id = $this->User->field('department_id');
         $this->set('department', $this->Department->field('name'));
-        $question = $this->Question->find('first', array( // 現在はとりあえず一件だけ表示するためにfirstにしている
-            'conditions' => array(
-                'user_id' => $id,
-                'is_resolved' => 0,
-            )
+
+        $number_of_element = null;
+        $questions = $this->Question->find('all', [
+            'order' => ['id' => 'desc'],
+            'conditions' => ['user_id' => $id],
+            'limit' => $number_of_element,
+        ]);
+        $this->set('questions', $questions);
+
+        $knowledges = $this->Knowledge->find('all', array(
+            'order' => ['id' => 'desc'],
+            'conditions' => array('user_id' => $id),
+            'limit' => $number_of_element,
         ));
-        $this->set('question', $question);
+        $this->set('knowledges', $knowledges);
 
-        if (!empty($question)) {
-            $this->Question->id = $question['Question']['id'];
-            $this->request->data = $this->Question->read();
+        // $question = $this->Question->find('first', array( // 現在はとりあえず一件だけ表示するためにfirstにしている
+        //     'conditions' => array(
+        //         'user_id' => $id,
+        //         'is_resolved' => 0,
+        //     )
+        // ));
 
-            // ユーザーの顔画像パス一覧取得
-            $this->set('users_image', $this->UsersList->getImages());
-            // ユーザーの名前一覧取得
-            $this->set('users_name', $this->UsersList->getNames());
+        // $this->set('question', $question);
 
-            $answers = $this->Answer->find('all', array(
-                'conditions' => array(
-                    'question_id' => $question['Question']['id'],
-                )
-            ));
-            $this->set('answers', $answers);
+        // if (!empty($question)) {
+        //     $this->Question->id = $question['Question']['id'];
+        //     $this->request->data = $this->Question->read();
+
+        //     // ユーザーの顔画像パス一覧取得
+        //     $this->set('users_image', $this->UsersList->getImages());
+        //     // ユーザーの名前一覧取得
+        //     $this->set('users_name', $this->UsersList->getNames());
+
+        //     $answers = $this->Answer->find('all', array(
+        //         'conditions' => array(
+        //             'question_id' => $question['Question']['id'],
+        //         )
+        //     ));
+        //     $this->set('answers', $answers);
     
-            $answers_id = array();
-            foreach ($answers as $answer) {
-                $answers_id[] = $answer['Answer']['id'];
-            }
-            $comments = array();
-            foreach ($answers_id as $answer_id) {
-                $comments_set = array();
-                $comments_set += $this->Comment->find('all', array(
-                    'conditions' => array(
-                        'answer_id' => $answer_id,
-                    )
-                ));
-                $comments += array($answer_id => $comments_set);
-            }
-            $this->set('comments', $comments);
-        } else {
-            $this->set('answers', []);
-            $this->set('comments', []);
-            $this->set('users_name', []);
-            $this->set('users_image', []);
-        }
+        //     $answers_id = array();
+        //     foreach ($answers as $answer) {
+        //         $answers_id[] = $answer['Answer']['id'];
+        //     }
+        //     $comments = array();
+        //     foreach ($answers_id as $answer_id) {
+        //         $comments_set = array();
+        //         $comments_set += $this->Comment->find('all', array(
+        //             'conditions' => array(
+        //                 'answer_id' => $answer_id,
+        //             )
+        //         ));
+        //         $comments += array($answer_id => $comments_set);
+        //     }
+        //     $this->set('comments', $comments);
+        // } else {
+        //     $this->set('answers', []);
+        //     $this->set('comments', []);
+        //     $this->set('users_name', []);
+        //     $this->set('users_image', []);
+        // }
     }
 
     public function login()

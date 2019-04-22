@@ -40,11 +40,8 @@
             <div class='content'>
                 <?php
                     echo $this->Text->autoLink(
-                        nl2br(
-                            $question['Question']['content']
-                        ), array(
-                            'target' => '_blank'
-                        )
+                        $question['Question']['content'], 
+                        ['target' => '_blank']
                     );
                 ?>
             </div>
@@ -151,11 +148,8 @@
                         <div class='answer_content'>
                             <?php 
                                 echo $this->Text->autoLink(
-                                    nl2br(
-                                        $answer['Answer']['content']
-                                    ), array(
-                                        'target' => '_blank'
-                                    )
+                                    $answer['Answer']['content'], 
+                                    ['target' => '_blank']
                                 );
                             ?>
                         </div>

@@ -4,34 +4,37 @@
     echo $this->element('header');
 ?>
 
-<h2>社員一覧</h2>
-
-<div>
-    <?php foreach ($users as $user) : ?>
-        <div class='icon'>
-            <?php 
-                echo $this->Html->image('icon/' . $user['User']['image'], array(
-                    'url' => array(
-                        'controller' => 'users', 
-                        'action' => 'view', 
-                        $user['User']['id']
-                    ),
-                    'width' => '150',
-                    'height' => '150',
-                ));
-            ?>
-            <div class="name">
+<div class='container'>
+    <div class='row'>
+        <h2>社員一覧</h2>
+    </div>
+    <div class='row'>
+        <?php foreach ($users as $user) : ?>
+            <div class='icon col-md-2'>
                 <?php 
-                    echo $this->Html->link(
-                        h($user['User']['name']),
-                        array(
+                    echo $this->Html->image('icon/' . $user['User']['image'], array(
+                        'url' => array(
                             'controller' => 'users', 
                             'action' => 'view', 
                             $user['User']['id']
-                        )
-                    );
+                        ),
+                        'width' => '150',
+                        'height' => '150',
+                    ));
                 ?>
+                <div class="name">
+                    <?php 
+                        echo $this->Html->link(
+                            h($user['User']['name']),
+                            array(
+                                'controller' => 'users', 
+                                'action' => 'view', 
+                                $user['User']['id']
+                            )
+                        );
+                    ?>
+                </div>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    </div>
 </div>

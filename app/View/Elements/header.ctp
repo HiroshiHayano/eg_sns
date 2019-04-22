@@ -24,7 +24,7 @@
                 )); 
             ?>
         </div>
-        <div class='col-md-3'>
+        <div class='col-md-2'>
             <?php
                     echo $this->Html->link('共有知識一覧', array(
                     'controller' => 'questions', 
@@ -32,7 +32,15 @@
                 )); 
             ?>
         </div>
-        <div class='col-md-3'>
+        <div class='col-md-2'>
+            <?php
+                    echo $this->Html->link('投稿フォーム', array(
+                    'controller' => 'questions', 
+                    'action'=>'post',
+                )); 
+            ?>
+        </div>
+        <div class='col-md-2'>
             <?php
                 echo $this->Html->link('ログアウト', 
                     [
