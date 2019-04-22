@@ -1,7 +1,6 @@
 <?php
 
 class KnowledgesCommentsController extends AppController {
-    public $autoLayout = false;
     public $uses = array('KnowledgesComment');
 
     public function isAuthorized($user = null)

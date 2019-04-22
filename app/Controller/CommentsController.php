@@ -10,7 +10,6 @@ class CommentsController extends AppController {
         if (in_array($this->action, array('add'))) {
             return true;
         }
-
         return parent::isAuthorized($user);
     }
 
@@ -20,11 +19,11 @@ class CommentsController extends AppController {
             throw new MethodNotAllowedException();
         } elseif ($this->request->is('post')) {
             if ($this->Comment->save($this->request->data)) {
-                $this->redirect($this->referer());
                 $this->Session->setFlash(
                     'コメントしました',
                     'default'
                 );
+                $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     'コメントできませんでした',

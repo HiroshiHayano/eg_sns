@@ -1,6 +1,6 @@
 <?php
     echo $this->Html->css('index_questions');
-    echo $this->element('head', array('title' => '質問一覧'));
+    echo $this->element('head', array('title' => '共有知識一覧'));
     echo $this->element('header');
 ?>
 

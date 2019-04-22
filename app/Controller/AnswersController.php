@@ -3,6 +3,7 @@
 class AnswersController extends AppController {
     public $helpers = array('Html', 'Form');
     public $uses = array('Answer');
+    public $components = ['UsersList'];
 
     public function isAuthorized($user = null)
     {

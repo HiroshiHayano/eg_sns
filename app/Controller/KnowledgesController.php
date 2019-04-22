@@ -5,6 +5,7 @@ class KnowledgesController extends AppController {
 
     public $helpers = array('Html', 'Form', 'Text');
     public $uses = array('Knowledge', 'KnowledgesComment', 'User');
+    public $components = ['UsersList'];
 
     public function isAuthorized($user = null)
     {
@@ -34,21 +35,9 @@ class KnowledgesController extends AppController {
         $this->set('comments', $comments);
 
         // ユーザーの顔画像パス一覧取得
-        $this->set('users_image', $this->User->find(
-            'list', array(
-                'fields' => array(
-                    'image'
-                )
-            )
-        ));
+        $this->set('users_image', $this->UsersList->getImages());
         // ユーザーの名前一覧取得
-        $this->set('users_name', $this->User->find(
-            'list', array(
-                'fields' => array(
-                    'name'
-                )
-            )
-        ));
+        $this->set('users_name', $this->UsersList->getNames());
     }
 
     public function add()

@@ -5,6 +5,7 @@ class QuestionsController extends AppController {
 
     public $helpers = array('Html', 'Form');
     public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
+    public $components = ['UsersList'];
 
     public function isAuthorized($user = null)
     {
@@ -52,21 +53,9 @@ class QuestionsController extends AppController {
             $this->request->data = $this->Question->read();
 
             // ユーザーの顔画像パス一覧取得
-            $this->set('users_image', $this->User->find(
-                'list', array(
-                    'fields' => array(
-                        'image'
-                    )
-                )
-            ));
+            $this->set('users_image', $this->UsersList->getImages());
             // ユーザーの名前一覧取得
-            $this->set('users_name', $this->User->find(
-                'list', array(
-                    'fields' => array(
-                        'name'
-                    )
-                )
-            ));
+            $this->set('users_name', $this->UsersList->getNames());
 
             $answers = $this->Answer->find('all', array(
                 'conditions' => array(

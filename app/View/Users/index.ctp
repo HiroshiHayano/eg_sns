@@ -3,6 +3,7 @@
     echo $this->element('head', array('title' => '社員一覧'));
     echo $this->element('header');
 ?>
+
 <h2>社員一覧</h2>
 
 <div>

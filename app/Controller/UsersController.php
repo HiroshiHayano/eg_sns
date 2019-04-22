@@ -5,6 +5,7 @@ class UsersController extends AppController {
 
     public $helpers = array('Html', 'Form');
     public $uses = array('User', 'Department', 'Question', 'Answer', 'Comment');
+    public $components = ['UsersList'];
 
     public function beforefilter() {
         $this->Auth->allow('login', 'add');
@@ -54,11 +55,12 @@ class UsersController extends AppController {
     public function index()
     {
         $this->set('users', $this->User->find('all', array(
+            'order' => 'phonetic asc',
             'conditions' => array(
                 'is_deleted' => false,
+                'admin' => false,
             )
         )));
-        $this->set('title_for_layout', '社員');
     }
 
     public function view($id = NULL)
@@ -80,21 +82,9 @@ class UsersController extends AppController {
             $this->request->data = $this->Question->read();
 
             // ユーザーの顔画像パス一覧取得
-            $this->set('users_image', $this->User->find(
-                'list', array(
-                    'fields' => array(
-                        'image'
-                    )
-                )
-            ));
+            $this->set('users_image', $this->UsersList->getImages());
             // ユーザーの名前一覧取得
-            $this->set('users_name', $this->User->find(
-                'list', array(
-                    'fields' => array(
-                        'name'
-                    )
-                )
-            ));
+            $this->set('users_name', $this->UsersList->getNames());
 
             $answers = $this->Answer->find('all', array(
                 'conditions' => array(
@@ -119,10 +109,10 @@ class UsersController extends AppController {
             }
             $this->set('comments', $comments);
         } else {
-            $this->set('answers', array());
-            $this->set('comments', array());
-            $this->set('users_name', array());
-            $this->set('users_image', array());
+            $this->set('answers', []);
+            $this->set('comments', []);
+            $this->set('users_name', []);
+            $this->set('users_image', []);
         }
     }
 
@@ -311,6 +301,18 @@ class UsersController extends AppController {
 
     public function login_game()
     {
-        
+        // if (/*不正解 or get*/) {
+        //     // 出題
+        //     /* $?? = */ $this->User->find('first', [
+        //         'conditions' => [
+        //             'is_dereted' => false,
+        //             'admin' => false,
+        //         ],
+        //         'order' => 'rand()'
+        //     ]);    
+        // } else { //正解
+        //     // ログインできる
+
+        // }
     }
 }
