@@ -3,17 +3,28 @@
 class KnowledgesController extends AppController {
     public $autoLayout = false;
 
-    public $helpers = array('Html', 'Form', 'Text');
+    public $helpers = array('Html', 'Form', 'Text', 'Paginator');
     public $uses = array('Knowledge', 'KnowledgesComment', 'User');
     public $components = ['UsersList'];
+    public $paginate = [
+        'limit' => 5,
+        'order' => ['id' => 'desc'],
+    ];
 
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('view', 'add', 'edit', 'delete'))) {
+        if (in_array($this->action, array('index', 'view', 'add', 'edit', 'delete'))) {
             return true;
         }
         return parent::isAuthorized($user);
+    }
+
+    public function index()
+    {
+        $this->set('knowledges', $this->paginate());
+        $this->set('title_len', 25);
+        $this->set('content_len', 50);
     }
 
     public function view($id = NULL)
@@ -48,13 +59,15 @@ class KnowledgesController extends AppController {
             if ($this->Knowledge->save($this->request->data)) {
                 $this->Session->setFlash(
                     '投稿しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '投稿できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             } 
         }

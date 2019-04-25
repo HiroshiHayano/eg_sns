@@ -1,0 +1,9 @@
+div#postform_layer {
+    /* display: none; */
+    position: fixed;
+    top: 8%;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    background: rgba(45,45,45, 0.5);
+}

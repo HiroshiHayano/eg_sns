@@ -1,5 +1,5 @@
 <?php
-    echo $this->Html->css('questions_index');
+    echo $this->Html->css('knowledges_index');
     echo $this->element('head', array('title' => '共有知識一覧'));
     echo $this->element('header');
 ?>
@@ -7,7 +7,7 @@
 <div class='container'>
     <div class='row'>
         <nav class='col-md-3'>
-            <h2>メニュー</h2>
+            <h2>サイドメニュー</h2>
             <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
                 <li>
                     <?php
@@ -37,47 +37,37 @@
             </ul>
         </nav>
         <div class='col-md-9'>
-            <h2>質問</h2>
-            <?php foreach ($questions as $question): ?>
+            <h2>共有知識</h2>
+            <?php foreach ($knowledges as $knowledge): ?>
                 <div class='row panel panel-default'>
-                    <?php
-                        $question_color = 'bg-danger';
-                        if ($question['Question']['is_resolved'] === true) {
-                            $question_color = 'bg-success';
-                        } else {
-                            $question_color = 'bg-danger';
-                        }
-                    ?>
-                    <!-- <div class='panel-body'> -->
                     <div class='panel-heading'>
                         <?php 
                             echo $this->Html->link(
-                                $this->Text->truncate($question['Question']['title'], $title_len), array(
-                                    'controller' => 'Questions',
+                                $this->Text->truncate($knowledge['Knowledge']['title'], $title_len), array(
+                                    'controller' => 'knowledges',
                                     'action' => 'view',
-                                    $question['Question']['id']
+                                    $knowledge['Knowledge']['id']
                                 )
                             );
 
                         ?>
                     </div>
-                    <div class='panel-body <?php echo $question_color;?>'>
+                    <div class='panel-body'>
                         <?php 
                             echo h($this->Text->truncate(
-                                $question['Question']['content'], 
+                                $knowledge['Knowledge']['content'], 
                                 $content_len
                             ));
                         ?>
                     </div>
-                    <!-- </div> -->
                 </div>
             <?php endforeach; ?>
                 <?php
                     echo $this->Paginator->numbers(
-                        [
+                        array (
                             'before' => $this->Paginator->hasPrev() ? $this->Paginator->first('<<').' | ' : '',
                             'after' => $this->Paginator->hasNext() ? ' | '.$this->Paginator->last('>>') : '',
-                        ]
+                        )
                     );
                 ?>
         </div>
@@ -89,7 +79,7 @@
         <div class='col-md-2'></div>
         <div class='col-md-8'>
             <?php
-                echo $this->Form->create('Question', [
+                echo $this->Form->create('Knowledge', [
                     'action' => 'add'
                 ]);
                 echo $this->Form->input('title', [

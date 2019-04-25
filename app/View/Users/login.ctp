@@ -10,27 +10,34 @@
     ?>
 </div>
 
-<div>
-    <h1>
-    <?php 
-        echo $this->Html->link('新規登録', array(
-            'controller' => 'users',
-            'action' => 'add'
-        )); 
-    ?>
-    </h1>
+<div class='container text-right'>
+    <h3>
+        <?php 
+            echo $this->Html->link('新規登録', array(
+                'controller' => 'users',
+                'action' => 'add'
+            )); 
+        ?>
+    </h3>
 </div>
 
-<div>
-    <h2><?php echo h('ログインページ'); ?></h2>
+<div class='container well'>
+    <h2><?php echo h('Login'); ?></h2>
     <div>
         <?php
             echo $this->Form->create('User');
-            echo $this->Form->input('mail_address');
-            echo $this->Form->input('password');
-            echo $this->Form->button('ログイン');
+            echo $this->Form->input('mail_address', [
+                'label' => 'email:',
+                'class' => 'form-control'
+            ]);
+            echo $this->Form->input('password', [
+                'label' => 'password:',
+                'class' => 'form-control',
+            ]);
+            echo $this->Form->button('Login', [
+                'class' => 'btn btn-default btn-lg'
+            ]);
             echo $this->Form->end();
         ?>
     </div>
 </div>
-

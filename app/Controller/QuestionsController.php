@@ -6,6 +6,10 @@ class QuestionsController extends AppController {
     public $helpers = array('Html', 'Form');
     public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
     public $components = ['UsersList'];
+    public $paginate = [
+        'limit' => 5,
+        'order' => ['id' => 'desc'],
+    ];
 
     public function isAuthorized($user = null)
     {
@@ -18,24 +22,7 @@ class QuestionsController extends AppController {
 
     public function index()
     {
-        $number_of_element = null;
-        // 未解決
-        $this->set('not_resolved_questions', $this->Question->find('all', array(
-            'conditions' => array('is_resolved' => '0'),
-            'order' => array('id' => 'desc'),
-            'limit' => $number_of_element,
-        )));
-        // 解決済み
-        $this->set('resolved_questions', $this->Question->find('all', array(
-            'conditions' => array('is_resolved' => '1'),
-            'order' => array('id' => 'desc'),
-            'limit' => $number_of_element,
-        )));
-        // 共有知識
-        $this->set('knowledges', $this->Knowledge->find('all', array(
-            'order' => array('id' => 'desc'),
-            'limit' => $number_of_element,
-        )));
+        $this->set('questions', $this->paginate());
         $this->set('title_len', 25);
         $this->set('content_len', 50);
     }

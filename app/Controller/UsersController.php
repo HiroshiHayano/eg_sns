@@ -25,7 +25,8 @@ class UsersController extends AppController {
             if ($view_user['User']['is_deleted']) {
                 $this->Session->setFlash(
                     '退会済みユーザーです',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-warning']
                 );        
                 return false;
             }
@@ -150,7 +151,8 @@ class UsersController extends AppController {
                         $this->redirect($this->Auth->logout());
                         $this->Session->setFlash(
                             '退会済みユーザーです',
-                            'default'
+                            'default',
+                            ['class' => 'alert alert-warning']
                         );
                     } else {
                         $this->redirect($this->Auth->redirectUrl());
@@ -159,7 +161,8 @@ class UsersController extends AppController {
                 } else { 
                     $this->Session->setFlash(
                         'メールアドレスまたはパスワードが違います',
-                        'default'
+                        'default',
+                        ['class' => 'alert alert-warning']
                     );
                 }
             }
@@ -187,19 +190,22 @@ class UsersController extends AppController {
                 if ($this->User->save($save_data)) {
                     $this->Session->setFlash(
                         '登録に成功しました',
-                        'default'
+                        'default',
+                        ['class' => 'alert alert-success']
                     );
                     $this->redirect(array('action' => 'login'));
                 } else {
                     $this->Session->setFlash(
                         '登録に失敗しました',
-                        'default'
+                        'default',
+                        ['class' => 'alert alert-danger']
                     );
                 }
             } else {
                 $this->Session->setFlash(
                     '画像の保存に失敗しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }
         }
@@ -216,7 +222,8 @@ class UsersController extends AppController {
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(
                     'プロフィールを更新しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $user = $this->User->find('first', array(
                     'conditions' => array(
@@ -229,7 +236,8 @@ class UsersController extends AppController {
             } else {
                 $this->Session->setFlash(
                     'プロフィールを更新できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }    
         }
@@ -256,18 +264,21 @@ class UsersController extends AppController {
                     $this->Session->write('Auth', $user); // セッション情報を更新する
                     $this->Session->setFlash(
                         'プロフィール画像を更新しました',
-                        'default'
+                        'default',
+                        ['class' => 'alert alert-success']
                     );
                 } else {
                     $this->Session->setFlash(
                         'プロフィール画像を更新できませんでした',
-                        'default'
+                        'default',
+                        ['class' => 'alert alert-danger']
                     );
                 }
             } else {
                 $this->Session->setFlash(
                     'プロフィール画像を保存に失敗しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }
         }
@@ -280,12 +291,14 @@ class UsersController extends AppController {
             if ($this->User->save($this->request->data)) {
                 $this->Session->setFlash(
                     'パスワードを更新しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
             } else {
                 $this->Session->setFlash(
                     'パスワードを更新できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }
         }
@@ -310,7 +323,8 @@ class UsersController extends AppController {
                 $this->Session->destroy();
                 $this->Session->setFlash(
                     '削除しました！',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->Auth->logout());    
             }
