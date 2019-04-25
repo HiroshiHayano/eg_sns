@@ -22,7 +22,17 @@ class QuestionsController extends AppController {
 
     public function index()
     {
-        $this->set('questions', $this->paginate());
+        if (!empty($this->request->query)) {
+            $conditions = [];
+            $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
+            $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
+            $this->Session->write('Conditions', $conditions);
+            $this->set('query', $this->request->query['query']);
+        } else {
+            $this->Session->write('Conditions', []);
+            $this->set('query', '');
+        }
+        $this->set('questions', $this->paginate('Question', $this->Session->read('Conditions')));
         $this->set('title_len', 25);
         $this->set('content_len', 50);
     }
@@ -77,13 +87,15 @@ class QuestionsController extends AppController {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(
                     '質問解決しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     'エラーが起きました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }
         }
@@ -97,13 +109,15 @@ class QuestionsController extends AppController {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(
                     '質問投稿しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '質問投稿できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             } 
         }
@@ -118,13 +132,15 @@ class QuestionsController extends AppController {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(
                     '質問を更新しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '質問を更新できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }    
         }
@@ -137,8 +153,19 @@ class QuestionsController extends AppController {
         }
         if ($this->Question->delete($id)) {
             $this->Session->setFlash(
-                '削除しました！',
-                'default'
+                '削除しました',
+                'default',
+                ['class' => 'alert alert-success']
+            );
+            $this->redirect(array(
+                'controller' => 'questions',
+                'action' => 'index'
+            ));
+        } else {
+            $this->Session->setFlash(
+                '削除できませんでした',
+                'default',
+                ['class' => 'alert alert-danger']
             );
             $this->redirect(array(
                 'controller' => 'questions',

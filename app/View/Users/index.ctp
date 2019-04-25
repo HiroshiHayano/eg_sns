@@ -18,10 +18,24 @@
     </div> -->
     <div class='row'>
         <nav class='col-md-3'>
+            <h2>メニュー</h2>
             <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
-                <li></li>
-                <li></li>
-                <li></li>
+                <li>
+                    <?php
+                        echo $this->Form->create(false, [
+                            'action' => 'index'
+                        ]);
+                        echo $this->Form->input('', [
+                            'type' => 'text',
+                            'placeholder' => 'キーワードを入力してください',
+                            'class' => 'form-control'
+                        ]);
+                        echo $this->Form->submit('Search', [
+                            'class' => ['btn', 'btn-default', 'pull-right']
+                        ]);
+                        echo $this->Form->end();
+                    ?>
+                </li>
             </ul>
         </nav>
         <div class='col-md-9'>

@@ -9,6 +9,9 @@ class KnowledgesController extends AppController {
     public $paginate = [
         'limit' => 5,
         'order' => ['id' => 'desc'],
+        'conditions' => [
+            'OR' => []
+        ]
     ];
 
     public function isAuthorized($user = null)
@@ -22,9 +25,19 @@ class KnowledgesController extends AppController {
 
     public function index()
     {
-        $this->set('knowledges', $this->paginate());
-        $this->set('title_len', 25);
-        $this->set('content_len', 50);
+        if (!empty($this->request->query)) {
+            $conditions = [];
+            $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
+            $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
+            $this->Session->write('Conditions', $conditions);
+            $this->set('query', $this->request->query['query']);
+        } else {
+            $this->Session->write('Conditions', []);
+            $this->set('query', '');
+        }
+        $this->set('knowledges', $this->paginate('Knowledge', $this->Session->read('Conditions')));
+        $this->set('title_len', 50);
+        $this->set('content_len', 100);
     }
 
     public function view($id = NULL)
@@ -81,13 +94,15 @@ class KnowledgesController extends AppController {
             if ($this->Knowledge->save($this->request->data)) {
                 $this->Session->setFlash(
                     '更新しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '更新できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             }
         }
@@ -101,7 +116,18 @@ class KnowledgesController extends AppController {
         if ($this->Knowledge->delete($id)) {
             $this->Session->setFlash(
                 '削除しました！',
-                'default'
+                'default',
+                ['class' => 'alert alert-success']
+            );
+            $this->redirect(array(
+                'controller' => 'questions',
+                'action' => 'index'
+            ));
+        } else {
+            $this->Session->setFlash(
+                '削除できませんでした',
+                'default',
+                ['class' => 'alert alert-danger']
             );
             $this->redirect(array(
                 'controller' => 'questions',

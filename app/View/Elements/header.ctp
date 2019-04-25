@@ -39,21 +39,24 @@
         </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>
-        <?php
-            echo $this->Html->link(
-                $this->Html->tag('span', 'Logout', ['class' => ['glyphicon glyphicon-log-out']]), 
-                [
-                    'controller' => 'users', 
-                    'action'=>'logout',
-                ],
-                [
-                    'escape' => false,
-                    'confirm' => 'ログアウトしてよろしいですか?'
-                ]
-            ); 
-        ?>
-      </li>
+        <li>
+            <a><?php echo 'ログイン中: ' . $this->Session->read('Auth.User.name'); ?></a>
+        </li>
+        <li>
+            <?php
+                echo $this->Html->link(
+                    $this->Html->tag('span', 'Logout', ['class' => ['glyphicon glyphicon-log-out']]), 
+                    [
+                        'controller' => 'users', 
+                        'action'=>'logout',
+                    ],
+                    [
+                        'escape' => false,
+                        'confirm' => 'ログアウトしてよろしいですか?'
+                    ]
+                ); 
+            ?>
+        </li>
     </ul>
   </div>
 </nav>
@@ -99,21 +102,21 @@
         </li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-      <li>
-        <?php
-            echo $this->Html->link(
-                $this->Html->tag('span', 'Logout', ['class' => ['glyphicon glyphicon-log-out']]), 
-                [
-                    'controller' => 'users', 
-                    'action'=>'logout',
-                ],
-                [
-                    'escape' => false,
-                    'confirm' => 'ログアウトしてよろしいですか?'
-                ]
-            ); 
-        ?>
-      </li>
+        <li>
+            <?php
+                echo $this->Html->link(
+                    $this->Html->tag('span', 'Logout', ['class' => ['glyphicon glyphicon-log-out']]), 
+                    [
+                        'controller' => 'users', 
+                        'action'=>'logout',
+                    ],
+                    [
+                        'escape' => false,
+                        'confirm' => 'ログアウトしてよろしいですか?'
+                    ]
+                ); 
+            ?>
+        </li>
     </ul>
   </div>
 </nav>
