@@ -80,7 +80,7 @@
                         'placeholder' => '例）山田 太郎'
                     ));
                     echo $this->Form->input('phonetic', array(
-                        'label' => array('text' => 'よみがな'),
+                        'label' => 'よみがな',
                         'class' => 'form-control',
                         'placeholder' => '例）やまだ たろう'
                     ));
@@ -90,37 +90,43 @@
                         'label' => array('text' => '部署を選択')
                     ));
                     echo $this->Form->input('mail_address', array(
-                        'label' => array('text' => 'メールアドレス'),
+                        'label' => 'メールアドレス:',
                         'class' => 'form-control',
                     ));
-                    echo $this->Form->input('birthday', array(
-                        'label' => array('text' => '誕生日'),
-                        'class' => 'form-control',
-                        'monthNames' => false,
-                        'dateFormat'=>'YMD',
-                        'minYear' => date('Y') - 80,
-                        'maxYear' => date('Y'),
-                    ));
-                    echo $this->Form->input('birthplace', array(
-                        'label' => array('text' => '出身'),
+                    ?>
+                    <div class='form-inline'>
+                        <?php
+                            echo $this->Form->input('birthday', array(
+                                'label' => '誕生日:',
+                                'class' => 'form-control',
+                                'monthNames' => false,
+                                'dateFormat'=>'YMD',
+                                'minYear' => date('Y') - 80,
+                                'maxYear' => date('Y'),
+                            ));
+                        ?>
+                    </div>
+                    <?php
+                        echo $this->Form->input('birthplace', array(
+                        'label' => '出身:',
                         'class' => 'form-control',
                         'placeholder' => '都道府県名を入力'
                     ));
                     echo $this->Form->input('hobby', array(
                         'type' => 'textarea',
-                        'label' => array('text' => '趣味'),
+                        'label' => '趣味:',
                         'class' => 'form-control',
                         'placeholder' => '自由記入'
                     ));
                     echo $this->Form->input('trend', array(
                         'type' => 'textarea',
-                        'label' => array('text' => '最近のマイブーム'),
+                        'label' => '最近のマイブーム:',
                         'class' => 'form-control',
                         'placeholder' => '自由記入'
                     ));
                     echo $this->Form->input('message', array(
                         'type' => 'textarea',
-                        'label' => array('text' => '目標'),
+                        'label' => '目標:',
                         'class' => 'form-control',
                         'placeholder' => '自由記入'
                     ));

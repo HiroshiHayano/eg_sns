@@ -6,7 +6,15 @@
 
 <div class='container'>
     <div class="page-header">
-        <h1>プロフィール</h1>
+        <h1>プロフィール
+            <small class='pull-right'>
+                <?php 
+                    if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
+                        echo $this->Html->link('プロフィールの編集', array('action'=>'edit', $user['User']['id']));
+                    }
+                ?>
+            </small>
+        </h1>
     </div>
     <div class='row'>
         <div class='col-md-4'>
@@ -27,11 +35,6 @@
                     </div>            
                 </div>
             </div>
-            <?php 
-                if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
-                    echo $this->Html->link('プロフィールの編集', array('action'=>'edit', $user['User']['id']));
-                }
-            ?>
         </div>
         <div class='col-md-8'>
             <div class='row'>
