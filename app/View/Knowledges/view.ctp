@@ -7,11 +7,13 @@
 <div class='container'>
     <div class='row'>
         <nav class='col-md-3'>
-            <h2>メニュー</h2>
+            <div class="page-header">
+                <h2>メニュー</h2>
+            </div>
             <ul class="nav nav-pills nav-stacked">
                 <li>
                     <?php
-                        echo $this->Form->button('新規投稿はこちら', [
+                        echo $this->Form->button('知識を投稿する', [
                             'type' => 'button',
                             'class' => ['btn', 'btn-default'],
                             'id' => 'postform_opener'
@@ -44,6 +46,10 @@
             </ul>
         </nav>
         <div class='col-md-9'>
+            <div class="page-header">
+                <h2>共有知識</h2>
+            </div>
+
             <!-- <ここに内容> -->
             <?php
                 echo $this->element('knowledges_display', array(

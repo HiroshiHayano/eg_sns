@@ -7,6 +7,16 @@ class UsersController extends AppController {
     // public $uses = array('User', 'Department', 'Question', 'Answer', 'Comment');
     public $uses = ['User', 'Department', 'Question', 'Knowledge'];
     public $components = ['UsersList'];
+    public $paginate = [
+        'limit' => 40,
+        'order' => ['phonetic' => 'asc'],
+        'conditions' => [
+            'is_deleted' => false,
+            'admin' => false,
+            'OR' => []
+        ]
+    ];
+
 
     public function beforefilter() {
         $this->Auth->allow('login', 'add');
@@ -56,13 +66,24 @@ class UsersController extends AppController {
 
     public function index()
     {
-        $this->set('users', $this->User->find('all', array(
-            'order' => ['phonetic' => 'asc'],
-            'conditions' => array(
-                'is_deleted' => false,
-                'admin' => false,
-            )
-        )));
+        if (!empty($this->request->query)) {
+            $conditions = [];
+            $conditions['OR']['name LIKE'] = '%' . $this->request->query['query'] . '%';
+            $conditions['OR']['phonetic LIKE'] = '%' . $this->request->query['query'] . '%';
+            $this->Session->write('Conditions', $conditions);
+            $this->set('query', $this->request->query['query']);
+        } else {
+            $this->Session->write('Conditions', []);
+            $this->set('query', '');
+        }
+        $this->set('users', $this->paginate('User', $this->Session->read('Conditions')));
+        // $this->set('users', $this->User->find('all', array(
+        //     'order' => ['phonetic' => 'asc'],
+        //     'conditions' => array(
+        //         'is_deleted' => false,
+        //         'admin' => false,
+        //     )
+        // )));
     }
 
     public function view($id = NULL)

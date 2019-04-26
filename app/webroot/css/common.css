@@ -1,3 +1,8 @@
+body {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 div#postform_layer {
     /* display: none; */
     position: fixed;

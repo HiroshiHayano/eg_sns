@@ -7,11 +7,13 @@
 <div class='container'>
     <div class='row'>
         <nav class='col-md-3'>
-            <h2>メニュー</h2>
+            <div class="page-header">
+                <h2>メニュー</h2>
+            </div>
             <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
                 <li>
                     <?php
-                        echo $this->Form->button('新規投稿はこちら', [
+                        echo $this->Form->button('質問を投稿する', [
                             'type' => 'button',
                             'class' => ['btn', 'btn-default'],
                             'id' => 'postform_opener'
@@ -44,7 +46,9 @@
             </ul>
         </nav>
         <div class='col-md-9'>
-            <h2>質問</h2>
+            <div class="page-header">
+                <h2>質問</h2>
+            </div>
             <?php foreach ($questions as $question): ?>
                 <div class='row panel panel-default'>
                     <?php
@@ -98,10 +102,6 @@
             <?php
                 echo $this->Form->create('Question', [
                     'action' => 'add',
-                    // 'url' => [
-                    //     'controller' => 'questions',
-                    //     'action' => 'add',
-                    // ]
                 ]);
                 echo $this->Form->input('title', [
                     'rows' => 3,
