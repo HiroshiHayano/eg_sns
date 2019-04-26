@@ -1,6 +1,6 @@
 <?php
     echo $this->Html->css('questions_index');
-    echo $this->element('head', array('title' => '共有知識一覧'));
+    echo $this->element('head', array('title' => '質問一覧'));
     echo $this->element('header');
 ?>
 
@@ -97,7 +97,11 @@
         <div class='col-md-8'>
             <?php
                 echo $this->Form->create('Question', [
-                    'action' => 'add'
+                    'action' => 'add',
+                    // 'url' => [
+                    //     'controller' => 'questions',
+                    //     'action' => 'add',
+                    // ]
                 ]);
                 echo $this->Form->input('title', [
                     'rows' => 3,

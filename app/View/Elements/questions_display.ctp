@@ -1,215 +1,192 @@
+<!-- ここから  -->
 <?php
-    echo $this->Html->css('view');
+$bg_color = 'alert-danger';
+if ($question['Question']['is_resolved'] === true) {
+    $bg_color = 'alert-success';
+} else {
+    $bg_color = 'alert-danger';
+}
 ?>
-<div class='container question_edit_layer'>
-    <div class='question_edit'>
+
+<div class="<?php echo 'alert ' . $bg_color;?>">
+    <h1>
+        <strong>
+            <?php
+                echo nl2br(h($question['Question']['title']));
+            ?>
+        </strong>
+    </h1>
+    <p>
         <?php
-            echo $this->Form->create('Question', array(
-                'type' => 'post',
-                'url' => array(
-                    'controller' => 'questions',
+            echo nl2br($this->Text->autoLink(
+                $question['Question']['content'],
+                ['target' => '_blank']
+            ));
+        ?>
+    </p>
+    <p class='text-right'>
+        <?php
+            echo h('投稿日時 ' . $question['Question']['created']);
+        ?>
+    </p>
+    <p class='text-right'>
+        <?php
+            echo $this->element('icon', [
+                'user_image' => $users_image[$question['Question']['user_id']],
+                'user_id' => $question['Question']['user_id'],
+            ]);
+            echo $users_name[$question['Question']['user_id']];
+        ?>
+    </p>
+</div>
+<!-- 編集・削除  -->
+<?php if ($this->Session->read('Auth.User.id') === $question['Question']['user_id']) :?>
+    <div class='row'>
+        <div class='col-md-8'></div>
+        <div class='col-md-2'>
+            <?php
+                echo $this->Form->button('編集', [
+                    'class' => 'btn btn-default',
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#edit-form',
+                ]);
+            ?>
+        </div>
+        <div class='col-md-2'>
+            <?php
+                echo $this->Form->create('Question', array(
+                    'action' => 'delete',
+                    'onsubmit' => 'return confirm("この投稿を削除しますか？")',
+                ));
+                echo $this->Form->input('id', array(
+                    'type' => 'hidden',
+                    'value' => $question['Question']['id'],
+                ));
+                echo $this->Form->button('削除', [
+                    'class' => 'btn btn-danger',
+                ]);
+                echo $this->Form->end();
+            ?>
+        </div>
+    </div>
+    <div class='form-group row collapse' id='edit-form'>
+        <div class='col-md-1'></div>
+        <div class='col-md-10'>
+            <?php
+                echo $this->Form->create('Question', array(
                     'action' => 'edit'
-                )
-            ));
-            echo $this->Form->input('title', array(
-                'placeholder' => 'タイトル',
-            ));
-            echo $this->Form->input('content', array(
-                'placeholder' => '本文'          
-            ));
-            echo $this->Form->input('id', array(
-                'type' => 'hidden',
-                'value' => $question['Question']['id']
-            ));
-            echo $this->Form->submit('更新する');
-            echo $this->Form->end();
+                ));
+                echo $this->Form->input('title', array(
+                    'label' => 'title:',
+                    'rows' => 2,
+                    'class' => 'form-control',
+                ));
+                echo $this->Form->input('content', array(
+                    'label' => 'content:',
+                    'type' => 'textarea',
+                    'rows' => 5,
+                    'class' => 'form-control',
+                ));
+                echo $this->Form->input('id', array(
+                    'type' => 'hidden',
+                    'value' => $question['Question']['id']
+                ));
+                echo $this->Form->submit('更新', [
+                    'class' => 'btn btn-default pull-right',
+                ]);
+                echo $this->Form->end();
+            ?>
+        </div>
+        <div class='col-md-1'></div>
+    </div>
+
+<?php endif; ?>
+
+<div>
+    <!-- 回答フォーム  -->
+    <?php if ($question['Question']['is_resolved'] === false) :?>
+        <div class='form-group'>
+            <?php
+                echo $this->Form->create('Answer', array(
+                    'action' => 'add',
+                ));
+                echo $this->Form->input('content', array(
+                    'rows' => 3,
+                    'placeholder' => '回答',
+                    'class' => 'form-control',
+                ));
+                echo $this->Form->input('question_id', array(
+                    'type' => 'hidden',
+                    'value' => $question['Question']['id']
+                ));
+                echo $this->Form->input('user_id', array(
+                    'type' => 'hidden',
+                    'value' => $this->Session->read('Auth.User.id')
+                ));
+                echo $this->Form->submit('投稿', [
+                    'class' => ['btn btn-default pull-right'],
+                ]);
+                echo $this->Form->end(); 
+            ?>
+        </div>
+    <?php endif; ?>
+
+    <div>
+        <?php
+            echo '回答' . count($answers) . '件';
         ?>
     </div>
-    <div class='question_edit_closer'>閉じる</div>
-</div>
-
-<div class='container wrapper question_space'>
-    <div class="not_resloved">
-        <!-- <p>自己解決できない悩み（最近の悩み、知りたいこと、こんなツール欲しい、オススメのご飯屋知りたい、etc…）</p> -->
-        <?php if (!empty($question)) : ?>
-            <div class='title'>
-                <?php
-                    echo nl2br(h($question['Question']['title']));
-                ?>
-            </div>
-            <div class='content'>
-                <?php
-                    echo $this->Text->autoLink(
-                        $question['Question']['content'], 
-                        ['target' => '_blank']
-                    );
-                ?>
-            </div>
-            <div class='question_information'>
-                <div class='created'>
-                    <?php
-                        echo h('投稿日時 ' . $question['Question']['created']);
-                    ?>
-                </div>
-                <div class='contributor_name'>
-                        <?php
-                            echo $users_name[$question['Question']['user_id']];
-                        ?>
-                </div>
-                <div class='contributor_image'>
-                    <?php
-                        echo $this->Html->image('icon/' . $users_image[$question['Question']['user_id']], array(
-                            'url' => array(
-                                'controller' => 'users',
-                                'action' => 'view',
-                                $question['Question']['user_id']
-                            ),
-                            'class' => 'icon'
-                        )); 
-                    ?>
-                </div>
-            </div>
-            <?php if ($question['Question']['is_resolved'] === false) :?>
-                <?php if ($this->Session->read('Auth.User.id') !== $question['Question']['user_id']) :?>
-                    <div class='answer_button'>回答する</div>
-                    <div class='answer_form'>
-                        <?php
-                            echo $this->Form->create('Answer', array(
-                                'url' => array(
-                                    'controller' => 'answers',
-                                    'action' => 'add',
-                                ),
-                            ));
-                            echo $this->Form->textarea('content', array(
-                                'placeholder' => '回答はこちらへ'          
-                            ));
-                            echo $this->Form->hidden('question_id', array(
-                                'value' => $question['Question']['id']
-                            ));
-                            echo $this->Form->hidden('user_id', array(
-                                'value' => $this->Session->read('Auth.User.id')
-                            ));
-                            echo $this->Form->submit();
-                            echo $this->Form->end(); 
-                        ?>
-                    </div>
-                <?php else : ?>
-                    <div class='answer_setting'>
-                        <div class='answer_edit'>
-                            <div class='question_edit_opener'>編集する</div>
-                        </div>
-                        <div class='answer_resolve'>
+    <div class='panel-group' id='accordion'>
+        <?php foreach ($answers as $answer) :?>
+            <div class='well'>
+                <div class='row'>
+                    <div class='col-md-3'>
+                        <div class='thumbnail'>
                             <?php
-                                echo $this->Form->create('Question', array(
-                                    'type' => 'post',
-                                    'onsubmit' => 'return confirm("解決済みにしてよろしいですか？")',
-                                    'url' => array(
-                                        'controller' => 'questions',
-                                        'action' => 'resolve',
-                                    ),
-                                ));
-                                echo $this->Form->hidden('id', array(
-                                    'value' => $question['Question']['id'],
-                                ));
-                                echo $this->Form->hidden('is_resolved', array(
-                                    'value' => true,
-                                ));
-                                echo $this->Form->submit('解決した！');
-                                echo $this->Form->end();
+                                echo $this->element('icon', [
+                                    'user_image' => $users_image[$answer['Answer']['user_id']],
+                                    'user_id' => $answer['Answer']['user_id'],
+                                ]);
                             ?>
-                        </div>
-                        <div class='answer_delete'>
-                            <?php
-                                echo $this->Form->create('Question', array(
-                                    'onsubmit' => 'return confirm("この質問を削除しますか？")',
-                                    'url' => array(
-                                        'controller' => 'questions',
-                                        'action' => 'delete',
-                                    ),
-                                ));
-                                echo $this->Form->hidden('id', array(
-                                    'value' => $question['Question']['id'],
-                                ));
-                                echo $this->Form->submit('質問を削除');
-                                echo $this->Form->end();
-                            ?>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            <?php endif; ?>
-            <div class='answer_information'>
-                <?php
-                    echo '回答' . count($answers) . '件';
-                ?>
-            </div>
-            <div class='answer_wrapper'>
-                <?php foreach ($answers as $answer) :?>
-                    <div class='answer'>
-                        <div class='answer_content'>
-                            <?php 
-                                echo $this->Text->autoLink(
-                                    $answer['Answer']['content'], 
-                                    ['target' => '_blank']
-                                );
-                            ?>
-                        </div>
-                        <div class='answer_icon'>
-                            <div class='created'>
-                                <?php
-                                    echo h('投稿日時 ' . $answer['Answer']['created']);
-                                ?>
-                            </div>
-                            <div class='contributor_name'>
+                            <div class='caption text-center'>
                                 <?php
                                     echo $users_name[$answer['Answer']['user_id']];
                                 ?>
-                            </div>
-                            <div class='contributor_image'>
-                                <?php 
-                                    echo $this->Html->image('icon/' . $users_image[$answer['Answer']['user_id']], array(
-                                        'url' => array(
-                                            'controller' => 'users',
-                                            'action' => 'view',
-                                            $answer['Answer']['user_id']
-                                        ),
-                                        'class' => 'icon'
-                                    ));
-                                ?>
-                            </div>
+                            </div>                    
                         </div>
                     </div>
-                    <div>
-                        <?php
-                            echo 'コメント ' . count($comments[$answer['Answer']['id']]) . '件';
-                        ?>
+                    <div class='col-md-9 panel panel-default'>
+                        <div class='panel-body'>
+                            <h4 class='panel-title'>
+                                <!-- <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>"> -->
+                                    <?php
+                                        echo $this->Text->autoLink(
+                                            $answer['Answer']['content'],
+                                            ['target' => '_blank']
+                                        );
+                                    ?>
+                                <!-- </div> -->
+                            </h4>
+                        </div>
                     </div>
-                    <div class='comment_opener'>
-                        &#9661;
+                    <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>">
+                        コメント                    
+                        <span class="badge"><?php echo count($comments[$answer['Answer']['id']]) ;?></span>
                     </div>
-                    <div class='comment'>
-                        <table>
-                            <?php foreach ($comments[$answer['Answer']['id']] as $comment) :?>
-                                <tr>
-                                    <td class='comment_icon'>
-                                        <div class='comment_image'>
-                                            <?php 
-                                                echo $this->Html->image('icon/' . $users_image[$comment['Comment']['user_id']], array(
-                                                    'url' => array(
-                                                        'controller' => 'users',
-                                                        'action' => 'view',
-                                                        $comment['Comment']['user_id']
-                                                    ),
-                                                    'class' => 'icon'
-                                                )); 
-                                            ?>
-                                        </div>
-                                        <div class='comment_name'>
+                </div>
+                <div id="collapse<?php echo $answer['Answer']['id']; ?>" class="panel-collapse collapse">
+                    <ul class='list-group'>
+                        <?php foreach ($comments[$answer['Answer']['id']] as $comment) :?>
+                            <li class='list-group-item'>
+                                <div class='row'>
+                                    <div class='col-md-3'>
+                                        <strong>
                                             <?php
                                                 echo $users_name[$comment['Comment']['user_id']];
                                             ?>
-                                        </div>
-                                    </td>
-                                    <td>
+                                        </strong>
+                                    </div>
+                                    <div class='col-md-9'>
                                         <?php 
                                             echo $this->Text->autoLink(
                                                 nl2br(
@@ -219,66 +196,36 @@
                                                 )
                                             );
                                         ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </table>
-                        <?php if ($question['Question']['is_resolved'] === false) :?>
-                            <div class='comment_form'>
-                                <?php
-                                    echo $this->Form->create('Comment', array(
-                                        'url' => array(
-                                            'controller' => 'comments',
-                                            'action' => 'add',
-                                        ),
-                                    ));
-                                    echo $this->Form->textarea('content', array(
-                                        'placeholder' => 'コメントはこちらへ'          
-                                    ));
-                                    echo $this->Form->hidden('answer_id', array(
-                                        'value' => $answer['Answer']['id']
-                                    ));
-                                    echo $this->Form->hidden('user_id', array(
-                                        'value' => $this->Session->read('Auth.User.id')
-                                    ));
-                                    echo $this->Form->submit();
-                                    echo $this->Form->end(); 
-                                ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                <?php endforeach;?>
+                                    </div>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <?php if ($question['Question']['is_resolved'] === false) :?>
+                        <div class='form-group'>
+                            <?php
+                                echo $this->Form->create('Comment', array(
+                                    'action' => 'add',
+                                ));
+                                echo $this->Form->textarea('content', array(
+                                    'placeholder' => 'コメントはこちらへ',
+                                    'class' => 'form-control',
+                                ));
+                                echo $this->Form->hidden('answer_id', array(
+                                    'value' => $answer['Answer']['id']
+                                ));
+                                echo $this->Form->hidden('user_id', array(
+                                    'value' => $this->Session->read('Auth.User.id')
+                                ));
+                                echo $this->Form->submit('投稿', [
+                                    'class' => ['btn', 'btn-default pull-right']
+                                ]);
+                                echo $this->Form->end(); 
+                            ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </div>
-        <?php else : ?>
-            <?php if ($this->Session->read('Auth.User.id') === $user['User']['id']) :?>
-                <div class='question_form'>
-                    <?php
-                        echo $this->Form->create('Question', array(
-                            'url' => array(
-                                'controller' => 'questions',
-                                'action' => 'add',
-                            ),
-                        ));
-                        echo $this->Form->textarea('title', array(
-                            'placeholder' => 'タイトル'          
-                        ));
-                        echo $this->Form->textarea('content', array(
-                            'placeholder' => '本文'          
-                        ));
-                        echo $this->Form->hidden('user_id', array(
-                            'value' => $this->Session->read('Auth.User.id')
-                        ));
-                        echo $this->Form->submit();
-                        echo $this->Form->end();                     
-                    ?>
-                </div>
-            <?php else : ?>
-                <div class='content'>
-                    <?php
-                        echo h('なし');
-                    ?>
-                </div>
-            <?php endif;?>
-        <?php endif; ?>
+        <?php endforeach; ?>
     </div>
 </div>

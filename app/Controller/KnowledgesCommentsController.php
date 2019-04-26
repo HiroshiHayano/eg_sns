@@ -20,13 +20,15 @@ class KnowledgesCommentsController extends AppController {
             if ($this->KnowledgesComment->save($this->request->data)) {
                 $this->Session->setFlash(
                     '投稿しました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     '投稿できませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             } 
         }

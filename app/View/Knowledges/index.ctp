@@ -7,8 +7,8 @@
 <div class='container'>
     <div class='row'>
         <nav class='col-md-3'>
-            <h2>サイドメニュー</h2>
-            <ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="205">
+            <h2>メニュー</h2>
+            <ul class="nav nav-pills nav-stacked">
                 <li>
                     <?php
                         echo $this->Form->button('新規投稿はこちら', [
@@ -32,7 +32,7 @@
                         echo $this->Form->input('query', [
                             'label' => '',
                             'type' => 'text',
-                            'placeholder' => 'キーワードを入力してください',
+                            'placeholder' => '検索ワードを入力してください',
                             'class' => 'form-control'
                         ]);
                         echo $this->Form->submit('Search', [
@@ -87,16 +87,18 @@
         <div class='col-md-8'>
             <?php
                 echo $this->Form->create('Knowledge', [
-                    'action' => 'add'
+                    'action' => 'add',
                 ]);
                 echo $this->Form->input('title', [
                     'rows' => 3,
+                    'value' => '',
                     'label' => 'title:',
                     'class' => 'form-control',
                 ]);
                 echo $this->Form->input('content', [
                     'type' => 'textarea',
                     'rows' => 10,
+                    'value' => '',
                     'label' => 'content:',
                     'class' => 'form-control',
                 ]);

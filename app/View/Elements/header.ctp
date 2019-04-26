@@ -13,7 +13,7 @@
         ?>
     </div>
     <ul class="nav navbar-nav">
-        <li>
+        <li class="<?php if($this->name === 'Users'){echo 'active';} ?>">
             <?php
                 echo $this->Html->link('Member', array(
                     'controller' => 'users', 
@@ -21,7 +21,7 @@
                 )); 
             ?>
         </li>
-        <li>
+        <li class="<?php if($this->name === 'Questions'){echo 'active';} ?>">
             <?php
                 echo $this->Html->link('Questions', array(
                     'controller' => 'questions', 
@@ -29,7 +29,7 @@
                 )); 
             ?>
         </li>
-        <li>
+        <li class="<?php if($this->name === 'Knowledges'){echo 'active';} ?>">
             <?php
                 echo $this->Html->link('Knowledges', array(
                     'controller' => 'knowledges', 

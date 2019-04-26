@@ -173,9 +173,4 @@ class QuestionsController extends AppController {
             ));
         }
     }
-
-    public function post()
-    {
-
-    }
 }
