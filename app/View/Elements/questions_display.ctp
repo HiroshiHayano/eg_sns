@@ -1,43 +1,55 @@
 <!-- ここから  -->
 <?php
-$bg_color = 'alert-danger';
+$text_color = 'text-danger';
+$question_icon = 'glyphicon-question-sign';
+$question_state = '未解決';
 if ($question['Question']['is_resolved'] === true) {
-    $bg_color = 'alert-success';
-} else {
-    $bg_color = 'alert-danger';
+    $text_color = 'text-success';
+    $question_icon = 'glyphicon-ok-sign';
+    $question_state = '解決済み';
 }
 ?>
-
-<div class="<?php echo 'alert ' . $bg_color;?>">
-    <h1>
-        <strong>
+<div class='panel panel-default'>
+    <div class='panel-heading'>
+        <div class='panel-title'>
+            <h2 class='<?php echo $text_color; ?>'>
+                <strong>
+                    <?php
+                        echo $this->Html->tag('span', '', [
+                            'class' => ['glyphicon', $question_icon],
+                            'data-toggle' => 'tooltip',
+                            'title' => $question_state,
+                        ]);                    
+                        echo nl2br(h($question['Question']['title']));
+                    ?>
+                </strong>
+            </h2>
+        </div>
+    </div>
+    <div class='panel-body'>
+        <p>
             <?php
-                echo nl2br(h($question['Question']['title']));
+                echo nl2br($this->Text->autoLink(
+                    $question['Question']['content'],
+                    ['target' => '_blank']
+                ));
             ?>
-        </strong>
-    </h1>
-    <p>
-        <?php
-            echo nl2br($this->Text->autoLink(
-                $question['Question']['content'],
-                ['target' => '_blank']
-            ));
-        ?>
-    </p>
-    <p class='text-right'>
-        <?php
-            echo h('投稿日時 ' . $question['Question']['created']);
-        ?>
-    </p>
-    <p class='text-right'>
-        <?php
-            echo $this->element('icon', [
-                'user_image' => $users_image[$question['Question']['user_id']],
-                'user_id' => $question['Question']['user_id'],
-            ]);
-            echo $users_name[$question['Question']['user_id']];
-        ?>
-    </p>
+        </p>
+        <p class='text-right'>
+            <?php
+                echo h('投稿日時 ' . $question['Question']['created']);
+            ?>
+        </p>
+        <p class='text-right'>
+            <?php
+                echo $this->element('icon', [
+                    'user_image' => $users_image[$question['Question']['user_id']],
+                    'user_id' => $question['Question']['user_id'],
+                ]);
+                echo $users_name[$question['Question']['user_id']];
+            ?>
+        </p>
+    </div>
 </div>
 
 <!-- 編集・削除  -->

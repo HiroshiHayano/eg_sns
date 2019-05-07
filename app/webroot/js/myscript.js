@@ -45,4 +45,8 @@ $(document).ready(function(){
     // $('button#postform_closer').on('click', function() {
     //     $('#postform_layer').hide(250);
     // });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 });

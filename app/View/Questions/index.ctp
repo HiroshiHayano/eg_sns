@@ -17,15 +17,22 @@
                 <div class='row panel panel-default'>
                     <?php
                         $question_color = 'bg-danger';
+                        $question_icon = 'glyphicon-question-sign';
+                        $question_state = '未解決';
                         if ($question['Question']['is_resolved'] === true) {
                             $question_color = 'bg-success';
-                        } else {
-                            $question_color = 'bg-danger';
+                            $question_icon = 'glyphicon-ok-sign';
+                            $question_state = '解決済み';
                         }
                     ?>
                     <!-- <div class='panel-body'> -->
                     <div class='panel-heading'>
                         <?php 
+                            echo $this->Html->tag('span', '', [
+                                'class' => ['glyphicon', $question_icon],
+                                'data-toggle' => 'tooltip',
+                                'title' => $question_state,
+                            ]);
                             echo $this->Html->link(
                                 $this->Text->truncate($question['Question']['title'], $title_len), array(
                                     'controller' => 'Questions',

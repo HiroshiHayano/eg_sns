@@ -2,7 +2,6 @@
     echo $this->Html->css('view');
 ?>
 <div class='panel panel-default'>
-    <!-- <div class='alert alert-info'> -->
     <div class='panel-heading'>
         <div class='panel-title'>
             <h2>
