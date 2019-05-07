@@ -7,10 +7,10 @@
 <div class='container'>
     <div class="page-header">
         <h1>プロフィール
-            <small class='pull-right'>
+            <small>
                 <?php 
                     if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
-                        echo $this->Html->link('プロフィールの編集', array('action'=>'edit', $user['User']['id']));
+                        echo '&#9656;' . $this->Html->link('プロフィールの編集', array('action'=>'edit', $user['User']['id']));
                     }
                 ?>
             </small>
@@ -107,7 +107,7 @@
             <div class="page-header">
                 <h3>
                     質問
-                    <small class='pull-right'>
+                    <small>
                         <?php 
                             echo '&#9656;' . $this->Html->link('投稿した質問をみる (' . $number_of_questions . '件)', array(
                                 'controller' => 'questions',
@@ -124,7 +124,7 @@
             <div class='page-header'>
                 <h3>
                     知識
-                    <small class='pull-right'>
+                    <small>
                         <?php 
                             echo '&#9656;' . $this->Html->link('投稿した知識をみる (' . $number_of_knowledges . '件)', array(
                                 'controller' => 'knowledges',

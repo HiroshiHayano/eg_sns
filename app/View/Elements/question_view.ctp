@@ -12,14 +12,16 @@ if ($question['Question']['is_resolved'] === true) {
 <div class='panel panel-default'>
     <div class='panel-heading'>
         <div class='panel-title'>
-            <h2 class='<?php echo $text_color; ?>'>
-                <strong>
+            <h2>
+                <?php 
+                    echo $this->Html->tag('span', '', [
+                        'class' => ['glyphicon', $question_icon],
+                        'data-toggle' => 'tooltip',
+                        'title' => $question_state,
+                    ]);
+                ?>
+                <strong class='<?php echo $text_color; ?>'>
                     <?php
-                        echo $this->Html->tag('span', '', [
-                            'class' => ['glyphicon', $question_icon],
-                            'data-toggle' => 'tooltip',
-                            'title' => $question_state,
-                        ]);                    
                         echo nl2br(h($question['Question']['title']));
                     ?>
                 </strong>
@@ -55,14 +57,36 @@ if ($question['Question']['is_resolved'] === true) {
 <!-- 解決・編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $question['Question']['user_id']) :?>
     <div class='row'>
-        <div class='col-md-8'></div>
+        <div class='col-md-6'></div>
         <div class='col-md-2'>
             <?php
-                echo $this->Form->button('編集', [
-                    'class' => 'btn btn-default',
-                    'data-toggle' => 'collapse',
-                    'data-target' => '#edit-form',
+                if ($question['Question']['is_resolved'] === false) {
+                    echo $this->Form->button('編集', [
+                        'class' => 'btn btn-default',
+                        'data-toggle' => 'collapse',
+                        'data-target' => '#edit-form',
+                    ]);    
+                }
+            ?>
+        </div>
+        <div class='col-md-2'>
+            <?php
+                echo $this->Form->create('Question', array(
+                    'action' => 'resolve',
+                    'onsubmit' => 'return confirm("この投稿を解決済みにしますか？")',
+                ));
+                echo $this->Form->input('id', array(
+                    'type' => 'hidden',
+                    'value' => $question['Question']['id'],
+                ));
+                echo $this->Form->input('is_resolved', array(
+                    'type' => 'hidden',
+                    'value' => true,
+                ));
+                echo $this->Form->button('解決', [
+                    'class' => 'btn btn-success',
                 ]);
+                echo $this->Form->end();
             ?>
         </div>
         <div class='col-md-2'>
