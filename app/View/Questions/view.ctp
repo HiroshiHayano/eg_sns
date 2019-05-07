@@ -7,43 +7,7 @@
 <div class='container'>
     <div class='row'>
         <nav class='col-md-3'>
-            <div class="page-header">
-                <h2>メニュー</h2>
-            </div>
-            <ul class="nav nav-pills nav-stacked">
-                <li>
-                    <?php
-                        echo $this->Form->button('質問を投稿する', [
-                            'type' => 'button',
-                            'class' => ['btn', 'btn-default'],
-                            'id' => 'postform_opener'
-                        ]);
-                    ?>
-                </li>
-                <?php
-                    if (!empty($query)) {
-                        echo '<li>検索ワード: ' . $query . '<li>';
-                    }
-                ?>
-                <li>
-                    <?php
-                        echo $this->Form->create(false, [
-                            'type' => 'get',
-                            'action' => 'index'
-                        ]);
-                        echo $this->Form->input('query', [
-                            'label' => '',
-                            'type' => 'text',
-                            'placeholder' => '検索ワードを入力してください',
-                            'class' => 'form-control'
-                        ]);
-                        echo $this->Form->submit('Search', [
-                            'class' => ['btn', 'btn-default', 'pull-right']
-                        ]);
-                        echo $this->Form->end();
-                    ?>
-                </li>
-            </ul>
+            <?php echo $this->element('questions_sidebar'); ?>
         </nav>
         <div class='col-md-9'>
             <div class="page-header">

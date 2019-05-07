@@ -39,6 +39,7 @@ if ($question['Question']['is_resolved'] === true) {
         ?>
     </p>
 </div>
+
 <!-- 編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $question['Question']['user_id']) :?>
     <div class='row'>
@@ -92,7 +93,7 @@ if ($question['Question']['is_resolved'] === true) {
                     'value' => $question['Question']['id']
                 ));
                 echo $this->Form->submit('更新', [
-                    'class' => 'btn btn-default pull-right',
+                    'class' => 'btn btn-default btn-block',
                 ]);
                 echo $this->Form->end();
             ?>
@@ -111,8 +112,9 @@ if ($question['Question']['is_resolved'] === true) {
                     'action' => 'add',
                 ));
                 echo $this->Form->input('content', array(
+                    'label' => '回答',
                     'rows' => 3,
-                    'placeholder' => '回答',
+                    'placeholder' => '回答をこちらへ入力してください',
                     'class' => 'form-control',
                 ));
                 echo $this->Form->input('question_id', array(
@@ -124,7 +126,7 @@ if ($question['Question']['is_resolved'] === true) {
                     'value' => $this->Session->read('Auth.User.id')
                 ));
                 echo $this->Form->submit('投稿', [
-                    'class' => ['btn btn-default pull-right'],
+                    'class' => ['btn btn-default btn-block'],
                 ]);
                 echo $this->Form->end(); 
             ?>
@@ -170,61 +172,66 @@ if ($question['Question']['is_resolved'] === true) {
                         </div>
                     </div>
                     <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>">
-                        コメント                    
+                        <strong>コメント</strong>
                         <span class="badge"><?php echo count($comments[$answer['Answer']['id']]) ;?></span>
                     </div>
                 </div>
-                <div id="collapse<?php echo $answer['Answer']['id']; ?>" class="panel-collapse collapse">
-                    <ul class='list-group'>
-                        <?php foreach ($comments[$answer['Answer']['id']] as $comment) :?>
-                            <li class='list-group-item'>
-                                <div class='row'>
-                                    <div class='col-md-3'>
-                                        <strong>
-                                            <?php
-                                                echo $users_name[$comment['Comment']['user_id']];
-                                            ?>
-                                        </strong>
-                                    </div>
-                                    <div class='col-md-9'>
-                                        <?php 
-                                            echo $this->Text->autoLink(
-                                                nl2br(
-                                                    $comment['Comment']['content']
-                                                ), array(
-                                                    'target' => '_blank'
-                                                )
-                                            );
-                                        ?>
-                                    </div>
+                <?php if (count($comments[$answer['Answer']['id']]) > 0) : ?>
+                    <div id="collapse<?php echo $answer['Answer']['id']; ?>" class="collapse">
+                        <div class='panel-collapse'>
+                            <ul class='list-group'>
+                                <?php foreach ($comments[$answer['Answer']['id']] as $comment) :?>
+                                    <li class='list-group-item'>
+                                        <div class='row'>
+                                            <div class='col-md-3'>
+                                                <strong>
+                                                    <?php
+                                                        echo $users_name[$comment['Comment']['user_id']];
+                                                    ?>
+                                                </strong>
+                                            </div>
+                                            <div class='col-md-9'>
+                                                <?php 
+                                                    echo $this->Text->autoLink(
+                                                        nl2br(
+                                                            $comment['Comment']['content']
+                                                        ), array(
+                                                            'target' => '_blank'
+                                                        )
+                                                    );
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                            </ul>
+                            <?php if ($question['Question']['is_resolved'] === false) :?>
+                                <div class='form-group'>
+                                    <?php
+                                        echo $this->Form->create('Comment', array(
+                                            'action' => 'add',
+                                        ));
+                                        echo $this->Form->textarea('content', array(
+                                            'label' => 'コメント',
+                                            'placeholder' => 'コメントはこちらへ入力してください',
+                                            'class' => 'form-control',
+                                        ));
+                                        echo $this->Form->hidden('answer_id', array(
+                                            'value' => $answer['Answer']['id']
+                                        ));
+                                        echo $this->Form->hidden('user_id', array(
+                                            'value' => $this->Session->read('Auth.User.id')
+                                        ));
+                                        echo $this->Form->submit('投稿', [
+                                            'class' => ['btn', 'btn-default', 'btn-block']
+                                        ]);
+                                        echo $this->Form->end(); 
+                                    ?>
                                 </div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <?php if ($question['Question']['is_resolved'] === false) :?>
-                        <div class='form-group'>
-                            <?php
-                                echo $this->Form->create('Comment', array(
-                                    'action' => 'add',
-                                ));
-                                echo $this->Form->textarea('content', array(
-                                    'placeholder' => 'コメントはこちらへ',
-                                    'class' => 'form-control',
-                                ));
-                                echo $this->Form->hidden('answer_id', array(
-                                    'value' => $answer['Answer']['id']
-                                ));
-                                echo $this->Form->hidden('user_id', array(
-                                    'value' => $this->Session->read('Auth.User.id')
-                                ));
-                                echo $this->Form->submit('投稿', [
-                                    'class' => ['btn', 'btn-default pull-right']
-                                ]);
-                                echo $this->Form->end(); 
-                            ?>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
     </div>

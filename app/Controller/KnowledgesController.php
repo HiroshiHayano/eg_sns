@@ -31,6 +31,9 @@ class KnowledgesController extends AppController {
             $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
             $this->Session->write('Conditions', $conditions);
             $this->set('query', $this->request->query['query']);
+            $this->set('number_of_knowledges', $this->Knowledge->find('count', [
+                'conditions' => $conditions,
+            ]));
         } else {
             $this->Session->write('Conditions', []);
             $this->set('query', '');

@@ -30,19 +30,19 @@ $(document).ready(function(){
         $('.answer_form').toggle(250);
     });
 
-    $('.question_edit_layer').hide();
-    $('.question_edit_opener').on('click', function() {
-        $('.question_edit_layer').show(250);
-    });
-    $('.question_edit_closer').on('click', function() {
-        $('.question_edit_layer').hide(250);
-    });
+    // $('.question_edit_layer').hide();
+    // $('.question_edit_opener').on('click', function() {
+    //     $('.question_edit_layer').show(250);
+    // });
+    // $('.question_edit_closer').on('click', function() {
+    //     $('.question_edit_layer').hide(250);
+    // });
 
-    $('#postform_layer').hide();
-    $('button#postform_opener').on('click', function() {
-        $('#postform_layer').show(250);
-    });
-    $('button#postform_closer').on('click', function() {
-        $('#postform_layer').hide(250);
-    });
+    // $('#postform_layer').hide();
+    // $('button#postform_opener').on('click', function() {
+    //     $('#postform_layer').show(250);
+    // });
+    // $('button#postform_closer').on('click', function() {
+    //     $('#postform_layer').hide(250);
+    // });
 });
