@@ -43,17 +43,8 @@
 <!-- 編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $knowledge['Knowledge']['user_id']) :?>
     <div class='row'>
-        <div class='col-md-8'></div>
-        <div class='col-md-2'>
-            <?php
-                echo $this->Form->button('編集', [
-                    'class' => 'btn btn-default',
-                    'data-toggle' => 'collapse',
-                    'data-target' => '#edit-form',
-                ]);
-            ?>
-        </div>
-        <div class='col-md-2'>
+        <div class='col-md-4'></div>
+        <div class='col-md-4'>
             <?php
                 echo $this->Form->create('Knowledge', array(
                     'action' => 'delete',
@@ -64,39 +55,55 @@
                     'value' => $knowledge['Knowledge']['id'],
                 ));
                 echo $this->Form->button('削除', [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-block',
                 ]);
                 echo $this->Form->end();
+            ?>
+        </div>
+        <div class='col-md-4'>
+            <?php
+                echo $this->Form->button('編集', [
+                    'class' => 'btn btn-primary btn-block',
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#edit-form',
+                ]);
             ?>
         </div>
     </div>
     <div class='form-group row collapse' id='edit-form'>
         <div class='col-md-1'></div>
         <div class='col-md-10'>
-            <?php
-                echo $this->Form->create('Knowledge', array(
-                    'action' => 'edit'
-                ));
-                echo $this->Form->input('title', array(
-                    'label' => 'title:',
-                    'rows' => 2,
-                    'class' => 'form-control',
-                ));
-                echo $this->Form->input('content', array(
-                    'label' => 'content:',
-                    'type' => 'textarea',
-                    'rows' => 5,
-                    'class' => 'form-control',
-                ));
-                echo $this->Form->input('id', array(
-                    'type' => 'hidden',
-                    'value' => $knowledge['Knowledge']['id']
-                ));
-                echo $this->Form->submit('更新', [
-                    'class' => 'btn btn-default btn-block',
-                ]);
-                echo $this->Form->end();
-            ?>
+            <div class='panel panel-default'>
+                <div class="panel-heading">
+                    <h4 class='title'>編集フォーム</h4>
+                </div>
+                <div class='panel-body bg-primary'>
+                    <?php
+                        echo $this->Form->create('Knowledge', array(
+                            'action' => 'edit'
+                        ));
+                        echo $this->Form->input('title', array(
+                            'label' => 'title:',
+                            'rows' => 2,
+                            'class' => 'form-control',
+                        ));
+                        echo $this->Form->input('content', array(
+                            'label' => 'content:',
+                            'type' => 'textarea',
+                            'rows' => 5,
+                            'class' => 'form-control',
+                        ));
+                        echo $this->Form->input('id', array(
+                            'type' => 'hidden',
+                            'value' => $knowledge['Knowledge']['id']
+                        ));
+                        echo $this->Form->submit('更新', [
+                            'class' => 'btn btn-default btn-block',
+                        ]);
+                        echo $this->Form->end();
+                    ?>
+                </div>
+            </div>
         </div>
         <div class='col-md-1'></div>
     </div>
@@ -140,26 +147,21 @@
         <?php foreach ($comments as $comment) :?>
             <tr>
                 <td class='col-md-3'>
-                    <div class='thumbnail'>
+                    <strong>
                         <?php
-                            echo $this->element('icon', [
-                                'user_image' => $users_image[$comment['KnowledgesComment']['user_id']],
-                                'user_id' => $comment['KnowledgesComment']['user_id'],
+                            echo $this->element('name_link', [
+                                'user_name' => $users_name[$comment['KnowledgesComment']['user_id']],
+                                'user_id' => $comment['KnowledgesComment']['user_id']
                             ]);
                         ?>
-                        <div class='caption text-center'>
-                            <?php
-                                echo $users_name[$comment['KnowledgesComment']['user_id']];
-                            ?>
-                        </div>                    
-                    </div>
+                    </strong>
                 </td>
                 <td class='col-md-9'>
                     <?php
-                        echo $this->Text->autoLink(
+                        echo nl2br($this->Text->autoLink(
                             $comment['KnowledgesComment']['content'],
                             ['target' => '_blank']
-                        );
+                        ));
                     ?>
                 </td>
             </tr>

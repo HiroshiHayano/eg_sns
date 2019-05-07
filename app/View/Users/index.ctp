@@ -17,7 +17,7 @@
         </nav>
         <div class='col-md-9'>
             <div class="page-header">
-                <h2>社員</h2>
+                <h2>社員一覧</h2>
             </div>
             <div class='row'>
                 <?php foreach ($users as $user) : ?>
@@ -34,7 +34,7 @@
                                     'height' => '150',
                                 ));
                             ?>
-                            <div class='caption'>
+                            <div class='caption text-center'>
                                 <?php 
                                     echo $this->Html->link(
                                         h($user['User']['name']),

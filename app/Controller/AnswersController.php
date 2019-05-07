@@ -22,14 +22,16 @@ class AnswersController extends AppController {
         } elseif ($this->request->is('post')) {
             if ($this->Answer->save($this->request->data)) {
                 $this->Session->setFlash(
-                    'コメントしました',
-                    'default'
+                    '回答しました',
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
-                    'コメントできませんでした',
-                    'default'
+                    '回答できませんでした',
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             } 
         }

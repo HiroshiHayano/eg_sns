@@ -57,39 +57,29 @@ if ($question['Question']['is_resolved'] === true) {
 <!-- 解決・編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $question['Question']['user_id']) :?>
     <div class='row'>
-        <div class='col-md-6'></div>
-        <div class='col-md-2'>
+        <div class='col-md-4'>
             <?php
                 if ($question['Question']['is_resolved'] === false) {
-                    echo $this->Form->button('編集', [
-                        'class' => 'btn btn-default',
-                        'data-toggle' => 'collapse',
-                        'data-target' => '#edit-form',
-                    ]);    
+                    echo $this->Form->create('Question', array(
+                        'action' => 'resolve',
+                        'onsubmit' => 'return confirm("この投稿を解決済みにしますか？")',
+                    ));
+                    echo $this->Form->input('id', array(
+                        'type' => 'hidden',
+                        'value' => $question['Question']['id'],
+                    ));
+                    echo $this->Form->input('is_resolved', array(
+                        'type' => 'hidden',
+                        'value' => true,
+                    ));
+                    echo $this->Form->button('解決', [
+                        'class' => 'btn btn-success btn-block',
+                    ]);
+                    echo $this->Form->end();
                 }
             ?>
         </div>
-        <div class='col-md-2'>
-            <?php
-                echo $this->Form->create('Question', array(
-                    'action' => 'resolve',
-                    'onsubmit' => 'return confirm("この投稿を解決済みにしますか？")',
-                ));
-                echo $this->Form->input('id', array(
-                    'type' => 'hidden',
-                    'value' => $question['Question']['id'],
-                ));
-                echo $this->Form->input('is_resolved', array(
-                    'type' => 'hidden',
-                    'value' => true,
-                ));
-                echo $this->Form->button('解決', [
-                    'class' => 'btn btn-success',
-                ]);
-                echo $this->Form->end();
-            ?>
-        </div>
-        <div class='col-md-2'>
+        <div class='col-md-4'>
             <?php
                 echo $this->Form->create('Question', array(
                     'action' => 'delete',
@@ -100,39 +90,57 @@ if ($question['Question']['is_resolved'] === true) {
                     'value' => $question['Question']['id'],
                 ));
                 echo $this->Form->button('削除', [
-                    'class' => 'btn btn-danger',
+                    'class' => 'btn btn-danger btn-block',
                 ]);
                 echo $this->Form->end();
+            ?>
+        </div>
+        <div class='col-md-4'>
+            <?php
+                if ($question['Question']['is_resolved'] === false) {
+                    echo $this->Form->button('編集', [
+                        'class' => 'btn btn-primary btn-block',
+                        'data-toggle' => 'collapse',
+                        'data-target' => '#edit-form',
+                    ]);    
+                }
             ?>
         </div>
     </div>
     <div class='form-group row collapse' id='edit-form'>
         <div class='col-md-1'></div>
         <div class='col-md-10'>
-            <?php
-                echo $this->Form->create('Question', array(
-                    'action' => 'edit'
-                ));
-                echo $this->Form->input('title', array(
-                    'label' => 'title:',
-                    'rows' => 2,
-                    'class' => 'form-control',
-                ));
-                echo $this->Form->input('content', array(
-                    'label' => 'content:',
-                    'type' => 'textarea',
-                    'rows' => 5,
-                    'class' => 'form-control',
-                ));
-                echo $this->Form->input('id', array(
-                    'type' => 'hidden',
-                    'value' => $question['Question']['id']
-                ));
-                echo $this->Form->submit('更新', [
-                    'class' => 'btn btn-default btn-block',
-                ]);
-                echo $this->Form->end();
-            ?>
+            <div class='panel panel-default'>
+                <div class="panel-heading">
+                    <h4 class='title'>編集フォーム</h4>
+                </div>
+                <div class='panel-body bg-primary'>
+                    <?php
+                        echo $this->Form->create('Question', array(
+                            'action' => 'edit'
+                        ));
+                        echo $this->Form->input('title', array(
+                            'label' => 'title:',
+                            'rows' => 2,
+                            'class' => 'form-control',
+                        ));
+                        echo $this->Form->input('content', array(
+                            'label' => 'content:',
+                            'type' => 'textarea',
+                            'rows' => 5,
+                            'class' => 'form-control',
+                        ));
+                        echo $this->Form->input('id', array(
+                            'type' => 'hidden',
+                            'value' => $question['Question']['id']
+                        ));
+                        echo $this->Form->submit('更新', [
+                            'class' => 'btn btn-default btn-block',
+                        ]);
+                        echo $this->Form->end();
+                    ?>
+                </div>
+            </div>
         </div>
         <div class='col-md-1'></div>
     </div>
@@ -150,7 +158,7 @@ if ($question['Question']['is_resolved'] === true) {
                 echo $this->Form->input('content', array(
                     'label' => '回答',
                     'rows' => 3,
-                    'placeholder' => '回答をこちらへ入力してください',
+                    'placeholder' => '回答はこちらへ入力してください',
                     'class' => 'form-control',
                 ));
                 echo $this->Form->input('question_id', array(
@@ -169,47 +177,48 @@ if ($question['Question']['is_resolved'] === true) {
         </div>
     <?php endif; ?>
 
-    <div>
-        <?php
-            echo '回答' . count($answers) . '件';
-        ?>
+    <div class="page-header">
+        <h3>
+            <?php
+                echo '回答' . count($answers) . '件';
+            ?>
+        </h3>
     </div>
     <div class='panel-group' id='accordion'>
         <?php foreach ($answers as $answer) :?>
             <div class='well'>
                 <div class='row'>
-                    <div class='col-md-3'>
-                        <div class='thumbnail'>
+                    <div class='col-md-2'>
+                        <strong>
                             <?php
-                                echo $this->element('icon', [
-                                    'user_image' => $users_image[$answer['Answer']['user_id']],
-                                    'user_id' => $answer['Answer']['user_id'],
+                                echo $this->element('name_link', [
+                                    'user_name' => $users_name[$answer['Answer']['user_id']],
+                                    'user_id' => $answer['Answer']['user_id']
                                 ]);
                             ?>
-                            <div class='caption text-center'>
-                                <?php
-                                    echo $users_name[$answer['Answer']['user_id']];
-                                ?>
-                            </div>                    
-                        </div>
+                        </strong>
                     </div>
-                    <div class='col-md-9 panel panel-default'>
-                        <div class='panel-body'>
-                            <h4 class='panel-title'>
-                                <!-- <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>"> -->
+                    <div class='col-md-10'>
+                        <div class='panel panel-default'>
+                            <div class='panel-body'>
+                                <h4 class='panel-title'>
                                     <?php
-                                        echo $this->Text->autoLink(
+                                        echo nl2br($this->Text->autoLink(
                                             $answer['Answer']['content'],
                                             ['target' => '_blank']
-                                        );
+                                        ));
                                     ?>
-                                <!-- </div> -->
-                            </h4>
+                                </h4>
+                            </div>
                         </div>
                     </div>
-                    <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>">
-                        <strong>コメント</strong>
-                        <span class="badge"><?php echo count($comments[$answer['Answer']['id']]) ;?></span>
+                </div>
+                <div class='row'>
+                    <div class='col-md-12'>
+                        <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>">
+                            <strong>コメント</strong>
+                            <span class="badge"><?php echo count($comments[$answer['Answer']['id']]) ;?></span>
+                        </div>
                     </div>
                 </div>
                 <div id="collapse<?php echo $answer['Answer']['id']; ?>" class="collapse">
@@ -219,22 +228,22 @@ if ($question['Question']['is_resolved'] === true) {
                                 <?php foreach ($comments[$answer['Answer']['id']] as $comment) : ?>
                                     <li class='list-group-item'>
                                         <div class='row'>
-                                            <div class='col-md-3'>
+                                            <div class='col-md-2'>
                                                 <strong>
                                                     <?php
-                                                        echo $users_name[$comment['Comment']['user_id']];
+                                                        echo $this->element('name_link', [
+                                                            'user_name' => $users_name[$comment['Comment']['user_id']],
+                                                            'user_id' => $comment['Comment']['user_id']
+                                                        ]);
                                                     ?>
                                                 </strong>
                                             </div>
-                                            <div class='col-md-9'>
+                                            <div class='col-md-10'>
                                                 <?php 
-                                                    echo $this->Text->autoLink(
-                                                        nl2br(
-                                                            $comment['Comment']['content']
-                                                        ), array(
-                                                            'target' => '_blank'
-                                                        )
-                                                    );
+                                                    echo nl2br($this->Text->autoLink(
+                                                        $comment['Comment']['content'],
+                                                        ['target' => '_blank']
+                                                    ));
                                                 ?>
                                             </div>
                                         </div>

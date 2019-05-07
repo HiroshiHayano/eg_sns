@@ -11,7 +11,7 @@
         </nav>
         <div class='col-md-9'>
             <div class="page-header">
-                <h2>共有知識</h2>
+                <h2>共有知識一覧</h2>
             </div>
             <?php echo $this->element('knowledges_display', ['knowledges' => $knowledges]); ?>
             <?php

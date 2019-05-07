@@ -1,6 +1,6 @@
 <?php
     echo $this->Html->css('index_questions');
-    echo $this->element('head', array('title' => '質問'));
+    echo $this->element('head', array('title' => '[質問]: ' . $question['Question']['title']));
     echo $this->element('header');
 ?>
 
@@ -13,7 +13,6 @@
             <div class="page-header">
                 <h2>質問</h2>
             </div>
-            <!-- <ここに内容> -->
             <?php
                 echo $this->element('question_view', array(
                     'question' => $question,
@@ -23,7 +22,6 @@
                     'users_image' => $users_image,
                 ))
             ?>
-            <!-- <ここに内容> -->
         </div>
     </div>
 </div>

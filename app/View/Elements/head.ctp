@@ -1,5 +1,5 @@
 <head>
-    <title><?php echo $title; ?></title>
+    <title><?php echo h($title); ?></title>
     <?= $this->Html->script('jquery/jquery-3.4.0.min.js'); ?>
     <?= $this->Html->script('bootstrap/bootstrap.min.js'); ?>
     <?= $this->Html->script('myscript.js') ?>
