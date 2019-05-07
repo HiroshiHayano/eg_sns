@@ -4,7 +4,7 @@
 <ul class="nav nav-pills nav-stacked">
     <?php
         if (!empty($query)) {
-            echo '<li>検索ワード: ' . $query . '<li>';
+            echo '<li>検索ワード: "' . h($query) . '"<li>';
         }
     ?>
     <li>
@@ -20,7 +20,7 @@
                 'class' => 'form-control'
             ]);
             echo $this->Form->submit('Search', [
-                'class' => ['btn', 'btn-default', 'pull-right']
+                'class' => ['btn', 'btn-default', 'btn-block']
             ]);
             echo $this->Form->end();
         ?>

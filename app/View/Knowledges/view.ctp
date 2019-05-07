@@ -16,7 +16,7 @@
 
             <!-- <ここに内容> -->
             <?php
-                echo $this->element('knowledges_display', array(
+                echo $this->element('knowledge_view', array(
                     'knowledge' => $knowledge,
                     'comments' => $comments,
                     'users_name' => $users_name,

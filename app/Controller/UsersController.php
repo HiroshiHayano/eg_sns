@@ -43,7 +43,7 @@ class UsersController extends AppController {
         }
         
         // 登録済ユーザーはindex, viewページへアクセス許可
-        if (in_array($this->action, array('index', 'view', 'logout'))) {
+        if (in_array($this->action, array('index', 'view', 'logout', 'questions_view', 'knowledges_view'))) {
             return true;
         }
     
@@ -77,13 +77,6 @@ class UsersController extends AppController {
             $this->set('query', '');
         }
         $this->set('users', $this->paginate('User', $this->Session->read('Conditions')));
-        // $this->set('users', $this->User->find('all', array(
-        //     'order' => ['phonetic' => 'asc'],
-        //     'conditions' => array(
-        //         'is_deleted' => false,
-        //         'admin' => false,
-        //     )
-        // )));
     }
 
     public function view($id = NULL)
@@ -93,68 +86,40 @@ class UsersController extends AppController {
         $this->Department->id = $this->User->field('department_id');
         $this->set('department', $this->Department->field('name'));
 
-        $number_of_element = null;
+        // プロプページへ引用する投稿の上限
+        $number_of_display_posts = 5;
         $questions = $this->Question->find('all', [
             'order' => ['id' => 'desc'],
             'conditions' => ['user_id' => $id],
-            'limit' => $number_of_element,
+            'limit' => $number_of_display_posts,
         ]);
         $this->set('questions', $questions);
+        $this->set('number_of_questions', $this->Question->find('count', [
+            'conditions' => ['user_id' => $id],
+        ]));
 
         $knowledges = $this->Knowledge->find('all', array(
             'order' => ['id' => 'desc'],
             'conditions' => array('user_id' => $id),
-            'limit' => $number_of_element,
+            'limit' => $number_of_display_posts,
         ));
         $this->set('knowledges', $knowledges);
-
-        // $question = $this->Question->find('first', array( // 現在はとりあえず一件だけ表示するためにfirstにしている
-        //     'conditions' => array(
-        //         'user_id' => $id,
-        //         'is_resolved' => 0,
-        //     )
-        // ));
-
-        // $this->set('question', $question);
-
-        // if (!empty($question)) {
-        //     $this->Question->id = $question['Question']['id'];
-        //     $this->request->data = $this->Question->read();
-
-        //     // ユーザーの顔画像パス一覧取得
-        //     $this->set('users_image', $this->UsersList->getImages());
-        //     // ユーザーの名前一覧取得
-        //     $this->set('users_name', $this->UsersList->getNames());
-
-        //     $answers = $this->Answer->find('all', array(
-        //         'conditions' => array(
-        //             'question_id' => $question['Question']['id'],
-        //         )
-        //     ));
-        //     $this->set('answers', $answers);
-    
-        //     $answers_id = array();
-        //     foreach ($answers as $answer) {
-        //         $answers_id[] = $answer['Answer']['id'];
-        //     }
-        //     $comments = array();
-        //     foreach ($answers_id as $answer_id) {
-        //         $comments_set = array();
-        //         $comments_set += $this->Comment->find('all', array(
-        //             'conditions' => array(
-        //                 'answer_id' => $answer_id,
-        //             )
-        //         ));
-        //         $comments += array($answer_id => $comments_set);
-        //     }
-        //     $this->set('comments', $comments);
-        // } else {
-        //     $this->set('answers', []);
-        //     $this->set('comments', []);
-        //     $this->set('users_name', []);
-        //     $this->set('users_image', []);
-        // }
+        $this->set('number_of_knowledges', $this->Knowledge->find('count', [
+            'conditions' => ['user_id' => $id],
+        ]));
     }
+
+    // public function questions_view($id = NULL)
+    // {
+    //     $this->User->id = $id;
+    //     $this->set('user', $this->User->read());
+
+    //     $questions = $this->Question->find('all', [
+    //         'order' => ['id' => 'desc'],
+    //         'conditions' => ['user_id' => $id],
+    //     ]);
+    //     $this->set('questions', $questions);
+    // }
 
     public function login()
     {

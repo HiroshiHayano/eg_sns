@@ -100,47 +100,63 @@
         </div>
     </div>
     <div class='row'>
-        <div class='col-md-6'>
-            <h3>投稿した質問</h3>
-            <?php foreach ($questions as $question) : ?>
-                <div class='panel panel-default'>
-                    <div class='panel-heading'>
-                        <?php
-                            echo $this->Html->link($question['Question']['title'], [
-                                'controller' => 'questions', 
-                                'action' => 'view',
-                                $question['Question']['id']
-                            ]);
-                        ?>
-                    </div>
-                    <div class='panel-body'>
-                        <?php
-                            echo $this->Text->truncate($question['Question']['content'], 100);
-                        ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+        <div class="page-header">
+            <h2>最近の投稿</h2>
         </div>
         <div class='col-md-6'>
-            <h3>共有した知識</h3>
-            <?php foreach ($knowledges as $knowledge) : ?>
-                <div class='panel panel-default'>
-                    <div class='panel-heading'>
-                        <?php
-                            echo $this->Html->link($knowledge['Knowledge']['title'], [
-                                'controller' => 'knowledges', 
-                                'action' => 'view',
-                                $knowledge['Knowledge']['id']
-                            ]);
+            <div class="page-header">
+                <h3>
+                    質問
+                    <small class='pull-right'>
+                        <?php 
+                            echo '&#9656;' . $this->Html->link('投稿した質問をみる (' . $number_of_questions . '件)', array(
+                                'controller' => 'questions',
+                                'action'=>'questions_view', 
+                                $user['User']['id']
+                            ));
                         ?>
-                    </div>
-                    <div class='panel-body'>
-                        <?php
-                            echo $this->Text->truncate($knowledge['Knowledge']['content'], 200);
+                    </small>
+                </h3>
+            </div>
+            <?php echo $this->element('questions_display', ['questions' => $questions]); ?>
+        </div>
+        <div class='col-md-6'>
+            <div class='page-header'>
+                <h3>
+                    知識
+                    <small class='pull-right'>
+                        <?php 
+                            echo '&#9656;' . $this->Html->link('投稿した知識をみる (' . $number_of_knowledges . '件)', array(
+                                'controller' => 'knowledges',
+                                'action'=>'knowledges_view', 
+                                $user['User']['id']
+                            ));
                         ?>
+                    </small>
+                </h3>
+            </div>
+            <div>
+                <?php foreach ($knowledges as $knowledge) : ?>
+                    <div class='panel panel-default'>
+                        <div class='panel-heading'>
+                            <strong>
+                                <?php
+                                    echo $this->Html->link($knowledge['Knowledge']['title'], [
+                                        'controller' => 'knowledges', 
+                                        'action' => 'view',
+                                        $knowledge['Knowledge']['id']
+                                    ]);
+                                ?>
+                            </strong>
+                        </div>
+                        <div class='panel-body'>
+                            <?php
+                                echo h($this->Text->truncate($knowledge['Knowledge']['content'], 50));
+                            ?>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </div>

@@ -13,30 +13,7 @@
             <div class="page-header">
                 <h2>共有知識</h2>
             </div>
-            <?php foreach ($knowledges as $knowledge): ?>
-                <div class='row panel panel-default'>
-                    <div class='panel-heading'>
-                        <?php 
-                            echo $this->Html->link(
-                                $this->Text->truncate($knowledge['Knowledge']['title'], $title_len), array(
-                                    'controller' => 'knowledges',
-                                    'action' => 'view',
-                                    $knowledge['Knowledge']['id']
-                                )
-                            );
-
-                        ?>
-                    </div>
-                    <div class='panel-body'>
-                        <?php 
-                            echo h($this->Text->truncate(
-                                $knowledge['Knowledge']['content'], 
-                                $content_len
-                            ));
-                        ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+            <?php echo $this->element('knowledges_display', ['knowledges' => $knowledges]); ?>
             <?php
                 echo $this->Paginator->numbers(
                     array (

@@ -15,7 +15,7 @@
             </div>
             <!-- <ここに内容> -->
             <?php
-                echo $this->element('questions_display', array(
+                echo $this->element('question_view', array(
                     'question' => $question,
                     'answers' => $answers,
                     'comments' => $comments,

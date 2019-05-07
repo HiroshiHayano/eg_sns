@@ -4,7 +4,7 @@
 <ul class="nav nav-pills nav-stacked">
     <?php
         if (!empty($query)) {
-            echo '<li>検索ワード: "' . $query . '" (' . $number_of_knowledges . '件)' . '<li>';
+            echo '<li>検索ワード: "' . h($query) . '" (' . $number_of_knowledges . '件)' . '<li>';
         }
     ?>
     <li>

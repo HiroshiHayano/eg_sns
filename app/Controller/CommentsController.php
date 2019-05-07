@@ -21,13 +21,15 @@ class CommentsController extends AppController {
             if ($this->Comment->save($this->request->data)) {
                 $this->Session->setFlash(
                     'コメントしました',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-success']
                 );
                 $this->redirect($this->referer());
             } else {
                 $this->Session->setFlash(
                     'コメントできませんでした',
-                    'default'
+                    'default',
+                    ['class' => 'alert alert-danger']
                 );
             } 
         }

@@ -17,7 +17,7 @@ class KnowledgesController extends AppController {
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('index', 'view', 'add', 'edit', 'delete'))) {
+        if (in_array($this->action, array('index', 'view', 'add', 'edit', 'delete', 'knowledges_view'))) {
             return true;
         }
         return parent::isAuthorized($user);
@@ -39,8 +39,6 @@ class KnowledgesController extends AppController {
             $this->set('query', '');
         }
         $this->set('knowledges', $this->paginate('Knowledge', $this->Session->read('Conditions')));
-        $this->set('title_len', 50);
-        $this->set('content_len', 100);
     }
 
     public function view($id = NULL)
@@ -137,5 +135,14 @@ class KnowledgesController extends AppController {
                 'action' => 'index'
             ));
         }
+    }
+
+    public function knowledges_view($id = NULL)
+    {
+        $this->User->id = $id;
+        $this->set('user', $this->User->read());
+
+        $conditions['user_id'] = $this->User->id;
+        $this->set('knowledges', $this->paginate('Knowledge', $conditions));
     }
 }
