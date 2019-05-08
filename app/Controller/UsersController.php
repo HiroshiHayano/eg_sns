@@ -1,11 +1,11 @@
 <?php
 
+App::uses('File', 'Utility');
 class UsersController extends AppController {
     public $autoLayout = false;
 
     public $helpers = array('Html', 'Form');
-    // public $uses = array('User', 'Department', 'Question', 'Answer', 'Comment');
-    public $uses = ['User', 'Department', 'Question', 'Knowledge', 'File', 'Utility'];
+    public $uses = ['User', 'Department', 'Question', 'Knowledge'];
     public $components = ['UsersList', 'UpdateSession'];
     public $paginate = [
         'limit' => 40,
@@ -66,16 +66,23 @@ class UsersController extends AppController {
 
     public function index()
     {
-        if (!empty($this->request->query)) {
-            $conditions = [];
+        $this->set('departments', $this->Department->find('list', array('fields' => 'name')));
+        $conditions = [];
+        if (!empty($this->request->query['query'])) {
             $conditions['OR']['name LIKE'] = '%' . $this->request->query['query'] . '%';
             $conditions['OR']['phonetic LIKE'] = '%' . $this->request->query['query'] . '%';
-            $this->Session->write('Conditions', $conditions);
             $this->set('query', $this->request->query['query']);
         } else {
-            $this->Session->write('Conditions', []);
             $this->set('query', '');
         }
+
+        if (!empty($this->request->query['department_id'])) {
+            $conditions['and']['department_id'] = $this->request->query['department_id'];
+            $this->set('department_id', $this->request->query['department_id']);
+        } else {
+            $this->set('department_id', '');
+        }
+        $this->Session->write('Conditions', $conditions);
         $this->set('users', $this->paginate('User', $this->Session->read('Conditions')));
     }
 

@@ -1,14 +1,8 @@
 <?php
-    // echo $this->Html->css('index_users');
+    echo $this->Html->css('index_users');
     echo $this->element('head', array('title' => '社員一覧'));
     echo $this->element('header');
 ?>
-<style>
-  .affix {
-      top: 0;
-      width: 100%;
-  }
- </style>
 
 <div class='container'>
     <div class='row'>
@@ -19,9 +13,9 @@
             <div class="page-header">
                 <h2>社員一覧</h2>
             </div>
-            <div class='row'>
+            <div class='row row-eq-height'>
                 <?php foreach ($users as $user) : ?>
-                    <div class='icon col-md-3'>
+                    <div class='col-md-3'>
                         <div class='thumbnail'>
                             <?php 
                                 echo $this->Html->image('icon/' . $user['User']['image'], array(
@@ -30,8 +24,9 @@
                                         'action' => 'view', 
                                         $user['User']['id']
                                     ),
+                                    // 応急処置。画像の登録時にトリミングするようにしたい
                                     'width' => '150',
-                                    'height' => '150',
+                                    'height' => 'auto',
                                 ));
                             ?>
                             <div class='caption text-center'>
