@@ -26,13 +26,13 @@ class QuestionsController extends AppController {
             $conditions = [];
             $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
             $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
-            $this->Session->write('Conditions', $conditions);
+            CakeSession::write('Conditions', $conditions);
             $this->set('query', $this->request->query['query']);
             $this->set('number_of_questions', $this->Question->find('count', [
                 'conditions' => $conditions,
             ]));
         } else {
-            $this->Session->write('Conditions', []);
+            CakeSession::write('Conditions', []);
             $this->set('query', '');
         }
         $this->set('questions', $this->paginate('Question', $this->Session->read('Conditions')));
