@@ -3,16 +3,13 @@
 </div>
 <ul class="nav nav-pills nav-stacked">
     <li>
-        社員の検索ができます
-    </li>
-    <li>
         <?php
             echo $this->Form->create(false, [
                 'type' => 'get',
                 'action' => 'index'
             ]);
             echo $this->Form->input('query', [
-                'label' => '',
+                'label' => '社員を検索:',
                 'type' => 'text',
                 'placeholder' => '検索ワードを入力してください',
                 'class' => 'form-control'
@@ -29,14 +26,19 @@
             echo $this->Form->end();
         ?>
     </li>
-    <?php
-        if (!empty($query)) {
-            echo '<li>検索ワード: "' . h($query) . '"<li>';
-        }
-    ?>
-    <?php
-        if (!empty($department_id)) {
-            echo '<li>選択部署: "' . h($departments[$department_id]) . '"<li>';
-        }
-    ?>
+    <?php if (!empty($query) | !empty($department_id)) :?>
+        <div class='well'>
+            <?php
+                if (!empty($query)) {
+                    echo '<li><strong>検索ワード:</strong> <br>"' . h($query) . '"<li>';
+                }
+            ?>
+            <?php
+                if (!empty($department_id)) {
+                    echo '<li><strong>選択部署:</strong> <br>"' . h($departments[$department_id]) . '"<li>';
+                }
+            ?>
+            <?php echo '<li class="text-right"> ' . $number_of_users . '件</li>'; ?>
+        </div>
+    <?php endif; ?>
 </ul>

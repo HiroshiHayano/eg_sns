@@ -76,15 +76,13 @@ class User extends AppModel {
                 'rule' => array('mimeType', array('image/jpg', 'image/jpeg', 'image/png')),
                 'message' => array('MIME型が不正です')
             ),
-            'size' => array(
-                'maxFileSize' => array( 
-                    'rule' => array('fileSize', '<=', '5MB'),  // 5MB以下
-                    'message' => array('5MB以下の画像を選択してください')
-                ),
-                'minFileSize' => array( 
-                    'rule' => array('fileSize', '>',  0),// 0バイトより大
-                    'message' => array('file size error')
-                ),
+            'maxFileSize' => array( 
+                'rule' => array('fileSize', '<=', '1MB'),  // 1MB以下
+                'message' => array('サイズ5MB以下の画像を選択してください')
+            ),
+            'minFileSize' => array( 
+                'rule' => array('fileSize', '>',  0),// 0バイトより大
+                'message' => array('file size error')
             ),
         ),
     );

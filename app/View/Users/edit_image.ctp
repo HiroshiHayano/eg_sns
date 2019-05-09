@@ -23,14 +23,15 @@
             </div>
         </div>
         <div class='col-md-6'>
+            <?php $message = h('5MB以上の画像は登録できません<br>できれば縦横の比率1:1の画像でお願いしますm(__)m'); ?>
             <?php
                 echo $this->Form->create('User', array(
                     'enctype' => 'multipart/form-data'
                 ));    
                 echo $this->Form->input('image', array(
-                    'type' => 'file',
-                    'label' => array('text' => 'プロフィール画像'), 
+                    'label' => "プロフィール画像（顔が写ってるもの）: <span class='glyphicon glyphicon-warning-sign text-danger' data-toggle='tooltip'  data-html='true' title=" . $message . "></span>", 
                     'class' => 'form-control',
+                    'type' => 'file',
                 ));
                 echo $this->Form->button('プロフィール画像の更新', [
                     'class' => ['btn', 'btn-default'],

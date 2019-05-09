@@ -8,7 +8,7 @@ class UsersController extends AppController {
     public $uses = ['User', 'Department', 'Question', 'Knowledge'];
     public $components = ['UsersList', 'UpdateSession'];
     public $paginate = [
-        'limit' => 40,
+        'limit' => 20,
         'order' => ['phonetic' => 'asc'],
         'conditions' => [
             'is_deleted' => false,
@@ -84,6 +84,11 @@ class UsersController extends AppController {
         }
         $this->Session->write('Conditions', $conditions);
         $this->set('users', $this->paginate('User', $this->Session->read('Conditions')));
+        $conditions['is_deleted'] = false;
+        $conditions['admin'] = false;
+        $this->set('number_of_users', $this->User->find('count', [
+            'conditions' => $conditions,
+        ]));
     }
 
     public function view($id = NULL)
@@ -180,14 +185,18 @@ class UsersController extends AppController {
                     $save_data = [];
                     $save_data['User']['image'] = $img_filename;
 
-                    // 画像を保存
+                    // 新規アカウント情報を登録
                     $this->User->save($save_data, $validate = false);
                     $this->UpdateSession->updateSession(); //セッション情報を更新する
                     $this->Session->setFlash(
-                        'プロフィール画像を更新しました',
+                        'アカウントを新規登録しました',
                         'default',
                         ['class' => 'alert alert-success']
                     );
+                    $this->redirect(array(
+                        'controller' => 'users', 
+                        'action' => 'login'
+                    ));
                 } else {
                     $this->Session->setFlash(
                         'プロフィール画像の保存に失敗しました',
@@ -197,39 +206,11 @@ class UsersController extends AppController {
                 }    
             } else { // validation error が見つかった
                 $this->Session->setFlash(
-                    'プロフィール画像を更新できませんでした',
+                    'アカウントの新規登録に失敗しました',
                     'default',
                     ['class' => 'alert alert-danger']
                 );
             }
-
-            // $uploaddir = WWW_ROOT . 'img/icon/';
-            // $uploadfile = $uploaddir . basename($this->request->data['User']['image']['name']);
-            // // tmp画像をwebroot/img/icon/に移動
-            // if (move_uploaded_file($this->request->data['User']['image']['tmp_name'], $uploadfile)) {
-            //     $save_data = $this->request->data;
-            //     $save_data['User']['image'] = $this->request->data['User']['image']['name'];     
-            //     if ($this->User->save($save_data)) {
-            //         $this->Session->setFlash(
-            //             '登録に成功しました',
-            //             'default',
-            //             ['class' => 'alert alert-success']
-            //         );
-            //         $this->redirect(array('action' => 'login'));
-            //     } else {
-            //         $this->Session->setFlash(
-            //             '登録に失敗しました',
-            //             'default',
-            //             ['class' => 'alert alert-danger']
-            //         );
-            //     }
-            // } else {
-            //     $this->Session->setFlash(
-            //         '画像の保存に失敗しました',
-            //         'default',
-            //         ['class' => 'alert alert-danger']
-            //     );
-            // }
         }
     }
 
@@ -298,7 +279,7 @@ class UsersController extends AppController {
                 }    
             } else { // validation error が見つかった
                 $this->Session->setFlash(
-                    'プロフィール画像を更新できませんでした: ' . $this->User->validationErrors['image'][0],
+                    'プロフィール画像を更新できませんでした',
                     'default',
                     ['class' => 'alert alert-danger']
                 );

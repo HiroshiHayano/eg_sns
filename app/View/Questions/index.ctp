@@ -1,5 +1,4 @@
 <?php
-    echo $this->Html->css('questions_index');
     echo $this->element('head', array('title' => '質問一覧'));
     echo $this->element('header');
 ?>

@@ -15,7 +15,7 @@
     <ul class="nav navbar-nav">
         <li class="<?php if($this->name === 'Users'){echo 'active';} ?>">
             <?php
-                echo $this->Html->link('Member', array(
+                echo $this->Html->link('社員', array(
                     'controller' => 'users', 
                     'action'=>'index',
                 )); 
@@ -23,7 +23,7 @@
         </li>
         <li class="<?php if($this->name === 'Questions'){echo 'active';} ?>">
             <?php
-                echo $this->Html->link('Questions', array(
+                echo $this->Html->link('質問', array(
                     'controller' => 'questions', 
                     'action'=>'index',
                 )); 
@@ -31,7 +31,7 @@
         </li>
         <li class="<?php if($this->name === 'Knowledges'){echo 'active';} ?>">
             <?php
-                echo $this->Html->link('Knowledges', array(
+                echo $this->Html->link('知って得する情報', array(
                     'controller' => 'knowledges', 
                     'action'=>'index',
                 )); 

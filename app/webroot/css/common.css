@@ -12,3 +12,7 @@ div#postform_layer {
     right: 10px;
     background: rgba(45,45,45, 0.5);
 }
+
+div.error-message {
+    color: red;
+}

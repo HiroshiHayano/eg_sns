@@ -70,7 +70,7 @@
                     ));
                     echo $this->Form->input('message', array(
                         'type' => 'textarea',
-                        'label' => '目標:',
+                        'label' => '一言:',
                         'class' => 'form-control',
                         'placeholder' => '自由記入'
                     ));

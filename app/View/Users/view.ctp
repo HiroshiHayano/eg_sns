@@ -1,5 +1,5 @@
 <?php
-    echo $this->Html->css('view');
+    // echo $this->Html->css('view');
     echo $this->element('head', array('title' => 'プロフィール'));
     echo $this->element('header');
 ?>
@@ -23,16 +23,22 @@
                     echo $this->Html->image('icon/' . $user['User']['image']);
                 ?>
                 <div class='caption'>
-                    <div class="phonetic">
-                        <?php 
-                            echo h($user['User']['phonetic']); 
-                        ?>
+                    <div class='text-center'>
+                        <h2>
+                            <small>
+                                <?php 
+                                    echo h($user['User']['phonetic']); 
+                                ?>
+                            </small>
+                        </h2>
+                        <h2>
+                            <strong>
+                                <?php 
+                                    echo h($user['User']['name']); 
+                                ?>
+                            </strong>
+                        </h2>
                     </div>
-                    <div class="name">
-                        <?php 
-                            echo h($user['User']['name']); 
-                        ?>
-                    </div>            
                 </div>
             </div>
         </div>
@@ -40,7 +46,7 @@
             <div class='row'>
                 <table class='table'>
                     <tr>
-                        <td class='col-md-4'>所属部署</td>
+                        <td class='col-md-4'><strong>所属部署:</strong></td>
                         <td class='col-md-8'>
                             <?php
                                 echo $department;
@@ -48,7 +54,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>mail</td>
+                        <td><strong>メールアドレス:</strong></td>
                         <td>
                             <?php
                                 echo $user['User']['mail_address'];
@@ -56,7 +62,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>誕生日</td>
+                        <td><strong>誕生日:</strong></td>
                         <td>
                             <?php
                                 echo $user['User']['birthday'];
@@ -64,7 +70,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>出身</td>
+                        <td><strong>出身:</strong></td>
                         <td>
                             <?php
                                 echo $user['User']['birthplace'];
@@ -72,7 +78,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>趣味</td>
+                        <td><strong>趣味:</strong></td>
                         <td>
                             <?php
                                 echo nl2br(h($user['User']['hobby']));
@@ -80,7 +86,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="150px">最近のマイブーム</td>
+                        <td><strong>最近のマイブーム:</strong></td>
                         <td>
                             <?php
                                 echo nl2br(h($user['User']['trend']));
@@ -88,7 +94,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>一言</td>
+                        <td><strong>一言:</strong></td>
                         <td>
                             <?php
                                 echo nl2br(h($user['User']['message']));
@@ -106,10 +112,10 @@
         <div class='col-md-6'>
             <div class="page-header">
                 <h3>
-                    質問
+                    <strong>質問</strong>
                     <small>
                         <?php 
-                            echo '&#9656;' . $this->Html->link('投稿した質問をみる (' . $number_of_questions . '件)', array(
+                            echo '&#9656;' . $this->Html->link('他の投稿をみる (' . $number_of_questions . '件)', array(
                                 'controller' => 'questions',
                                 'action'=>'questions_view', 
                                 $user['User']['id']
@@ -123,10 +129,10 @@
         <div class='col-md-6'>
             <div class='page-header'>
                 <h3>
-                    知識
+                    <strong>知識</strong>
                     <small>
                         <?php 
-                            echo '&#9656;' . $this->Html->link('投稿した知識をみる (' . $number_of_knowledges . '件)', array(
+                            echo '&#9656;' . $this->Html->link('他の投稿をみる (' . $number_of_knowledges . '件)', array(
                                 'controller' => 'knowledges',
                                 'action'=>'knowledges_view', 
                                 $user['User']['id']

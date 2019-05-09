@@ -1,5 +1,4 @@
 <?php
-    echo $this->Html->css('knowledges_index');
     echo $this->element('head', array('title' => '共有知識一覧'));
     echo $this->element('header');
 ?>

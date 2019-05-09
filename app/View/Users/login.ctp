@@ -1,5 +1,4 @@
 <?php
-    echo $this->Html->css('login');
     echo $this->element('head', array('title' => 'ログイン'));
     echo $this->Session->flash();
 ?>

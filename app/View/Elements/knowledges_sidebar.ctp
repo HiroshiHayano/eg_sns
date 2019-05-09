@@ -2,11 +2,6 @@
     <h2>メニュー</h2>
 </div>
 <ul class="nav nav-pills nav-stacked">
-    <?php
-        if (!empty($query)) {
-            echo '<li>検索ワード: "' . h($query) . '" (' . $number_of_knowledges . '件)' . '<li>';
-        }
-    ?>
     <li>
         <?php
             echo $this->Form->create(false, [
@@ -14,7 +9,7 @@
                 'action' => 'index'
             ]);
             echo $this->Form->input('query', [
-                'label' => '',
+                'label' => '知識を検索:',
                 'type' => 'text',
                 'placeholder' => '検索ワードを入力してください',
                 'class' => 'form-control'
@@ -25,11 +20,21 @@
             echo $this->Form->end();
         ?>
     </li>
+    <?php if (!empty($query)) :?>
+            <div class='well'>
+                <?php
+                    if (!empty($query)) {
+                        echo '<li><strong>検索ワード:</strong> <br>"' . h($query) . '"<li>';
+                    }
+                ?>
+                <?php echo '<li class="text-right"> ' . $number_of_knowledges . '件</li>'; ?>
+            </div>
+    <?php endif; ?>
     <li>
         <?php
             echo $this->Form->button('知識を新規投稿', [
                 'type' => 'button',
-                'class' => ['btn', 'btn-default', 'btn-block'],
+                'class' => ['btn', 'btn-info', 'btn-block'],
                 // 'id' => 'postform_opener,'
                 'data-toggle' => 'collapse',
                 'data-target' => '#post-form'

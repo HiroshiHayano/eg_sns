@@ -4,3 +4,9 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+#POSTデータの最大サイズ　※合計サイズ
+php_value post_max_size 20M
+
+#1ファイルあたりの最大アップロードサイズ
+php_value upload_max_filesize 20M

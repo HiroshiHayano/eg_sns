@@ -9,7 +9,7 @@
             <div class="page-header">
                 <h3>
                     <?php echo $user['User']['name'] . 'さんの投稿した知識'; ?>
-                    <small class='pull-right'>
+                    <small>
                         <?php 
                             echo '&#9656;' . $this->Html->link('プロフィールへ戻る', array(
                                 'controller' => 'users', 
