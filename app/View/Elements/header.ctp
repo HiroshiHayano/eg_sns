@@ -31,7 +31,7 @@
         </li>
         <li class="<?php if($this->name === 'Knowledges'){echo 'active';} ?>">
             <?php
-                echo $this->Html->link('知って得する情報', array(
+                echo $this->Html->link('知識', array(
                     'controller' => 'knowledges', 
                     'action'=>'index',
                 )); 

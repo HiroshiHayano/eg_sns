@@ -147,28 +147,7 @@
                     </small>
                 </h3>
             </div>
-            <div>
-                <?php foreach ($knowledges as $knowledge) : ?>
-                    <div class='panel panel-default'>
-                        <div class='panel-heading'>
-                            <strong>
-                                <?php
-                                    echo $this->Html->link($knowledge['Knowledge']['title'], [
-                                        'controller' => 'knowledges', 
-                                        'action' => 'view',
-                                        $knowledge['Knowledge']['id']
-                                    ]);
-                                ?>
-                            </strong>
-                        </div>
-                        <div class='panel-body'>
-                            <?php
-                                echo h($this->Text->truncate($knowledge['Knowledge']['content'], 50));
-                            ?>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+            <?php echo $this->element('knowledges_display', ['knowledges' => $knowledges]); ?>
         </div>
     </div>
 </div>
