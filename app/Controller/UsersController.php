@@ -99,7 +99,7 @@ class UsersController extends AppController {
         $this->set('department', $this->Department->field('name'));
 
         // プロプページへ引用する投稿の上限
-        $number_of_display_posts = 5;
+        $number_of_display_posts = 3;
         $questions = $this->Question->find('all', [
             'order' => ['id' => 'desc'],
             'conditions' => ['user_id' => $id],

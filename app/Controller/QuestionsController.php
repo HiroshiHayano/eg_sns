@@ -7,7 +7,7 @@ class QuestionsController extends AppController {
     public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
     public $components = ['UsersList'];
     public $paginate = [
-        'limit' => 5,
+        'limit' => 10,
         'order' => ['id' => 'desc'],
     ];
 

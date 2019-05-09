@@ -7,7 +7,7 @@ class KnowledgesController extends AppController {
     public $uses = array('Knowledge', 'KnowledgesComment', 'User');
     public $components = ['UsersList'];
     public $paginate = [
-        'limit' => 5,
+        'limit' => 10,
         'order' => ['id' => 'desc'],
         'conditions' => [
             'OR' => []

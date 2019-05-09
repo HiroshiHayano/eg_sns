@@ -5,4 +5,5 @@
     <?= $this->Html->script('myscript.js') ?>
     <?php echo $this->Html->css('bootstrap/bootstrap'); ?>
     <?php echo $this->Html->css('common'); ?>
+    <?php echo $this->html->meta('icon'); ?>
 </head>
