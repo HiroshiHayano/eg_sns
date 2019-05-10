@@ -140,7 +140,7 @@
 
     <div class=''>
         <?php
-            echo 'コメント ' . count($comments) . '件';
+            echo 'コメント ' . $knowledge['Knowledge']['knowledges_comment_count'] . '件';
         ?>
     </div>
     <table class='table'>

@@ -8,4 +8,8 @@ class Comment extends AppModel {
             'message' => '入力してください'
         ),    
     );
+
+    public $belongsTo = ['Answer' =>[
+        'counterCache' => true,
+    ]];
 }

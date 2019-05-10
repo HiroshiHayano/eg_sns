@@ -22,5 +22,10 @@
                 ));
             ?>
         </div>
+        <!-- コメント数表示 -->
+        <div class='panel-footer'>
+            コメント
+            <span class="badge"><?php echo $knowledge['Knowledge']['knowledges_comment_count'] ;?></span>
+        </div>
     </div>
 <?php endforeach; ?>

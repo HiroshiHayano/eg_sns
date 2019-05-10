@@ -8,4 +8,8 @@ class Answer extends AppModel {
             'message' => '入力してください'
         ),    
     );
+
+    public $belongsTo = ['Question' =>[
+        'counterCache' => true,
+    ]];
 }

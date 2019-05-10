@@ -33,6 +33,11 @@
                 ));
             ?>
         </div>
+        <!-- 回答数表示 -->
+        <div class='panel-footer'>
+            回答
+            <span class="badge"><?php echo $question['Question']['answer_count']; ?></span>
+        </div>
     </div>
 <?php endforeach; ?>
 

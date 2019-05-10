@@ -180,7 +180,7 @@ if ($question['Question']['is_resolved'] === true) {
     <div class="page-header">
         <h3>
             <?php
-                echo '回答' . count($answers) . '件';
+                echo '回答' . $question['Question']['answer_count'] . '件';
             ?>
         </h3>
     </div>
@@ -217,13 +217,13 @@ if ($question['Question']['is_resolved'] === true) {
                     <div class='col-md-12'>
                         <div data-toggle="collapse" data-parent="#accordion" href="#collapse<?php echo $answer['Answer']['id']; ?>">
                             <strong>コメント</strong>
-                            <span class="badge"><?php echo count($comments[$answer['Answer']['id']]) ;?></span>
+                            <span class="badge"><?php echo $answer['Answer']['comment_count'] ;?></span>
                         </div>
                     </div>
                 </div>
                 <div id="collapse<?php echo $answer['Answer']['id']; ?>" class="collapse">
                     <div class='panel-collapse'>
-                        <?php if (count($comments[$answer['Answer']['id']]) > 0) : ?>
+                        <?php if ($answer['Answer']['comment_count'] > 0) : ?>
                             <ul class='list-group'>
                                 <?php foreach ($comments[$answer['Answer']['id']] as $comment) : ?>
                                     <li class='list-group-item'>
