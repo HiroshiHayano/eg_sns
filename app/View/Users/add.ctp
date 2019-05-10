@@ -29,7 +29,6 @@
                     echo $this->Form->input('mail_address', array(
                         'label' => 'mail address:',
                         'class' => 'form-control',
-                        'value' => '@e-grant.net',
                     ));
                     echo $this->Form->input('password', array(
                         'label' => 'password:',

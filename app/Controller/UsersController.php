@@ -193,10 +193,14 @@ class UsersController extends AppController {
                         'default',
                         ['class' => 'alert alert-success']
                     );
-                    $this->redirect(array(
-                        'controller' => 'users', 
-                        'action' => 'login'
-                    ));
+                    if ($this->Auth->login()) { 
+                        $this->redirect($this->Auth->redirectUrl());
+                    } else {
+                        $this->redirect(array(
+                            'controller' => 'users', 
+                            'action' => 'login'
+                        ));    
+                    }
                 } else {
                     $this->Session->setFlash(
                         'プロフィール画像の保存に失敗しました',
