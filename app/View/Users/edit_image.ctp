@@ -22,7 +22,7 @@
                 ?>
             </div>
         </div>
-        <div class='col-md-6'>
+        <div class='col-md-3'>
             <?php $message = h('5MB以上の画像は登録できません<br>できれば縦横の比率1:1の画像でお願いしますm(__)m'); ?>
             <?php
                 echo $this->Form->create('User', array(
@@ -39,5 +39,8 @@
                 echo $this->Form->end();
             ?>
         </div>
+        <!-- サムネイル表示 -->
+        <span class='col-md-3' id='thumbnail'>
+        </span>
     </div>
 </div>
