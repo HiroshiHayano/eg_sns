@@ -242,41 +242,50 @@ class UsersController extends AppController {
     public function edit_image($id = NULL)
     {
         $this->User->id = $id;
-        if ($this->request->is('post')) {
-            $uploaddir = WWW_ROOT . 'img/icon/';
-
-            // // ファイル名が被らないように画像のファイル名を新しくつける
-            // メールアドレスから画像の名前をつける（"."は"_"に置換）
-            $img_name = str_replace('.', '_', explode('@', $this->User->field('mail_address'))[0]);
-            // 拡張子は送られてきた画像のものを使う
-            $img_original_name = explode('.', $this->request->data['User']['image']['name']);
-            $img_extension = $img_original_name[count($img_original_name) - 1];
-            $img_filename = $img_name . '.' . $img_extension;
-            $uploadfile = $uploaddir . $img_filename;
-            
+        if ($this->request->is('post')) {            
             // // saveの前にvalidationチェック
             $this->User->set($this->request->data);
             if ($this->User->validates()){ // validation error なし
-                // 画像の保存（move_uploaded_file()でtmp画像を"webroot/img/icon/"下に移動）
-                if (move_uploaded_file($this->request->data['User']['image']['tmp_name'], $uploadfile)) {
-                    $save_data = [];
-                    $save_data['User']['image'] = $img_filename;
+                // // ファイル名が被らないように画像のファイル名を新しくつける
+                // メールアドレスから画像の名前をつける（"."は"_"に置換）
+                $img_name = str_replace('.', '_', explode('@', $this->User->field('mail_address'))[0]);
+                // 拡張子は送られてきた画像のものを使う
+                $img_original_name = explode('.', $this->request->data['User']['image']['name']);
+                $img_extension = $img_original_name[count($img_original_name) - 1];
+                $img_filename = $img_name . '.' . $img_extension;
+                $uploaddir = WWW_ROOT . 'img/icon/';
+                $uploadfile = $uploaddir . $img_filename;
 
-                    // 画像を保存
-                    $this->User->save($save_data, $validate = false);
-                    $this->UpdateSession->updateSession(); //セッション情報を更新する
-                    $this->Session->setFlash(
-                        'プロフィール画像を更新しました',
-                        'default',
-                        ['class' => 'alert alert-success']
-                    );
+                // 現在のプロフィール画像を削除
+                $profile_image = new File(WWW_ROOT . 'img/icon/' . $this->User->field('image'));
+                if ($profile_image->delete()) {
+                    // 新しい画像の保存（move_uploaded_file()でtmp画像を"webroot/img/icon/"下に移動）
+                    if (move_uploaded_file($this->request->data['User']['image']['tmp_name'], $uploadfile)) {
+                        $save_data = [];
+                        $save_data['User']['image'] = $img_filename;
+
+                        // 新しい画像パスを保存
+                        $this->User->save($save_data, $validate = false);
+                        $this->UpdateSession->updateSession(); //セッション情報を更新する
+                        $this->Session->setFlash(
+                            'プロフィール画像を更新しました',
+                            'default',
+                            ['class' => 'alert alert-success']
+                        );
+                    } else {
+                        $this->Session->setFlash(
+                            '新しいプロフィール画像の保存に失敗しました',
+                            'default',
+                            ['class' => 'alert alert-danger']
+                        );
+                    }                        
                 } else {
                     $this->Session->setFlash(
-                        'プロフィール画像の保存に失敗しました',
+                        '現在のプロフィール画像の削除に失敗しました',
                         'default',
                         ['class' => 'alert alert-danger']
                     );
-                }    
+                }
             } else { // validation error が見つかった
                 $this->Session->setFlash(
                     'プロフィール画像を更新できませんでした',
