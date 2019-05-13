@@ -1,5 +1,5 @@
 <?php
-    echo $this->element('head', array('title' => '[質問]: ' . $question['Question']['title']));
+    echo $this->element('head', ['title' => '[質問]: ' . h($question['Question']['title'])]);
     echo $this->element('header');
 ?>
 

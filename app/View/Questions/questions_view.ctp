@@ -1,5 +1,5 @@
 <?php
-    echo $this->element('head', array('title' => $user['User']['name'] . 'さんの投稿した質問'));
+    echo $this->element('head', array('title' => h($user['User']['name']) . 'さんの投稿した質問'));
     echo $this->element('header');
 ?>
 
@@ -8,7 +8,7 @@
         <div class='col-md-12'>
             <div class="page-header">
                 <h3>
-                    <?php echo $user['User']['name'] . 'さんの投稿した質問'; ?>
+                    <?php echo h($user['User']['name']) . 'さんの投稿した質問'; ?>
                     <small>
                         <?php 
                             echo '&#9656;' . $this->Html->link('プロフィールへ戻る', array(

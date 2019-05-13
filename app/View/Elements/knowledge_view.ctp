@@ -24,7 +24,7 @@
         </p>
         <p class='text-right'>
             <?php
-                echo h('投稿日時 ' . $knowledge['Knowledge']['created']);
+                echo '投稿日時 ' . $knowledge['Knowledge']['created'];
             ?>
         </p>
         <p class='text-right'>
