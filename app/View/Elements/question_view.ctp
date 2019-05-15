@@ -48,7 +48,7 @@ if ($question['Question']['is_resolved'] === true) {
                     'user_image' => $users_image[$question['Question']['user_id']],
                     'user_id' => $question['Question']['user_id'],
                 ]);
-                echo $users_name[$question['Question']['user_id']];
+                echo h($users_name[$question['Question']['user_id']]);
             ?>
         </p>
     </div>

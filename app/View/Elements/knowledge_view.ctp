@@ -33,7 +33,7 @@
                     'user_image' => $users_image[$knowledge['Knowledge']['user_id']],
                     'user_id' => $knowledge['Knowledge']['user_id'],
                 ]);
-                echo $users_name[$knowledge['Knowledge']['user_id']];
+                echo h($users_name[$knowledge['Knowledge']['user_id']]);
             ?>
         </p>
     </div>
