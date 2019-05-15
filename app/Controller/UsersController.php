@@ -323,9 +323,7 @@ class UsersController extends AppController {
     public function delete()
     {
         debug($this->request->data);
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
+        if ($this->request->onlyAllow(['post'])) {
             $this->User->id = $this->request->data['User']['id'];
             if ($this->User->save($this->request->data)){
                 // 退会済みユーザーの質問は解決済みにする

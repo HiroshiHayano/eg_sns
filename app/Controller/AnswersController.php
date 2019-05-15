@@ -17,9 +17,7 @@ class AnswersController extends AppController {
 
     public function add()
     {
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
+        if ($this->request->onlyAllow(['post'])) {
             if ($this->Answer->save($this->request->data)) {
                 $this->Session->setFlash(
                     '回答しました',

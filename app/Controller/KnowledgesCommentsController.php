@@ -14,9 +14,7 @@ class KnowledgesCommentsController extends AppController {
 
     public function add()
     {
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
+        if ($this->request->onlyAllow(['post'])) {
             if ($this->KnowledgesComment->save($this->request->data)) {
                 $this->Session->setFlash(
                     '投稿しました',

@@ -82,9 +82,7 @@ class QuestionsController extends AppController {
 
     public function resolve()
     {
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
+        if ($this->request->onlyAllow(['post'])) {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(
                     '質問解決しました',
@@ -104,9 +102,7 @@ class QuestionsController extends AppController {
 
     public function add()
     {
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
+        if ($this->request->onlyAllow(['post'])) {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(
                     '質問投稿しました',
@@ -126,10 +122,7 @@ class QuestionsController extends AppController {
 
     public function edit()
     {
-        // debug($this->request);
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        } elseif ($this->request->is('post')) {
+        if ($this->request->onlyAllow(['post'])) {
             if ($this->Question->save($this->request->data)) {
                 $this->Session->setFlash(
                     '質問を更新しました',
@@ -149,29 +142,28 @@ class QuestionsController extends AppController {
 
     public function delete($id)
     {
-        if ($this->request->is('get')) {
-            throw new MethodNotAllowedException();
-        }
-        if ($this->Question->delete($id)) {
-            $this->Session->setFlash(
-                '削除しました',
-                'default',
-                ['class' => 'alert alert-success']
-            );
-            $this->redirect(array(
-                'controller' => 'questions',
-                'action' => 'index'
-            ));
-        } else {
-            $this->Session->setFlash(
-                '削除できませんでした',
-                'default',
-                ['class' => 'alert alert-danger']
-            );
-            $this->redirect(array(
-                'controller' => 'questions',
-                'action' => 'index'
-            ));
+        if ($this->request->onlyAllow(['post'])) {
+            if ($this->Question->delete($id)) {
+                $this->Session->setFlash(
+                    '削除しました',
+                    'default',
+                    ['class' => 'alert alert-success']
+                );
+                $this->redirect(array(
+                    'controller' => 'questions',
+                    'action' => 'index'
+                ));
+            } else {
+                $this->Session->setFlash(
+                    '削除できませんでした',
+                    'default',
+                    ['class' => 'alert alert-danger']
+                );
+                $this->redirect(array(
+                    'controller' => 'questions',
+                    'action' => 'index'
+                ));
+            }
         }
     }
 
