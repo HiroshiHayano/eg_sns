@@ -4,15 +4,30 @@ App::uses('AppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
-    public function beforeSave($options = array()) {
-        if (isset($this->data[$this->alias]['password'])) {
-            $passwordHasher = new BlowfishPasswordHasher();
-            $this->data[$this->alias]['password'] = $passwordHasher->hash(
-                $this->data[$this->alias]['password']
-            );
-        }
-        return true;
-    }
+    // bindModelで定義できるっぽい
+    // public $hasMany = [
+    //     'Question' => [
+    //         'foreignKey' => 'user_id',
+    //     ],
+    //     'Knowledge' => [
+    //         'foreignKey' => 'user_id',
+    //     ],
+    // ];
+
+    public $actsAs = [
+        'UploadPack.Upload' => [
+            'image' => [
+                'quality' => 100,
+                'styles' => [
+                    'prof' => '[300x300]',
+                    'thumb' => '[150x150]',
+                    'small' => '[40x40]'
+                ],
+                'path' => ':webroot/upload/:model/:id/:id_:style.:extension',
+                'default_url' => ':webroot/upload/:model/default/default_:style.png'
+            ]
+        ]
+    ];
 
     //validation
     public $validate = array(
@@ -77,15 +92,27 @@ class User extends AppModel {
                 'message' => array('MIME型が不正です')
             ),
             'maxFileSize' => array( 
-                'rule' => array('fileSize', '<=', '1MB'),  // 1MB以下
+                'rule' => array('fileSize', '<=', '5MB'),
                 'message' => array('サイズ5MB以下の画像を選択してください')
             ),
             'minFileSize' => array( 
-                'rule' => array('fileSize', '>',  0),// 0バイトより大
+                'rule' => array('fileSize', '>', '0'),
                 'message' => array('file size error')
             ),
         ),
     );
+
+    public function beforeSave($options = array())
+    {
+        if (isset($this->data[$this->alias]['password'])) {
+            $passwordHasher = new BlowfishPasswordHasher();
+            $this->data[$this->alias]['password'] = $passwordHasher->hash(
+                $this->data[$this->alias]['password']
+            );
+        }
+        return true;
+    }
+
 
     public function passwordConfirm($check)
     {

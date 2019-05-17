@@ -51,11 +51,11 @@
                         'class' => 'form-control',
                         'placeholder' => '例）やまだ たろう'
                     ));
-                    echo $this->Form->input('image', array(
-                        'label' => "プロフィール画像（顔が写ってるもの）: <span class='glyphicon glyphicon-warning-sign text-danger' data-toggle='tooltip'  data-html='true' title=" . $message . "></span>", 
-                        'class' => 'form-control',
-                        'type' => 'file'
-                    ));
+                    // echo $this->Form->input('image', array(
+                    //     'label' => "プロフィール画像（顔が写ってるもの）: <span class='glyphicon glyphicon-warning-sign text-danger' data-toggle='tooltip'  data-html='true' title=" . $message . "></span>", 
+                    //     'class' => 'form-control',
+                    //     'type' => 'file'
+                    // ));
                     echo $this->Form->input('department_id', array(
                         'options' => $departments,
                         'label' => '部署を選択:',

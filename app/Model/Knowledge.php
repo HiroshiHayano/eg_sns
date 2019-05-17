@@ -12,4 +12,9 @@ class Knowledge extends AppModel {
             'message' => '入力してください'
         ),
     );
+
+    public $belongsTo = ['User' => [
+        'className' => 'User',
+        'foreignKey' => 'user_id'
+    ]];
 }

@@ -29,11 +29,9 @@
         </p>
         <p class='text-right'>
             <?php
-                echo $this->element('icon', [
-                    'user_image' => $users_image[$knowledge['Knowledge']['user_id']],
-                    'user_id' => $knowledge['Knowledge']['user_id'],
-                ]);
-                echo h($users_name[$knowledge['Knowledge']['user_id']]);
+                echo $this->Upload->uploadImage($knowledge['User'], 'User.image', ['style' => 'small']);
+                echo h($knowledge['User']['name']);
+                // echo h($users_name[$knowledge['Knowledge']['user_id']]);
             ?>
         </p>
     </div>

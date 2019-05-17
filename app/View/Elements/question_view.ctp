@@ -44,11 +44,13 @@ if ($question['Question']['is_resolved'] === true) {
         </p>
         <p class='text-right'>
             <?php
-                echo $this->element('icon', [
-                    'user_image' => $users_image[$question['Question']['user_id']],
-                    'user_id' => $question['Question']['user_id'],
-                ]);
-                echo h($users_name[$question['Question']['user_id']]);
+                // echo $this->element('icon', [
+                //     'user_image' => $users_image[$question['Question']['user_id']],
+                //     'user_id' => $question['Question']['user_id'],
+                // ]);
+                // echo h($users_name[$question['Question']['user_id']]);
+                echo $this->Upload->uploadImage($question['User'], 'User.image', ['style' => 'small']);
+                echo h($question['User']['name']);
             ?>
         </p>
     </div>

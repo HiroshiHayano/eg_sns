@@ -3,7 +3,7 @@
 class QuestionsController extends AppController {
     public $autoLayout = false;
 
-    public $helpers = array('Html', 'Form');
+    public $helpers = array('Html', 'Form', 'UploadPack.Upload');
     public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
     public $components = ['UsersList'];
     public $paginate = [
@@ -42,7 +42,7 @@ class QuestionsController extends AppController {
     {
         $question = $this->Question->find('first', array( // 現在はとりあえず一件だけ表示するためにfirstにしている
             'conditions' => array(
-                'id' => $id,
+                'Question.id' => $id,
             )
         ));
         $this->set('question', $question);

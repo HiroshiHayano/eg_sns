@@ -15,30 +15,30 @@
                 <div class='caption text-center'>
                     現在のプロフィール画像
                 </div>
-                <?php 
-                    echo $this->Html->image(
-                        'icon/' . $this->Session->read('Auth.User.image')
-                    ); 
-                ?>
+                <?= $this->Upload->uploadImage($this->Session->read('Auth.User'), 'User.image', ['style' => 'prof']);?>
             </div>
         </div>
         <div class='col-md-3'>
             <?php $message = h('5MB以上の画像は登録できません<br>できれば縦横の比率1:1の画像でお願いしますm(__)m'); ?>
-            <?php
-                echo $this->Form->create('User', array(
-                    'enctype' => 'multipart/form-data'
-                ));    
-                echo $this->Form->input('image', array(
+            <?= $this->Form->create('User', ['type' => 'file']);?>
+            <?= $this->Form->input('User.image', [
                     'label' => "プロフィール画像（顔が写ってるもの）: <span class='glyphicon glyphicon-warning-sign text-danger' data-toggle='tooltip'  data-html='true' title=" . $message . "></span>", 
                     'class' => 'form-control',
-                    'type' => 'file',
-                ));
-                echo $this->Form->button('プロフィール画像の更新', [
-                    'class' => ['btn', 'btn-default'],
-                ]); 
-                echo $this->Form->end();
-            ?>
+                    'type' => 'file'
+                ]);?>
+            <?= $this->Form->button('プロフィール画像の更新', ['class' => ['btn', 'btn-default']]);?> 
+            <?= $this->Form->end();?>
+
+            <?= $this->Form->postLink(
+                'プロフィール画像の削除', 
+                [
+                    'action' => 'delete_image', 
+                    $this->Session->read('Auth.User.id')
+                ],
+                ['class' => 'btn btn-danger']
+            ); ?>
         </div>
+
         <!-- サムネイル表示 -->
         <span class='col-md-3' id='thumbnail'>
         </span>

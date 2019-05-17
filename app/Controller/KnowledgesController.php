@@ -3,7 +3,7 @@
 class KnowledgesController extends AppController {
     public $autoLayout = false;
 
-    public $helpers = array('Html', 'Form', 'Text', 'Paginator');
+    public $helpers = array('Html', 'Form', 'Text', 'Paginator', 'UploadPack.Upload');
     public $uses = array('Knowledge', 'KnowledgesComment', 'User');
     public $components = ['UsersList'];
     public $paginate = [
@@ -45,7 +45,7 @@ class KnowledgesController extends AppController {
     {
         $knowledge = $this->Knowledge->find('first', array(
             'conditions' => array(
-                'id' => $id,
+                'Knowledge.id' => $id,
             )
         ));
         $this->set('knowledge', $knowledge);

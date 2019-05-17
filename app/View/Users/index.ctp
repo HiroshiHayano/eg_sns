@@ -18,17 +18,18 @@
                     <div class='col-md-3'>
                         <div class='thumbnail'>
                             <?php 
-                                echo $this->Html->image('icon/' . $user['User']['image'], array(
-                                    'url' => array(
-                                        'controller' => 'users', 
-                                        'action' => 'view', 
-                                        $user['User']['id']
-                                    ),
-                                    // 応急処置。画像の登録時にトリミングするようにしたい
-                                    'width' => '150',
-                                    'height' => 'auto',
-                                ));
+                                // echo $this->Html->image('icon/' . $user['User']['image_file_name'], array(
+                                //     'url' => array(
+                                //         'controller' => 'users', 
+                                //         'action' => 'view', 
+                                //         $user['User']['id']
+                                //     ),
+                                //     // 応急処置。画像の登録時にトリミングするようにしたい
+                                //     'width' => '150',
+                                //     'height' => 'auto',
+                                // ));
                             ?>
+                            <?= $this->Upload->uploadImage($user, 'User.image', ['style' => 'thumb']);?>
                             <div class='caption text-center'>
                                 <?php 
                                     echo $this->Html->link(

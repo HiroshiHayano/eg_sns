@@ -13,7 +13,7 @@ class UsersListComponent extends Component
         $images = $this->controller->User->find(
             'list', array(
                 'fields' => array(
-                    'image'
+                    'image_file_name'
                 )
             )
         );

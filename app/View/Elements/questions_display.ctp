@@ -29,7 +29,7 @@
             <?php 
                 echo h($this->Text->truncate(
                     $question['Question']['content'], 
-                    50
+                    100
                 ));
             ?>
         </div>
