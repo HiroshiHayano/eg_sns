@@ -18,6 +18,7 @@
                     'comments' => $comments,
                     'users_name' => $users_name,
                     'users_image' => $users_image,
+                    'bookmarks' => $bookmarks,
                 ))
             ?>
         </div>

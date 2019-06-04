@@ -4,7 +4,7 @@ class KnowledgesController extends AppController {
     public $autoLayout = false;
 
     public $helpers = array('Html', 'Form', 'Text', 'Paginator', 'UploadPack.Upload');
-    public $uses = array('Knowledge', 'KnowledgesComment', 'User');
+    public $uses = array('Knowledge', 'KnowledgesComment', 'User', 'Bookmark');
     public $components = ['UsersList'];
     public $paginate = [
         'limit' => 10,
@@ -39,6 +39,11 @@ class KnowledgesController extends AppController {
             $this->set('query', '');
         }
         $this->set('knowledges', $this->paginate('Knowledge', $this->Session->read('Conditions')));
+        $bookmarks = Hash::extract($this->Bookmark->find('all', [
+            'conditions' => ['Bookmark.user_id' => SessionComponent::read('Auth.User.id')],
+            'fields' => 'Bookmark.knowledge_id'
+        ]), '{n}.Bookmark.knowledge_id');
+        $this->set(compact('bookmarks'));
     }
 
     public function view($id = NULL)
@@ -63,6 +68,11 @@ class KnowledgesController extends AppController {
         $this->set('users_image', $this->UsersList->getImages());
         // ユーザーの名前一覧取得
         $this->set('users_name', $this->UsersList->getNames());
+        $bookmarks = Hash::extract($this->Bookmark->find('all', [
+            'conditions' => ['Bookmark.user_id' => SessionComponent::read('Auth.User.id')],
+            'fields' => 'Bookmark.knowledge_id'
+        ]), '{n}.Bookmark.knowledge_id');
+        $this->set(compact('bookmarks'));
     }
 
     public function add()

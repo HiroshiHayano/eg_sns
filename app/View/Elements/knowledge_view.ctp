@@ -36,7 +36,9 @@
         </p>
     </div>
     <!-- お気に入り、いいね機能つけたい -->
-    <!-- <div class="panel-footer">フッターパネル</div> -->
+    <div class="panel-footer">
+        <?php echo $this->element('knowledge_bookmark', ['bookmarks' => $bookmarks, 'knowledge' => $knowledge]);?>
+    </div>
 </div>
 <!-- 編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $knowledge['Knowledge']['user_id']) :?>

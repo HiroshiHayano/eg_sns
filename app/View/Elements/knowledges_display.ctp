@@ -4,11 +4,12 @@
             <strong>
                 <?php 
                     echo $this->Html->link(
-                        $this->Text->truncate($knowledge['Knowledge']['title'], 50), array(
+                        $this->Text->truncate($knowledge['Knowledge']['title'], 50), 
+                        [
                             'controller' => 'knowledges',
                             'action' => 'view',
                             $knowledge['Knowledge']['id']
-                        )
+                        ]
                     );
 
                 ?>
@@ -22,10 +23,11 @@
                 ));
             ?>
         </div>
-        <!-- コメント数表示 -->
         <div class='panel-footer'>
+            <?php echo $this->element('knowledge_bookmark', ['bookmarks' => $bookmarks, 'knowledge' => $knowledge]);?>
+            <!-- コメント数表示 -->
             コメント
-            <span class="badge"><?php echo $knowledge['Knowledge']['knowledges_comment_count'] ;?></span>
+            <span class='badge'><?php echo $knowledge['Knowledge']['knowledges_comment_count'];?></span>
         </div>
     </div>
 <?php endforeach; ?>
