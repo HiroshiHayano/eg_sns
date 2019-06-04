@@ -15,6 +15,7 @@ class Knowledge extends AppModel {
 
     public $belongsTo = ['User' => [
         'className' => 'User',
-        'foreignKey' => 'user_id'
+        'foreignKey' => 'user_id',
+        'counterCache' => true,
     ]];
 }

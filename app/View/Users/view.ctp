@@ -113,14 +113,14 @@
                     <strong>質問</strong>
                     <small>
                         <?php 
-                            // $number_of_remaining_questions = (int)($number_of_questions - count($user['Question']]));
-                            // if ($number_of_remaining_questions > 0) {
-                            //     echo '&#9656;' . $this->Html->link('他の投稿もみる (' . $number_of_remaining_questions . '件)', array(
-                            //         'controller' => 'questions',
-                            //         'action'=>'questions_view', 
-                            //         $user['User']['id']
-                            //     ));
-                            // }
+                            $number_of_remaining_questions = (int)($user['User']['question_count'] - count($user['Question']));
+                            if ($number_of_remaining_questions > 0) {
+                                echo '&#9656;' . $this->Html->link('他の投稿もみる (' . $number_of_remaining_questions . '件)', array(
+                                    'controller' => 'questions',
+                                    'action'=>'questions_view', 
+                                    $user['User']['id']
+                                ));
+                            }
                         ?>
                     </small>
                 </h3>
@@ -175,14 +175,14 @@
                     <strong>知識</strong>
                     <small>
                         <?php 
-                            // $number_of_remaining_knowledges = (int)($number_of_knowledges - count($knowledges));
-                            // if ($number_of_remaining_knowledges > 0) {
-                            //     echo '&#9656;' . $this->Html->link('他の投稿もみる (' . $number_of_remaining_knowledges . '件)', array(
-                            //         'controller' => 'knowledges',
-                            //         'action'=>'knowledges_view', 
-                            //         $user['User']['id']
-                            //     ));
-                            // }
+                            $number_of_remaining_knowledges = (int)($user['User']['knowledge_count'] - count($user['Knowledge']));
+                            if ($number_of_remaining_knowledges > 0) {
+                                echo '&#9656;' . $this->Html->link('他の投稿もみる (' . $number_of_remaining_knowledges . '件)', array(
+                                    'controller' => 'knowledges',
+                                    'action'=>'knowledges_view', 
+                                    $user['User']['id']
+                                ));
+                            }
                         ?>
                     </small>
                 </h3>

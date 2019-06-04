@@ -1,5 +1,5 @@
 <?php
-
+// Session情報の更新（プロフィールの変更があったときなどに使う）
 App::uses('Component', 'Controller');
 
 class UpdateSessionComponent extends Component

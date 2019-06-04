@@ -117,28 +117,6 @@ class UsersController extends AppController {
         ]));
         $this->Department->id = $this->User->field('department_id');
         $this->set('department', $this->Department->field('name'));
-
-        // // プロプページへ引用する投稿の上限
-        // $number_of_display_posts = 3;
-        // $questions = $this->Question->find('all', [
-        //     'order' => ['Question.id' => 'desc'],
-        //     'conditions' => ['user_id' => $id],
-        //     'limit' => $number_of_display_posts,
-        // ]);
-        // $this->set('questions', $questions);
-        // $this->set('number_of_questions', $this->Question->find('count', [
-        //     'conditions' => ['user_id' => $id],
-        // ]));
-
-        // $knowledges = $this->Knowledge->find('all', array(
-        //     'order' => ['Knowledge.id' => 'desc'],
-        //     'conditions' => array('user_id' => $id),
-        //     'limit' => $number_of_display_posts,
-        // ));
-        // $this->set('knowledges', $knowledges);
-        // $this->set('number_of_knowledges', $this->Knowledge->find('count', [
-        //     'conditions' => ['user_id' => $id],
-        // ]));
     }
 
     public function login()
@@ -217,66 +195,6 @@ class UsersController extends AppController {
                 );
             }
         }
-        // if ($this->request->is('post')) {
-        //     $uploaddir = WWW_ROOT . 'img/icon/';
-            
-        //     // // saveの前にvalidationチェック
-        //     $this->User->set($this->request->data);
-        //     if ($this->User->validates()){ // validation error なし
-        //         // // ファイル名が被らないように画像のファイル名を新しくつける
-        //         // メールアドレスから画像の名前をつける（"."は"_"に置換）
-        //         $img_name = str_replace('.', '_', explode('@', $this->request->data['User']['mail_address'])[0]);
-        //         // 拡張子は送られてきた画像のものを使う
-        //         $img_original_name = explode('.', $this->request->data['User']['image']['name']);
-        //         $img_extension = $img_original_name[count($img_original_name) - 1];
-        //         $img_filename = $img_name . '.' . $img_extension;
-        //         $uploadfile = $uploaddir . $img_filename;
-
-        //         // 画像の保存（move_uploaded_file()でtmp画像を"webroot/img/icon/"下に移動）
-        //         if (move_uploaded_file($this->request->data['User']['image']['tmp_name'], $uploadfile)) {
-        //             $save_data = [];
-        //             $save_data['User']['image'] = $img_filename;
-
-        //             // 新規アカウント情報を登録
-        //             $this->User->save($save_data, $validate = false);
-        //             $this->UpdateSession->updateSession(); //セッション情報を更新する
-        //             $this->Session->setFlash(
-        //                 'アカウントを新規登録しました',
-        //                 'default',
-        //                 ['class' => 'alert alert-success']
-        //             );
-        //             if ($this->Auth->login()) { 
-        //                 $this->Session->setFlash(
-        //                     'アカウントの新規登録ができました！プロフィール画像を登録しましょう！',
-        //                     'default',
-        //                     ['class' => 'alert alert-info']
-        //                 );    
-        //                 $this->redirect([
-        //                     'controller' => 'users',
-        //                     'action' => 'edit_image',
-        //                     $this->Session->read('Auth.User.id')
-        //                 ]);
-        //             } else {
-        //                 $this->redirect(array(
-        //                     'controller' => 'users', 
-        //                     'action' => 'login'
-        //                 ));    
-        //             }
-        //         } else {
-        //             $this->Session->setFlash(
-        //                 'プロフィール画像の保存に失敗しました',
-        //                 'default',
-        //                 ['class' => 'alert alert-danger']
-        //             );
-        //         }    
-        //     } else { // validation error が見つかった
-        //         $this->Session->setFlash(
-        //             'アカウントの新規登録に失敗しました',
-        //             'default',
-        //             ['class' => 'alert alert-danger']
-        //         );
-        //     }
-        // }
     }
 
     public function edit($id = NULL)
