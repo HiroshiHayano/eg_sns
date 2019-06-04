@@ -95,21 +95,12 @@ class UsersController extends AppController {
     public function view($id = NULL)
     {
         $number_of_display_posts = 3;
-        $this->User->bindModel([
-            'hasMany' => [
-                'Question' => [
-                    'foreignKey' => 'user_id',
-                    'order' => 'Question.id DESC',
-                    'limit' => $number_of_display_posts,
-                ],        
-            ]
-        ]);
         $this->set('user', $this->User->find('first', [
             'conditions' => [
                 'User.id' => $id
-            ]
+            ],
         ]));
-        $this->Department->id = $this->User->field('department_id');
+        $this->Department->id = $this->User->field('department_id', ['User.id' => $id]);
         $this->set('department', $this->Department->field('name'));
 
         $questions = $this->Question->find('all', [
