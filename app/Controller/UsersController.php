@@ -5,8 +5,8 @@ class UsersController extends AppController {
     public $autoLayout = false;
 
     public $helpers = ['Html', 'Form', 'UploadPack.Upload'];
-    public $uses = ['User', 'Department', 'Question', 'Knowledge'];
-    public $components = ['UsersList', 'UpdateSession'];
+    public $uses = ['User', 'Department', 'Question', 'Knowledge', 'Bookmark'];
+    public $components = ['UsersList', 'UpdateSession', 'GetBookmarks'];
     public $paginate = [
         'limit' => 20,
         'order' => ['phonetic' => 'asc'],
@@ -100,16 +100,10 @@ class UsersController extends AppController {
                 'Question' => [
                     'foreignKey' => 'user_id',
                     'order' => 'Question.id DESC',
-                    'limit' => 3,
+                    'limit' => $number_of_display_posts,
                 ],        
-                'Knowledge' => [
-                    'foreignKey' => 'user_id',
-                    'order' => 'Knowledge.id DESC',
-                    'limit' => 3,
-                ],
             ]
         ]);
-        // $this->User->id = $id;
         $this->set('user', $this->User->find('first', [
             'conditions' => [
                 'User.id' => $id
@@ -117,6 +111,22 @@ class UsersController extends AppController {
         ]));
         $this->Department->id = $this->User->field('department_id');
         $this->set('department', $this->Department->field('name'));
+
+        $questions = $this->Question->find('all', [
+            'order' => 'Question.id DESC',
+            'limit' => $number_of_display_posts,
+            'condtions' => ['user_id' => $id],
+        ]);
+        $this->set(compact('questions'));
+        $knowledges = $this->Knowledge->find('all', [
+            'order' => 'Knowledge.id DESC',
+            'limit' => $number_of_display_posts,
+            'condtions' => ['user_id' => $id],
+        ]);
+        $this->set(compact('knowledges'));
+
+        $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
+        $this->set(compact('bookmarks'));
     }
 
     public function login()

@@ -13,6 +13,12 @@ class Question extends AppModel {
         ),    
     );
 
+    public $hasMany = [
+        'Answer' => [
+            'foreignKey' => 'question_id'
+        ]
+    ];
+
     public $belongsTo = ['User' => [
         'className' => 'User',
         'foreignKey' => 'user_id',

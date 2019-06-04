@@ -11,7 +11,7 @@
             }
         ?>
         <div class='panel-heading'>
-            <span class='glyphicon <?php echo $question_icon;?>' data-toggle='tooltip' title=<?php echo $question_state; ?>>
+            <span class='glyphicon <?=$question_icon;?>' data-toggle='tooltip' title=<?=$question_state;?>>
                 <strong>
                     <?php
                         echo $this->Html->link(
@@ -25,7 +25,7 @@
                 </strong>
             </span>
         </div>
-        <div class='panel-body <?php echo $question_color;?>'>
+        <div class='panel-body <?=$question_color;?>'>
             <?php 
                 echo h($this->Text->truncate(
                     $question['Question']['content'], 
@@ -36,8 +36,10 @@
         <!-- 回答数表示 -->
         <div class='panel-footer'>
             回答
-            <span class="badge"><?php echo $question['Question']['answer_count']; ?></span>
+            <?php $sample_qestion = empty($question['Answer']) ? '' : 'Answer:'.$question['Answer'][0]['content'];?>
+            <span class='badge' data-toggle='tooltip' data-placement='bottom' title=<?php echo h($this->Text->truncate($sample_qestion, 30));?>>
+                <?php echo $question['Question']['answer_count']; ?>
+            </span>
         </div>
     </div>
 <?php endforeach; ?>
-

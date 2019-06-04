@@ -4,16 +4,6 @@ App::uses('AppModel', 'Model');
 App::uses('BlowfishPasswordHasher', 'Controller/Component/Auth');
 
 class User extends AppModel {
-    // bindModelで定義できるっぽい
-    // public $hasMany = [
-    //     'Question' => [
-    //         'foreignKey' => 'user_id',
-    //     ],
-    //     'Knowledge' => [
-    //         'foreignKey' => 'user_id',
-    //     ],
-    // ];
-
     public $actsAs = [
         'UploadPack.Upload' => [
             'image' => [
