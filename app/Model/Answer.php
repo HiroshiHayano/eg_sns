@@ -9,7 +9,12 @@ class Answer extends AppModel {
         ),    
     );
 
-    public $belongsTo = ['Question' =>[
-        'counterCache' => true,
-    ]];
+    public $belongsTo = [
+        'Question' =>[
+            'counterCache' => true,
+        ],
+        'User' => [
+            'counterCache' => true,
+        ]
+    ];
 }

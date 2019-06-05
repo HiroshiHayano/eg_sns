@@ -5,7 +5,7 @@ class UsersController extends AppController {
     public $autoLayout = false;
 
     public $helpers = ['Html', 'Form', 'UploadPack.Upload'];
-    public $uses = ['User', 'Department', 'Question', 'Knowledge', 'Bookmark'];
+    public $uses = ['User', 'Department', 'Question', 'Knowledge', 'Answer', 'Bookmark'];
     public $components = ['UsersList', 'UpdateSession', 'GetBookmarks'];
     public $paginate = [
         'limit' => 20,
@@ -106,15 +106,30 @@ class UsersController extends AppController {
         $questions = $this->Question->find('all', [
             'order' => 'Question.id DESC',
             'limit' => $number_of_display_posts,
-            'condtions' => ['user_id' => $id],
+            'conditions' => ['Question.user_id' => $id],
         ]);
         $this->set(compact('questions'));
+
         $knowledges = $this->Knowledge->find('all', [
             'order' => 'Knowledge.id DESC',
             'limit' => $number_of_display_posts,
-            'condtions' => ['user_id' => $id],
+            'conditions' => ['Knowledge.user_id' => $id],
         ]);
         $this->set(compact('knowledges'));
+
+        $answers = $this->Answer->find('all', [
+            'order' => 'Answer.id DESC',
+            'limit' => $number_of_display_posts,
+            'conditions' => ['Answer.user_id' => $id],
+        ]);
+        $this->set(compact('answers'));
+
+        $bookmarked_knowledges = $this->Bookmark->find('all', [
+            'order' => 'Bookmark.id DESC',
+            'limit' => $number_of_display_posts,
+            'conditions' => ['Bookmark.user_id' => $id],
+        ]);
+        $this->set(compact('bookmarked_knowledges'));
 
         $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
