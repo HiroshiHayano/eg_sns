@@ -207,11 +207,18 @@
                                 <?php 
                                     $number_of_remaining_knowledges = (int)($user['User']['knowledge_count'] - count($knowledges));
                                     if ($number_of_remaining_knowledges > 0) {
-                                        echo '&#9656;' . $this->Html->link('他の投稿 (' . $number_of_remaining_knowledges . '件)', array(
-                                            'controller' => 'knowledges',
-                                            'action'=>'knowledges_view', 
-                                            $user['User']['id']
-                                        ));
+                                        $text = '他の投稿 (' . $number_of_remaining_knowledges . '件)';
+                                        echo $this->Form->create('Knowledge', [
+                                            'action' => 'index'
+                                        ]);
+                                        echo $this->Form->hidden('name', [
+                                            'value' => $user['User']['name'],
+                                            'class' => 'form-control'
+                                        ]);
+                                        echo $this->Form->submit($text, [
+                                            'class' => ['btn', 'btn-link', 'btn-small']
+                                        ]);
+                                        echo $this->Form->end();                            
                                     }
                                 ?>
                             </small>
