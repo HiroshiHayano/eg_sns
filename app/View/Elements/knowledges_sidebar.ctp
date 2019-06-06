@@ -3,22 +3,13 @@
 </div>
 <ul class="nav nav-pills nav-stacked">
     <li>
-        <?php
-            // echo $this->Form->create(false, [
-            //     'type' => 'get',
-            //     'action' => 'index'
-            // ]);
-            // echo $this->Form->input('query', [
-            //     'label' => '知識を検索:',
-            //     'type' => 'text',
-            //     'placeholder' => '検索ワードを入力してください',
-            //     'class' => 'form-control'
-            // ]);
-            // echo $this->Form->submit('Search', [
-            //     'class' => ['btn', 'btn-default', 'btn-block']
-            // ]);
-            // echo $this->Form->end();
-        ?>
+        <div class="page-header">
+            <h4>検索
+                <small>
+                <span class='glyphicon glyphicon-info-sign text-info' data-toggle='tooltip'  data-html='true' title="','でOR、'+'で繋ぐとAND検索ができます"></span>
+                </small>
+            </h4>
+        </div>
         <?php
             echo $this->Form->create('Knowledge', [
                 'action' => 'index'
@@ -41,15 +32,19 @@
             echo $this->Form->end();
         ?>
     </li>
-    <div class='well'>
-        <?php echo '<li class="text-right"> ' . $number_of_knowledges . '件</li>'; ?>
-    </div>
+    <?php if (!empty($number_of_knowledges)):?>
+        <div class='well'>
+            <?php echo '<li class="text-right"> ' . $number_of_knowledges . '件</li>'; ?>
+        </div>
+    <?php endif;?>
     <li>
+        <div class="page-header">
+            <h4>新規投稿</h4>
+        </div>
         <?php
             echo $this->Form->button('知識を新規投稿', [
                 'type' => 'button',
                 'class' => ['btn', 'btn-info', 'btn-block'],
-                // 'id' => 'postform_opener,'
                 'data-toggle' => 'collapse',
                 'data-target' => '#post-form'
             ]);

@@ -33,20 +33,6 @@ class KnowledgesController extends AppController {
         $this->paginate['conditions'] = $conditions;
         $this->set('knowledges', $this->paginate());
         $this->set('number_of_knowledges', count($this->Knowledge->find('all', ['conditions' => $conditions])));
-        // if (!empty($this->request->query)) {
-        //     $conditions = [];
-        //     $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
-        //     $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
-        //     $this->Session->write('Conditions', $conditions);
-        //     $this->set('query', $this->request->query['query']);
-        //     $this->set('number_of_knowledges', $this->Knowledge->find('count', [
-        //         'conditions' => $conditions,
-        //     ]));
-        // } else {
-        //     $this->Session->write('Conditions', []);
-        //     $this->set('query', '');
-        // }
-        // $this->set('knowledges', $this->paginate('Knowledge', $this->Session->read('Conditions')));
         $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
     }
