@@ -4,14 +4,35 @@
 <ul class="nav nav-pills nav-stacked">
     <li>
         <?php
-            echo $this->Form->create(false, [
-                'type' => 'get',
+            // echo $this->Form->create(false, [
+            //     'type' => 'get',
+            //     'action' => 'index'
+            // ]);
+            // echo $this->Form->input('query', [
+            //     'label' => '知識を検索:',
+            //     'type' => 'text',
+            //     'placeholder' => '検索ワードを入力してください',
+            //     'class' => 'form-control'
+            // ]);
+            // echo $this->Form->submit('Search', [
+            //     'class' => ['btn', 'btn-default', 'btn-block']
+            // ]);
+            // echo $this->Form->end();
+        ?>
+        <?php
+            echo $this->Form->create('Knowledge', [
                 'action' => 'index'
             ]);
-            echo $this->Form->input('query', [
+            echo $this->Form->input('keyword', [
                 'label' => '知識を検索:',
                 'type' => 'text',
                 'placeholder' => '検索ワードを入力してください',
+                'class' => 'form-control'
+            ]);
+            echo $this->Form->input('name', [
+                'label' => '投稿者を検索:',
+                'type' => 'text',
+                'placeholder' => '投稿者の名前を入力してください',
                 'class' => 'form-control'
             ]);
             echo $this->Form->submit('Search', [
@@ -20,16 +41,9 @@
             echo $this->Form->end();
         ?>
     </li>
-    <?php if (!empty($query)) :?>
-            <div class='well'>
-                <?php
-                    if (!empty($query)) {
-                        echo '<li><strong>検索ワード:</strong> <br>"' . h($query) . '"<li>';
-                    }
-                ?>
-                <?php echo '<li class="text-right"> ' . $number_of_knowledges . '件</li>'; ?>
-            </div>
-    <?php endif; ?>
+    <div class='well'>
+        <?php echo '<li class="text-right"> ' . $number_of_knowledges . '件</li>'; ?>
+    </div>
     <li>
         <?php
             echo $this->Form->button('知識を新規投稿', [

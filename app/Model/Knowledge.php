@@ -13,9 +13,37 @@ class Knowledge extends AppModel {
         ),
     );
 
-    public $belongsTo = ['User' => [
-        'className' => 'User',
-        'foreignKey' => 'user_id',
-        'counterCache' => true,
-    ]];
+    public $belongsTo = [
+        'User' => [
+            'className' => 'User',
+            'foreignKey' => 'user_id',
+            'counterCache' => true,
+        ]
+    ];
+
+    public $hasMany = [
+        'KnowledgesComment',
+    ];
+
+    public $actsAs = array('Search.Searchable');
+    public $filterArgs = array(
+        'keyword' => array(
+            'type' => 'like',
+            'field' => array(
+                'Knowledge.title', 
+                'Knowledge.content', 
+            ),
+            'connectorAnd' => '+',
+            'connectorOr' => ',',
+        ),
+        'name' => [
+            'type' => 'like',
+            'field' => [
+                'User.name',
+                'User.phonetic'
+            ],
+            'connectorAnd' => '+',
+            'connectorOr' => ',',
+        ]
+    );
 }

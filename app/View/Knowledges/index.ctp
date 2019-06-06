@@ -2,7 +2,6 @@
     echo $this->element('head', array('title' => '知識一覧'));
     echo $this->element('header');
 ?>
-
 <div class='container'>
     <div class='row'>
         <nav class='col-md-3'>

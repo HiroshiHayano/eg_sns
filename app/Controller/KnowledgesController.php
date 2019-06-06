@@ -5,13 +5,16 @@ class KnowledgesController extends AppController {
 
     public $helpers = array('Html', 'Form', 'Text', 'Paginator', 'UploadPack.Upload');
     public $uses = array('Knowledge', 'KnowledgesComment', 'User', 'Bookmark');
-    public $components = ['UsersList', 'GetBookmarks'];
+    public $components = ['UsersList', 'GetBookmarks', 'Search.Prg'];
+    public $presetVars = true;
+
     public $paginate = [
         'limit' => 10,
         'order' => ['id' => 'desc'],
-        'conditions' => [
-            'OR' => []
-        ]
+        // conditionはsearchプラグイン導入後に削除 
+        // 'conditions' => [
+        //     'OR' => []
+        // ]
     ];
 
     public function isAuthorized($user = null)
@@ -25,20 +28,25 @@ class KnowledgesController extends AppController {
 
     public function index()
     {
-        if (!empty($this->request->query)) {
-            $conditions = [];
-            $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
-            $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
-            $this->Session->write('Conditions', $conditions);
-            $this->set('query', $this->request->query['query']);
-            $this->set('number_of_knowledges', $this->Knowledge->find('count', [
-                'conditions' => $conditions,
-            ]));
-        } else {
-            $this->Session->write('Conditions', []);
-            $this->set('query', '');
-        }
-        $this->set('knowledges', $this->paginate('Knowledge', $this->Session->read('Conditions')));
+        $this->Prg->commonProcess();
+        $conditions = $this->Knowledge->parseCriteria($this->passedArgs);
+        $this->paginate['conditions'] = $conditions;
+        $this->set('knowledges', $this->paginate());
+        $this->set('number_of_knowledges', count($this->Knowledge->find('all', ['conditions' => $conditions])));
+        // if (!empty($this->request->query)) {
+        //     $conditions = [];
+        //     $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
+        //     $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
+        //     $this->Session->write('Conditions', $conditions);
+        //     $this->set('query', $this->request->query['query']);
+        //     $this->set('number_of_knowledges', $this->Knowledge->find('count', [
+        //         'conditions' => $conditions,
+        //     ]));
+        // } else {
+        //     $this->Session->write('Conditions', []);
+        //     $this->set('query', '');
+        // }
+        // $this->set('knowledges', $this->paginate('Knowledge', $this->Session->read('Conditions')));
         $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
     }
