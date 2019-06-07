@@ -6,7 +6,7 @@
         <div class="page-header">
             <h4>検索
                 <small>
-                <span class='glyphicon glyphicon-info-sign text-info' data-toggle='tooltip'  data-html='true' title="','でOR、'+'で繋ぐとAND検索ができます"></span>
+                <span class='glyphicon glyphicon-info-sign text-info' data-toggle='tooltip'  data-html='true' title="','で繋ぐとOR、'+'でAND検索が可能です"></span>
                 </small>
             </h4>
         </div>
@@ -32,11 +32,6 @@
             echo $this->Form->end();
         ?>
     </li>
-    <?php if (!empty($number_of_knowledges)):?>
-        <div class='well'>
-            <?php echo '<li class="text-right"> ' . $number_of_knowledges . '件</li>'; ?>
-        </div>
-    <?php endif;?>
     <li>
         <div class="page-header">
             <h4>新規投稿</h4>

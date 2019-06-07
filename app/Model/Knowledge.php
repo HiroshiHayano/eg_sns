@@ -23,6 +23,7 @@ class Knowledge extends AppModel {
 
     public $hasMany = [
         'KnowledgesComment',
+        'Bookmark',
     ];
 
     public $actsAs = array('Search.Searchable');

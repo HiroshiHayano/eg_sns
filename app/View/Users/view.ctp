@@ -186,8 +186,8 @@
                                         $number_of_remaining_answers = (int)($user['User']['answer_count'] - count($answers));
                                         if ($number_of_remaining_answers > 0) {
                                             echo '&#9656;' . $this->Html->link('[現在改修中]他の投稿 (' . $number_of_remaining_answers . '件)', array(
-                                                'controller' => 'knowledges',
-                                                'action'=>'knowledges_view', 
+                                                'controller' => 'questions',
+                                                'action'=>'questions_view', 
                                                 $user['User']['id']
                                             ));
                                         }
@@ -214,11 +214,22 @@
                                     <?php 
                                         $number_of_remaining_bookmarks = (int)($user['User']['bookmark_count'] - count($bookmarked_knowledges));
                                         if ($number_of_remaining_bookmarks > 0) {
-                                            echo '&#9656;' . $this->Html->link('[現在改修中]他のブックマーク (' . $number_of_remaining_bookmarks . '件)', array(
-                                                'controller' => 'knowledges',
-                                                'action'=>'knowledges_view', 
-                                                $user['User']['id']
-                                            ));
+                                            $text = '他のブックマーク (' . $number_of_remaining_bookmarks . '件)';
+                                            echo $this->Form->create('Knowledge', [
+                                                'url' => [
+                                                    'controller' => 'knowledges',
+                                                    'action' => 'bookmarked_knowledges_view',
+                                                    $user['User']['id']
+                                                ]
+                                            ]);
+                                            echo $this->Form->hidden('bookmarked_user_id', [
+                                                'value' => $user['User']['id'],
+                                                'class' => 'form-control'
+                                            ]);
+                                            echo $this->Form->submit($text, [
+                                                'class' => ['btn', 'btn-link', 'btn-small']
+                                            ]);
+                                            echo $this->Form->end();                            
                                         }
                                     ?>
                                 </small>

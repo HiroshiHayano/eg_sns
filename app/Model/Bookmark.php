@@ -16,4 +16,14 @@ class Bookmark extends AppModel {
             'counterCache' => true,
         ],
     ];
+
+    public $actsAs = array('Search.Searchable');
+    public $filterArgs = array(
+        'bookmarked_user_id' => array(
+            'type' => 'value',
+            'field' => array(
+                'Bookmark.user_id',  
+            ),
+        ),
+    );
 }

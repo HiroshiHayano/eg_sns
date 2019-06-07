@@ -131,7 +131,7 @@ class UsersController extends AppController {
         ]);
         $this->set(compact('bookmarked_knowledges'));
 
-        $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
+        $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
     }
 

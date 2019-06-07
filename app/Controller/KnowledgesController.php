@@ -9,6 +9,7 @@ class KnowledgesController extends AppController {
     public $presetVars = true;
 
     public $paginate = [
+        // 'contain' => ['KnowledgesComment', 'Bookmark'],
         'limit' => 10,
         'order' => ['id' => 'desc'],
         // conditionはsearchプラグイン導入後に削除 
@@ -20,7 +21,15 @@ class KnowledgesController extends AppController {
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('index', 'view', 'add', 'edit', 'delete', 'knowledges_view'))) {
+        if (in_array($this->action, array(
+            'index', 
+            'view', 
+            'add', 
+            'edit', 
+            'delete', 
+            'knowledges_view',
+            'bookmarked_knowledges_view'
+            ))) {
             return true;
         }
         return parent::isAuthorized($user);
@@ -32,8 +41,7 @@ class KnowledgesController extends AppController {
         $conditions = $this->Knowledge->parseCriteria($this->passedArgs);
         $this->paginate['conditions'] = $conditions;
         $this->set('knowledges', $this->paginate());
-        $this->set('number_of_knowledges', count($this->Knowledge->find('all', ['conditions' => $conditions])));
-        $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
+        $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
     }
 
@@ -59,7 +67,7 @@ class KnowledgesController extends AppController {
         $this->set('users_image', $this->UsersList->getImages());
         // ユーザーの名前一覧取得
         $this->set('users_name', $this->UsersList->getNames());
-        $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
+        $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
     }
 
@@ -137,7 +145,19 @@ class KnowledgesController extends AppController {
 
         $conditions['user_id'] = $this->User->id;
         $this->set('knowledges', $this->paginate('Knowledge', $conditions));
-        $bookmarks = $this->GetBookmarks->getBookmarks(); //bookmarkしてるknowledge_idを取得
+        $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
+        $this->set(compact('bookmarks'));
+    }
+
+    public function bookmarked_knowledges_view($id = NULL)
+    {
+        $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));
+
+        $this->Prg->commonProcess();
+        $conditions = $this->Bookmark->parseCriteria($this->passedArgs);
+        $this->set('knowledges', $this->paginate('Bookmark', $conditions));
+
+        $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
     }
 }

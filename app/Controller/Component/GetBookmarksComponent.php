@@ -9,7 +9,7 @@ class GetBookmarksComponent extends Component
     }
 
     // ログインユーザーがbookmarkしてるknowledge_idを取得する
-    public function getBookmarks()
+    public function getLoginUsersBookmarks()
     {
         return Hash::extract($this->controller->Bookmark->find('all', [
             'conditions' => ['Bookmark.user_id' => SessionComponent::read('Auth.User.id')],
