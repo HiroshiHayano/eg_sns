@@ -24,4 +24,26 @@ class Question extends AppModel {
         'foreignKey' => 'user_id',
         'counterCache' => true,
     ]];
+
+    public $actsAs = array('Search.Searchable');
+    public $filterArgs = array(
+        'keyword' => array(
+            'type' => 'like',
+            'field' => array(
+                'Question.title', 
+                'Question.content', 
+            ),
+            'connectorAnd' => '+',
+            'connectorOr' => ',',
+        ),
+        'name' => [
+            'type' => 'like',
+            'field' => [
+                'User.name',
+                'User.phonetic'
+            ],
+            'connectorAnd' => '+',
+            'connectorOr' => ',',
+        ]
+    );
 }

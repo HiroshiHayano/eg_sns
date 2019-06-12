@@ -5,7 +5,7 @@ class QuestionsController extends AppController {
 
     public $helpers = array('Html', 'Form', 'UploadPack.Upload');
     public $uses = array('Question', 'Knowledge', 'Answer', 'Comment', 'User');
-    public $components = ['UsersList'];
+    public $components = ['UsersList', 'Search.Prg'];
     public $paginate = [
         'limit' => 10,
         'order' => ['id' => 'desc'],
@@ -22,20 +22,10 @@ class QuestionsController extends AppController {
 
     public function index()
     {
-        if (!empty($this->request->query)) {
-            $conditions = [];
-            $conditions['OR']['title LIKE'] = '%' . $this->request->query['query'] . '%';
-            $conditions['OR']['content LIKE'] = '%' . $this->request->query['query'] . '%';
-            CakeSession::write('Conditions', $conditions);
-            $this->set('query', $this->request->query['query']);
-            $this->set('number_of_questions', $this->Question->find('count', [
-                'conditions' => $conditions,
-            ]));
-        } else {
-            CakeSession::write('Conditions', []);
-            $this->set('query', '');
-        }
-        $this->set('questions', $this->paginate('Question', $this->Session->read('Conditions')));
+        $this->Prg->commonProcess();
+        $conditions = $this->Question->parseCriteria($this->passedArgs);
+        $this->paginate['conditions'] = $conditions;
+        $this->set('questions', $this->paginate());
     }
 
     public function view($id=NULL)

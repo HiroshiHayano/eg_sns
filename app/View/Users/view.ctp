@@ -122,11 +122,18 @@
                                     <?php 
                                         $number_of_remaining_questions = (int)($user['User']['question_count'] - count($questions));
                                         if ($number_of_remaining_questions > 0) {
-                                            echo '&#9656;' . $this->Html->link('他の投稿 (' . $number_of_remaining_questions . '件)', array(
-                                                'controller' => 'questions',
-                                                'action'=>'questions_view', 
-                                                $user['User']['id']
-                                            ));
+                                            $text = '他の投稿 (' . $number_of_remaining_questions . '件)';
+                                            echo $this->Form->create('Question', [
+                                                'action' => 'index'
+                                            ]);
+                                            echo $this->Form->hidden('name', [
+                                                'value' => $user['User']['name'],
+                                                'class' => 'form-control'
+                                            ]);
+                                            echo $this->Form->submit($text, [
+                                                'class' => ['btn', 'btn-link', 'btn-small']
+                                            ]);
+                                            echo $this->Form->end();                            
                                         }
                                     ?>
                                 </small>

@@ -6,7 +6,7 @@
         <div class="page-header">
             <h4>検索
                 <small>
-                <span class='glyphicon glyphicon-info-sign text-info' data-toggle='tooltip'  data-html='true' title="','で繋ぐとOR、'+'でAND検索が可能です"></span>
+                    <span class='glyphicon glyphicon-info-sign text-info' data-toggle='tooltip'  data-html='true' title="','で繋ぐとOR、'+'でAND検索が可能です"></span>
                 </small>
             </h4>
         </div>

@@ -10,7 +10,11 @@
         </nav>
         <div class='col-md-9'>
             <div class="page-header">
-                <h2>質問一覧</h2>
+                <h2>質問一覧
+                <small>
+                    <?php echo $this->Paginator->counter(array('format' => "全%count%件")) ?>
+                </small>
+                </h2>
             </div>
             <?php 
                 echo $this->element('questions_display', [

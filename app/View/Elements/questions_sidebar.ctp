@@ -3,15 +3,27 @@
 </div>
 <ul class="nav nav-pills nav-stacked">
     <li>
+        <div class="page-header">
+            <h4>検索
+                <small>
+                    <span class='glyphicon glyphicon-info-sign text-info' data-toggle='tooltip'  data-html='true' title="','で繋ぐとOR、'+'でAND検索が可能です"></span>
+                </small>
+            </h4>
+        </div>
         <?php
-            echo $this->Form->create(false, [
-                'type' => 'get',
+            echo $this->Form->create('Question', [
                 'action' => 'index'
             ]);
-            echo $this->Form->input('query', [
+            echo $this->Form->input('keyword', [
                 'label' => '質問を検索:',
                 'type' => 'text',
                 'placeholder' => '検索ワードを入力してください',
+                'class' => 'form-control'
+            ]);
+            echo $this->Form->input('name', [
+                'label' => '投稿者を検索:',
+                'type' => 'text',
+                'placeholder' => '投稿者の名前を入力してください',
                 'class' => 'form-control'
             ]);
             echo $this->Form->submit('Search', [
@@ -20,6 +32,9 @@
             echo $this->Form->end();
         ?>
     </li>
+    <div class="page-header">
+        <h4>新規投稿</h4>
+    </div>
     <?php if (!empty($query)) :?>
             <div class='well'>
                 <?php
