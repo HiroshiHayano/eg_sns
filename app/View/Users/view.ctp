@@ -1,5 +1,5 @@
 <?php
-    // echo $this->Html->css('view');
+    echo $this->Html->css('index_users');
     echo $this->element('head', array('title' => 'プロフィール'));
     echo $this->element('header');
 ?>
@@ -104,13 +104,21 @@
         </div>
     </div>
     <!-- 最近の投稿 -->
+    <style>
+    .carousel{
+        width:100%;  /*サイズ指定*/
+        height:90%;
+        margin:auto;
+    }
+    </style>
     <div class='row'>
-        <div id="postCarousel" class="carousel slide" data-ride="carousel" data-interval=''>
-            <!-- <ol class="carousel-indicators">
+        <div id="postCarousel" class="carousel slide">
+            <ol class="carousel-indicators">
                 <li class="active" data-target="#postCarousel" data-slide-to="0"></li>
                 <li data-target="#postCarousel" data-slide-to="1"></li>
                 <li data-target="#postCarousel" data-slide-to="2"></li>
-            </ol> -->
+                <li data-target="#postCarousel" data-slide-to="3"></li>
+            </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
                     <div class='col-md-2'></div>

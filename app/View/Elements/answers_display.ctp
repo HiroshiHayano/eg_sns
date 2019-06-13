@@ -30,7 +30,7 @@
             </small>
         </div>
         <div class='panel-body <?=$question_color;?>'>
-            <?php echo h($this->Text->truncate($answer['Answer']['content'], 100));?>
+            <?php echo '回答「' . h($this->Text->truncate($answer['Answer']['content'], 100)) . '」';?>
         </div>
     </div>
 <?php endforeach; ?>
