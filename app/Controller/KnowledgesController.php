@@ -138,17 +138,6 @@ class KnowledgesController extends AppController {
         }
     }
 
-    public function knowledges_view($id = NULL)
-    {
-        $this->User->id = $id;
-        $this->set('user', $this->User->read());
-
-        $conditions['user_id'] = $this->User->id;
-        $this->set('knowledges', $this->paginate('Knowledge', $conditions));
-        $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
-        $this->set(compact('bookmarks'));
-    }
-
     public function bookmarked_knowledges_view($id = NULL)
     {
         $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));

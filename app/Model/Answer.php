@@ -17,4 +17,17 @@ class Answer extends AppModel {
             'counterCache' => true,
         ]
     ];
+
+    public $actsAs = ['Search.Searchable'];
+    public $filterArgs = [
+        'answered_user_id' => [
+            'type' => 'value',
+            'field' => [
+                'User.id',
+            ],
+            'connectorAnd' => '+',
+            'connectorOr' => ',',
+            'presetType' => 'value',
+        ],
+    ];
 }

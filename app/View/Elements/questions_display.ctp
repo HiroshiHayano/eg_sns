@@ -36,8 +36,8 @@
         <!-- 回答数表示 -->
         <div class='panel-footer'>
             回答
-            <?php $sample_qestion = empty($question['Answer']) ? '' : 'Answer:'.$question['Answer'][0]['content'];?>
-            <span class='badge' data-toggle='tooltip' data-placement='bottom' title=<?php echo h($this->Text->truncate($sample_qestion, 30));?>>
+            <?php $sample_question = empty($question['Answer']) ? '' : 'Answer:'.$question['Answer'][0]['content'];?>
+            <span class='badge' data-toggle='tooltip' data-placement='bottom' title=<?php echo h($this->Text->truncate($sample_question, 30));?>>
                 <?php echo $question['Question']['answer_count']; ?>
             </span>
         </div>

@@ -26,6 +26,13 @@
                 'placeholder' => '投稿者の名前を入力してください',
                 'class' => 'form-control'
             ]);
+            echo $this->Form->input('status_filter', [
+                'label' => '',
+                'type' => 'select', 
+                'multiple'=> 'checkbox',
+                'options' => [0 => '未解決', 1 => '解決'],
+                'class' => 'checkbox-inline'
+            ]);
             echo $this->Form->submit('Search', [
                 'class' => ['btn', 'btn-default', 'btn-block']
             ]);

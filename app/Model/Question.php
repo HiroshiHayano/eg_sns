@@ -25,17 +25,18 @@ class Question extends AppModel {
         'counterCache' => true,
     ]];
 
-    public $actsAs = array('Search.Searchable');
-    public $filterArgs = array(
-        'keyword' => array(
+    public $actsAs = ['Search.Searchable'];
+    public $filterArgs = [
+        'keyword' => [
             'type' => 'like',
-            'field' => array(
+            'field' => [
                 'Question.title', 
                 'Question.content', 
-            ),
+            ],
             'connectorAnd' => '+',
             'connectorOr' => ',',
-        ),
+            'presetType' => 'value',
+        ],
         'name' => [
             'type' => 'like',
             'field' => [
@@ -44,6 +45,12 @@ class Question extends AppModel {
             ],
             'connectorAnd' => '+',
             'connectorOr' => ',',
-        ]
-    );
+            'presetType' => 'value',
+        ],
+        'status_filter' => [
+            'type' => 'value',
+            'field' => 'Question.is_resolved',
+            'presetType' => 'checkbox',
+        ],
+    ];
 }

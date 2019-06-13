@@ -14,8 +14,16 @@ class QuestionsController extends AppController {
     public function isAuthorized($user = null)
     {
         // 登録済ユーザーの許可範囲
-        if (in_array($this->action, array('index', 'view', 'add', 'resolve', 'edit', 'delete', 'questions_view'))) {
-            return true;
+        if (in_array($this->action, array(
+            'index', 
+            'view', 
+            'add', 
+            'resolve', 
+            'edit', 
+            'delete', 
+            'questions_view', 
+            'answered_questions_view'))) {
+                return true;
         }
         return parent::isAuthorized($user);
     }
@@ -157,12 +165,12 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function questions_view($id = NULL)
+    public function answered_questions_view($id = NULL)
     {
-        $this->User->id = $id;
-        $this->set('user', $this->User->read());
+        $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));
 
-        $conditions['user_id'] = $this->User->id;
-        $this->set('questions', $this->paginate('Question', $conditions));
+        $this->Prg->commonProcess();
+        $conditions = $this->Answer->parseCriteria($this->passedArgs);
+        $this->set('answers', $this->paginate('Answer', $conditions));
     }
 }
