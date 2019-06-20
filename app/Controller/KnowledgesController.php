@@ -41,21 +41,20 @@ class KnowledgesController extends AppController {
     public function index()
     {
         if ($this->request->is('post')){
-                $this->Knowledge->set($this->request->data);
-                if (!$this->Knowledge->validates()) {
-                    $this->Session->setFlash(
-                        '検索ワードを見直してください',
-                        'default',
-                        ['class' => 'alert alert-danger']
-                    );
-                } else {
-                    $this->Prg->commonProcess();
-                }    
+            array_walk_recursive($this->request->data, [$this->Knowledge, 'shapeCondition']);
+            $this->Knowledge->set($this->request->data);
+            if (!$this->Knowledge->validates()) {
+                $this->Session->setFlash(
+                    '検索ワードを見直してください',
+                    'default',
+                    ['class' => 'alert alert-danger']
+                );
+            } else {
+                $this->Prg->commonProcess();
+            }    
         } else {
             $this->Prg->commonProcess();
             $conditions = $this->Knowledge->parseCriteria($this->passedArgs);
-            // 出来上がった$conditionsを加工。全角スペースをtrim
-            array_walk_recursive($conditions, [$this->Knowledge, 'trimSpace']);
             $this->paginate['conditions'] = $conditions;
         }
         $this->set('knowledges', $this->paginate());

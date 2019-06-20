@@ -59,8 +59,8 @@ class Question extends AppModel {
                 'Question.title', 
                 'Question.content', 
             ],
-            'connectorAnd' => '+',
-            'connectorOr' => ',',
+            'connectorAnd' => null,
+            'connectorOr' => ' ',
         ],
         'name' => [
             'type' => 'like',
@@ -68,8 +68,8 @@ class Question extends AppModel {
                 'User.name',
                 'User.phonetic'
             ],
-            'connectorAnd' => '+',
-            'connectorOr' => ',',
+            'connectorAnd' => null,
+            'connectorOr' => ' ',
         ],
         'status_filter' => [
             'type' => 'value',

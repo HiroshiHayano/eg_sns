@@ -32,12 +32,13 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
-    public function trimSpace(&$item, $key){
+    public function shapeCondition(&$item, $key){
         if (!empty($item)) {
-            $item = trim($item, '%');
             $item = preg_replace( '/^[ 　]+/u', '', $item);
             $item = preg_replace( '/[ 　]+$/u', '', $item);
-            $item = '%' . $item . '%';    
+            while (strpos($item, '  ') !== false) {
+                $item = preg_replace('/  /u', ' ', $item);
+            }
         }
     }
 

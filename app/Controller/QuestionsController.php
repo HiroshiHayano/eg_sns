@@ -36,6 +36,7 @@ class QuestionsController extends AppController {
     public function index()
     {
         if ($this->request->is('post')){
+            array_walk_recursive($this->request->data, [$this->Question, 'shapeCondition']);
             $this->Question->set($this->request->data);
             if (!$this->Question->validates()) {
                 $this->Session->setFlash(
@@ -49,8 +50,6 @@ class QuestionsController extends AppController {
         } else {
             $this->Prg->commonProcess();
             $conditions = $this->Question->parseCriteria($this->passedArgs);
-            // 出来上がった$conditionsを加工。全角スペースをtrim
-            array_walk_recursive($conditions, [$this->Question, 'trimSpace']);
             $this->paginate['conditions'] = $conditions;
         }
         $this->set('questions', $this->paginate());

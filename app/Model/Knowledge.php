@@ -60,8 +60,8 @@ class Knowledge extends AppModel {
                 'Knowledge.title', 
                 'Knowledge.content', 
             ),
-            'connectorAnd' => '+',
-            'connectorOr' => ',',
+            'connectorAnd' => null,
+            'connectorOr' => ' ',
         ],
         'name' => [
             'type' => 'like',
@@ -69,8 +69,8 @@ class Knowledge extends AppModel {
                 'User.name',
                 'User.phonetic'
             ],
-            'connectorAnd' => '+',
-            'connectorOr' => ',',
+            'connectorAnd' => null,
+            'connectorOr' => ' ',
         ]
     );
 }
