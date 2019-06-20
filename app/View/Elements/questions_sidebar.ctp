@@ -31,7 +31,8 @@
                 'type' => 'select', 
                 'multiple'=> 'checkbox',
                 'options' => [0 => '未解決', 1 => '解決'],
-                'class' => 'checkbox-inline'
+                'class' => 'checkbox-inline',
+                'default' => [0, 1]
             ]);
             echo $this->Form->submit('Search', [
                 'class' => ['btn', 'btn-default', 'btn-block']

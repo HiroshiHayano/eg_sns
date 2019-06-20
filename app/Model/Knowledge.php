@@ -37,7 +37,6 @@ class Knowledge extends AppModel {
                 'allowEmpty' => true,
             ],
         ]
-
     );
 
     public $belongsTo = [

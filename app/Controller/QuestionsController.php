@@ -10,6 +10,11 @@ class QuestionsController extends AppController {
         'limit' => 10,
         'order' => ['id' => 'desc'],
     ];
+    public $presetVars = [
+        'keyword' => ['type' => 'value', 'empty' => true, 'encode' => true],
+        'name' => ['type' => 'value', 'empty' => true, 'encode' => true],
+        'status_filter' => ['type' => 'checkbox', 'empty' => true, 'encode' => true],
+    ];
 
     public function isAuthorized($user = null)
     {
@@ -30,9 +35,24 @@ class QuestionsController extends AppController {
 
     public function index()
     {
-        $this->Prg->commonProcess();
-        $conditions = $this->Question->parseCriteria($this->passedArgs);
-        $this->paginate['conditions'] = $conditions;
+        if ($this->request->is('post')){
+            $this->Question->set($this->request->data);
+            if (!$this->Question->validates()) {
+                $this->Session->setFlash(
+                    '検索ワードを見直してください',
+                    'default',
+                    ['class' => 'alert alert-danger']
+                );
+            } else {
+                $this->Prg->commonProcess();
+            }    
+        } else {
+            $this->Prg->commonProcess();
+            $conditions = $this->Question->parseCriteria($this->passedArgs);
+            // 出来上がった$conditionsを加工。全角スペースをtrim
+            array_walk_recursive($conditions, [$this->Question, 'trimSpace']);
+            $this->paginate['conditions'] = $conditions;
+        }
         $this->set('questions', $this->paginate());
     }
 
@@ -94,6 +114,7 @@ class QuestionsController extends AppController {
                     'default',
                     ['class' => 'alert alert-danger']
                 );
+                $this->redirect($this->referer());
             }
         }
     }
@@ -114,6 +135,7 @@ class QuestionsController extends AppController {
                     'default',
                     ['class' => 'alert alert-danger']
                 );
+                $this->redirect($this->referer());
             } 
         }
     }
@@ -134,6 +156,7 @@ class QuestionsController extends AppController {
                     'default',
                     ['class' => 'alert alert-danger']
                 );
+                $this->redirect($this->referer());
             }    
         }
     }

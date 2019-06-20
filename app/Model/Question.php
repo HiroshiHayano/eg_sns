@@ -4,13 +4,39 @@ class Question extends AppModel {
     //validation
     public $validate = array(
         'title' => array(
-            'rule' => 'notEmpty',
-            'message' => '入力してください'
+            'rule1' => [
+                'rule' => 'notEmpty',
+                'message' => '入力してください'    
+            ],
+            'rule2' => [
+                'rule' => ['checkSpace', 'title'],
+                'message' => '全角・半角スペースのみはダメ'
+            ]
         ),
         'content' => array(
-            'rule' => 'notEmpty',
-            'message' => '入力してください'
+            'rule1' => [
+                'rule' => 'notEmpty',
+                'message' => '入力してください'    
+            ],
+            'rule2' => [
+                'rule' => ['checkSpace', 'content'],
+                'message' => '全角・半角スペースのみはダメ'
+            ]
         ),
+        'keyword' => [
+            'rule1' => [
+                'rule' => ['checkSpace', 'keyword'],
+                'message' => '全角・半角スペースのみはダメ',
+                'allowEmpty' => true,
+            ],
+        ],
+        'name' => [
+            'rule1' => [
+                'rule' => ['checkSpace', 'name'],
+                'message' => '全角・半角スペースのみはダメ',
+                'allowEmpty' => true,
+            ],
+        ]
     );
 
     public $hasMany = [
@@ -35,7 +61,6 @@ class Question extends AppModel {
             ],
             'connectorAnd' => '+',
             'connectorOr' => ',',
-            'presetType' => 'value',
         ],
         'name' => [
             'type' => 'like',
@@ -45,12 +70,10 @@ class Question extends AppModel {
             ],
             'connectorAnd' => '+',
             'connectorOr' => ',',
-            'presetType' => 'value',
         ],
         'status_filter' => [
             'type' => 'value',
             'field' => 'Question.is_resolved',
-            'presetType' => 'checkbox',
         ],
     ];
 }
