@@ -32,4 +32,22 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+    public function trimSpace(&$item, $key){
+        if (!empty($item)) {
+            $item = trim($item, '%');
+            $item = preg_replace( '/^[ 　]+/u', '', $item);
+            $item = preg_replace( '/[ 　]+$/u', '', $item);
+            $item = '%' . $item . '%';    
+        }
+    }
+
+    public function checkSpace($check, $field){
+        if (preg_match('/^[ 　]+$/', $check[$field])) {
+            return false;
+        }
+        if (preg_match('/^[ 　]+$/', $check[$field])) {
+            return false;
+        }
+        return true;
+    }
 }

@@ -6,7 +6,10 @@ class KnowledgesController extends AppController {
     public $helpers = array('Html', 'Form', 'Text', 'Paginator', 'UploadPack.Upload');
     public $uses = array('Knowledge', 'KnowledgesComment', 'User', 'Bookmark');
     public $components = ['UsersList', 'GetBookmarks', 'Search.Prg'];
-    public $presetVars = true;
+    public $presetVars = [
+        'keyword' => ['type' => 'value', 'empty' => true, 'encode' => true],
+        'name' => ['type' => 'value', 'empty' => true, 'encode' => true],
+    ];
 
     public $paginate = [
         // 'contain' => ['KnowledgesComment', 'Bookmark'],
@@ -37,9 +40,24 @@ class KnowledgesController extends AppController {
 
     public function index()
     {
-        $this->Prg->commonProcess();
-        $conditions = $this->Knowledge->parseCriteria($this->passedArgs);
-        $this->paginate['conditions'] = $conditions;
+        if ($this->request->is('post')){
+                $this->Knowledge->set($this->request->data);
+                if (!$this->Knowledge->validates()) {
+                    $this->Session->setFlash(
+                        '検索ワードを見直してください',
+                        'default',
+                        ['class' => 'alert alert-danger']
+                    );
+                } else {
+                    $this->Prg->commonProcess();
+                }    
+        } else {
+            $this->Prg->commonProcess();
+            $conditions = $this->Knowledge->parseCriteria($this->passedArgs);
+            // 出来上がった$conditionsを加工。全角スペースをtrim
+            array_walk_recursive($conditions, [$this->Knowledge, 'trimSpace']);
+            $this->paginate['conditions'] = $conditions;
+        }
         $this->set('knowledges', $this->paginate());
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
@@ -72,7 +90,7 @@ class KnowledgesController extends AppController {
     }
 
     public function add()
-    {   
+    {
         if ($this->request->onlyAllow(['post'])) {
             if ($this->Knowledge->save($this->request->data)) {
                 $this->Session->setFlash(
@@ -87,6 +105,7 @@ class KnowledgesController extends AppController {
                     'default',
                     ['class' => 'alert alert-danger']
                 );
+                $this->redirect($this->referer());
             } 
         }
     }
@@ -107,6 +126,7 @@ class KnowledgesController extends AppController {
                     'default',
                     ['class' => 'alert alert-danger']
                 );
+                $this->redirect($this->referer());
             }
         }
     }

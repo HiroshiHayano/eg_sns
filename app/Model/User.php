@@ -22,11 +22,11 @@ class User extends AppModel {
     //validation
     public $validate = array(
         'mail_address' => array(
-            'mail_address_rule_2' => array(
+            'mail_address_rule_1' => array(
                 'rule' => 'isUnique',
                 'message' => 'すでに使用されているメールアドレスです'    
             ),
-            'mail_address_rule_1' => array(
+            'mail_address_rule_2' => array(
                 'rule' => 'email',
                 'message' => 'メールアドレスのフォーマットを確認してください'    
             ),

@@ -6,11 +6,11 @@ class Question extends AppModel {
         'title' => array(
             'rule' => 'notEmpty',
             'message' => '入力してください'
-        ),    
+        ),
         'content' => array(
             'rule' => 'notEmpty',
             'message' => '入力してください'
-        ),    
+        ),
     );
 
     public $hasMany = [
