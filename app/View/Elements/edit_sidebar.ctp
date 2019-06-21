@@ -1,7 +1,7 @@
 <ul class='list-group'>
     <li class='list-group-item'>
         <?php 
-            echo $this->Html->link('プロフィールの変更', array(
+            echo $this->Html->link('プロフィール情報の変更', array(
                 'action'=>'edit', 
                 $this->Session->read('Auth.User.id')
             )); 

@@ -1,12 +1,12 @@
 <?php
     // echo $this->Html->css('index_users');
-    echo $this->element('head', array('title' => 'プロフィール編集'));
+    echo $this->element('head', array('title' => 'プロフィール情報の変更'));
     echo $this->element('header');
 ?>
 
 <div class='container'>
     <div class="page-header">
-        <h1>プロフィール編集</h1>
+        <h1>プロフィール情報の変更</h1>
     </div>
     <div class='row'>
         <div class='col-md-3'>

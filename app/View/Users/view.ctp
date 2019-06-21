@@ -1,6 +1,6 @@
 <?php
     echo $this->Html->css('index_users');
-    echo $this->element('head', array('title' => 'プロフィール'));
+    echo $this->element('head', array('title' => '[プロフィール]: ' . $user['User']['name']));
     echo $this->element('header');
 ?>
 
@@ -10,7 +10,7 @@
             <small>
                 <?php 
                     if ($this->Session->read('Auth.User.id') === $user['User']['id']) {
-                        echo '&#9656;' . $this->Html->link('プロフィールの編集', array('action'=>'edit', $user['User']['id']));
+                        echo '&#9656;' . $this->Html->link('アカウントの編集', array('action'=>'edit', $user['User']['id']));
                     }
                 ?>
             </small>

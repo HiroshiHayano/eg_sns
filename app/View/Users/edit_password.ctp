@@ -5,7 +5,7 @@
 
 <div class='container'>
     <div class="page-header">
-        <h1>パスワードの更新</h1>
+        <h1>パスワードの変更</h1>
     </div>
     <div class='row'>
         <div class='col-md-3'>
