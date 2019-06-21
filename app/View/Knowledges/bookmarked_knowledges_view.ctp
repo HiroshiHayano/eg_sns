@@ -26,7 +26,7 @@
                     </small>
                 </h2>
             </div>
-            <?php echo $this->element('knowledges_display', ['knowledges' => $knowledges]); ?>
+            <?php echo $this->element('knowledges_display', ['knowledges' => $bookmarked_knowledges]); ?>
             <?php
                 echo $this->Paginator->numbers(
                     array (

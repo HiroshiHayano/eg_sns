@@ -15,7 +15,7 @@ class KnowledgesController extends AppController {
         // 'contain' => ['KnowledgesComment', 'Bookmark'],
         'limit' => 10,
         'order' => ['id' => 'desc'],
-        // conditionはsearchプラグイン導入後に削除 
+        // // conditionはsearchプラグイン導入後に削除 
         // 'conditions' => [
         //     'OR' => []
         // ]
@@ -161,9 +161,10 @@ class KnowledgesController extends AppController {
     {
         $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));
 
-        $this->Prg->commonProcess();
-        $conditions = $this->Bookmark->parseCriteria($this->passedArgs);
-        $this->set('knowledges', $this->paginate('Bookmark', $conditions));
+        $conditions = [
+            'Bookmark.user_id' => $id,
+        ];
+        $this->set('bookmarked_knowledges', $this->paginate('Bookmark', $conditions));
 
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));

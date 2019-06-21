@@ -41,7 +41,8 @@ class Question extends AppModel {
 
     public $hasMany = [
         'Answer' => [
-            'foreignKey' => 'question_id'
+            'foreignKey' => 'question_id',
+            'dependent' => true
         ]
     ];
 

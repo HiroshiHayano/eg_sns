@@ -9,6 +9,10 @@ class Answer extends AppModel {
         ),    
     );
 
+    public $hasMany = [
+        'Comment' => ['dependent' => true],
+    ];
+
     public $belongsTo = [
         'Question' =>[
             'counterCache' => true,

@@ -48,8 +48,8 @@ class Knowledge extends AppModel {
     ];
 
     public $hasMany = [
-        'KnowledgesComment',
-        'Bookmark',
+        'KnowledgesComment' => ['dependent' => true],
+        'Bookmark' => ['dependent' => true],
     ];
 
     public $actsAs = array('Search.Searchable');

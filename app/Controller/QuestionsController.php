@@ -191,8 +191,9 @@ class QuestionsController extends AppController {
     {
         $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));
 
-        $this->Prg->commonProcess();
-        $conditions = $this->Answer->parseCriteria($this->passedArgs);
+        $conditions = [
+            'Answer.user_id' => $id,
+        ];
         $this->set('answers', $this->paginate('Answer', $conditions));
     }
 }

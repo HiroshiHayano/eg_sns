@@ -120,14 +120,18 @@ class UsersController extends AppController {
         $answers = $this->Answer->find('all', [
             'order' => 'Answer.id DESC',
             'limit' => $number_of_display_posts,
-            'conditions' => ['Answer.user_id' => $id],
+            'conditions' => [
+                'Answer.user_id' => $id,
+            ],
         ]);
         $this->set(compact('answers'));
 
         $bookmarked_knowledges = $this->Bookmark->find('all', [
             'order' => 'Bookmark.id DESC',
             'limit' => $number_of_display_posts,
-            'conditions' => ['Bookmark.user_id' => $id],
+            'conditions' => [
+                'Bookmark.user_id' => $id,
+            ],
         ]);
         $this->set(compact('bookmarked_knowledges'));
 
