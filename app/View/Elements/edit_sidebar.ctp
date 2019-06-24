@@ -33,10 +33,6 @@
                 'type' => 'hidden',
                 'value' => $this->Session->read('Auth.User.id'),
             ));
-            echo $this->Form->input('name', array(
-                'type' => 'hidden',
-                'value' => $this->Session->read('Auth.User.name'),
-            ));
             echo $this->Form->input('is_deleted', array(
                 'type' => 'hidden',
                 'value' => true,

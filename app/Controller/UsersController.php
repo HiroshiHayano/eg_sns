@@ -316,28 +316,11 @@ class UsersController extends AppController {
     {
         // debug($this->request->data);
         if ($this->request->onlyAllow(['post'])) {
-            $this->User->id = $this->request->data['User']['id'];
             if ($this->User->save($this->request->data)){
-                // 退会済みユーザーの質問は解決済みにする
-                $questions = $this->Question->find('all', ['conditions' => [
-                    'user_id' => $this->request->data['User']['id'],
-                    'is_resolved' => false,
-                ]]);
-                foreach ($questions as $question) {
-                    $question['Question']['is_resolved'] = true;
-                    $this->Question->id = $question['Question']['id'];
-                    $this->Question->save($question);
-                }
-
                 // プロフィール画像を削除
-                $profile_image = new File(WWW_ROOT . 'img/icon/' . $this->User->field('image'));
-                $profile_image->delete();
-                
-                // プロフィール画像を削除したとき用のものに置き換える
                 // 名前の後ろに"（退会済み）"を付け足す
                 $this->User->save(['User' => [
-                    // 'id' => $this->User->field('id'),
-                    'image' => 'mark_question.png',
+                    'image' => NULL,
                     'name' => $this->User->field('name') . '(退会済み)',
                 ]], $validate = false);
 
