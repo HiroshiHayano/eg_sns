@@ -62,36 +62,6 @@
                 'data-target' => '#post-form'
             ]);
         ?>
-        <!-- <div id='post-form' class='collapse'>
-            <div class='well'>
-                <?php
-                    echo $this->Form->create('Question', [
-                        'action' => 'add',
-                    ]);
-                    echo $this->Form->input('title', [
-                        'rows' => 3,
-                        'label' => 'title:',
-                        'class' => 'form-control',
-                        'value' => '',
-                    ]);
-                    echo $this->Form->input('content', [
-                        'type' => 'textarea',
-                        'rows' => 10,
-                        'label' => 'content:',
-                        'class' => 'form-control',
-                        'value' => '',
-                    ]);
-                    echo $this->Form->input('user_id', [
-                        'type' => 'hidden',
-                        'value' => $this->Session->read('Auth.User.id')
-                    ]);
-                    echo $this->Form->submit('投稿', [
-                        'class' => ['btn', ' btn-default']
-                    ]);
-                    echo $this->Form->end();
-                ?>
-            </div>
-        </div> -->
     </li>
 </ul>
 
