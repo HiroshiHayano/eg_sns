@@ -40,12 +40,23 @@
             echo $this->Form->button('知識を新規投稿', [
                 'type' => 'button',
                 'class' => ['btn', 'btn-info', 'btn-block'],
-                'data-toggle' => 'collapse',
+                'data-toggle' => 'modal',
                 'data-target' => '#post-form'
             ]);
         ?>
-        <div id='post-form' class='collapse'>
-            <div class='well'>
+    </li>
+</ul>
+
+<div class="modal fade" id="post-form" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+                    <span class='glyphicon glyphicon-remove'></span>
+                </button>
+				<h4 class="modal-title">新規投稿</h4>
+			</div>
+			<div class="modal-body">
                 <?php
                     echo $this->Form->create('Knowledge', [
                         'action' => 'add',
@@ -68,11 +79,11 @@
                         'value' => $this->Session->read('Auth.User.id')
                     ]);
                     echo $this->Form->submit('投稿', [
-                        'class' => ['btn', ' btn-default']
+                        'class' => ['btn', ' btn-info', 'btn-block']
                     ]);
                     echo $this->Form->end();
                 ?>
-            </div>
-        </div>
-    </li>
-</ul>
+			</div>
+		</div>
+	</div>
+</div>

@@ -58,12 +58,11 @@
             echo $this->Form->button('質問を新規投稿', [
                 'type' => 'button',
                 'class' => ['btn', 'btn-info', 'btn-block'],
-                // 'id' => 'postform_opener'
-                'data-toggle' => 'collapse',
+                'data-toggle' => 'modal',
                 'data-target' => '#post-form'
             ]);
         ?>
-        <div id='post-form' class='collapse'>
+        <!-- <div id='post-form' class='collapse'>
             <div class='well'>
                 <?php
                     echo $this->Form->create('Question', [
@@ -92,6 +91,47 @@
                     echo $this->Form->end();
                 ?>
             </div>
-        </div>
+        </div> -->
     </li>
 </ul>
+
+<div class="modal fade" id="post-form" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+                    <span class='glyphicon glyphicon-remove'></span>
+                </button>
+				<h4 class="modal-title">新規投稿</h4>
+			</div>
+			<div class="modal-body">
+                <?php
+                    echo $this->Form->create('Question', [
+                        'action' => 'add',
+                    ]);
+                    echo $this->Form->input('title', [
+                        'rows' => 3,
+                        'label' => 'title:',
+                        'class' => 'form-control',
+                        'value' => '',
+                    ]);
+                    echo $this->Form->input('content', [
+                        'type' => 'textarea',
+                        'rows' => 10,
+                        'label' => 'content:',
+                        'class' => 'form-control',
+                        'value' => '',
+                    ]);
+                    echo $this->Form->input('user_id', [
+                        'type' => 'hidden',
+                        'value' => $this->Session->read('Auth.User.id')
+                    ]);
+                    echo $this->Form->submit('投稿', [
+                        'class' => ['btn', ' btn-info', 'btn-block']
+                    ]);
+                    echo $this->Form->end();
+                ?>
+			</div>
+		</div>
+	</div>
+</div>
