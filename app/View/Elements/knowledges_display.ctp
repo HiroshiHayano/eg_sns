@@ -25,6 +25,7 @@
         </div>
         <div class='panel-footer'>
             <?php echo $this->element('knowledge_bookmark', ['bookmarks' => $bookmarks, 'knowledge' => $knowledge]);?>
+            <?php echo $this->element('knowledge_tag', ['tags' => $knowledge['Tag']]);?>
         </div>
     </div>
 <?php endforeach; ?>

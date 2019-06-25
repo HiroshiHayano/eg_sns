@@ -31,19 +31,66 @@
             <?php
                 echo $this->Upload->uploadImage($knowledge['User'], 'User.image', ['style' => 'small']);
                 echo h($knowledge['User']['name']);
-                // echo h($users_name[$knowledge['Knowledge']['user_id']]);
             ?>
         </p>
     </div>
-    <!-- お気に入り、いいね機能つけたい -->
+    <!-- bookmark機能 -->
     <div class="panel-footer">
         <?php echo $this->element('knowledge_bookmark', ['bookmarks' => $bookmarks, 'knowledge' => $knowledge]);?>
+        <?php echo $this->element('knowledge_tag', ['tags' => $knowledge['Tag']]);?>
     </div>
 </div>
 <!-- 編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $knowledge['Knowledge']['user_id']) :?>
+    <div class='row collapse' id='tag-form'>
+        <div class='col-md-1'></div>
+        <div class='col-md-10'>
+            <div class='panel panel-default'>
+                <div class='panel-body bg-success'>
+                    <h3>
+                    <?php foreach ($knowledge['Tag'] as $tag) :?>
+                        <span class="label label-success"><?=$tag['label'];?></span>
+                    <?php endforeach;?>
+                    </h3>
+                    <div class='form-group'>
+                        <?php 
+                            echo $this->Form->create('Tag', [
+                                'type' => 'post', 
+                                'url' => [
+                                    'controller' => 'tags',
+                                    'action' => 'add',
+                                    $knowledge['Knowledge']['id']
+                                ]
+                            ]);
+                            echo $this->Form->input('label',['label' => '', 'class' => 'form-control']);
+                            echo $this->Form->submit('+', ['class' => 'btn btn-default form-inline']);
+                            echo $this->Form->end ();                 
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='col-md-1'></div>
+    </div>
     <div class='row'>
-        <div class='col-md-4'></div>
+        <div class='col-md-4'>
+            <?php
+                echo $this->Form->button('タグ', [
+                    'class' => 'btn btn-success btn-block',
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#tag-form',
+                ]);
+            ?>
+        </div>
+        <div class='col-md-4'>
+            <?php
+                echo $this->Form->button('編集', [
+                    'class' => 'btn btn-primary btn-block',
+                    'data-toggle' => 'collapse',
+                    'data-target' => '#edit-form',
+                ]);
+            ?>
+        </div>
         <div class='col-md-4'>
             <?php
                 echo $this->Form->create('Knowledge', array(
@@ -58,15 +105,6 @@
                     'class' => 'btn btn-danger btn-block',
                 ]);
                 echo $this->Form->end();
-            ?>
-        </div>
-        <div class='col-md-4'>
-            <?php
-                echo $this->Form->button('編集', [
-                    'class' => 'btn btn-primary btn-block',
-                    'data-toggle' => 'collapse',
-                    'data-target' => '#edit-form',
-                ]);
             ?>
         </div>
     </div>

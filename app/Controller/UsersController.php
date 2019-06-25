@@ -1,6 +1,6 @@
 <?php
 
-App::uses('File', 'Utility');
+// App::uses('File', 'Utility');
 class UsersController extends AppController {
     public $autoLayout = false;
 
@@ -314,7 +314,6 @@ class UsersController extends AppController {
 
     public function delete()
     {
-        // debug($this->request->data);
         if ($this->request->onlyAllow(['post'])) {
             if ($this->User->save($this->request->data)){
                 // プロフィール画像を削除

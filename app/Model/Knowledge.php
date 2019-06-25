@@ -52,6 +52,16 @@ class Knowledge extends AppModel {
         'Bookmark' => ['dependent' => true],
     ];
 
+    public $hasAndBelongsToMany =[
+        'Tag' => [
+            'classname' => 'Tag',
+            'joinTable' => 'knowledges_tags',
+            'foreignKey' => 'knowledge_id',
+            'associationForeignKey' => 'tag_id',
+            'with' => 'KnowledgesTag',
+        ]
+    ];
+
     public $actsAs = array('Search.Searchable');
     public $filterArgs = array(
         'keyword' => [

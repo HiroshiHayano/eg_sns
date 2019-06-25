@@ -157,12 +157,12 @@ class KnowledgesController extends AppController {
         }
     }
 
-    public function bookmarked_knowledges_view($id = NULL)
+    public function bookmarked_knowledges_view($user_id = NULL)
     {
-        $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));
+        $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $user_id]]));
 
         $conditions = [
-            'Bookmark.user_id' => $id,
+            'Bookmark.user_id' => $user_id,
         ];
         $this->set('bookmarked_knowledges', $this->paginate('Bookmark', $conditions));
 

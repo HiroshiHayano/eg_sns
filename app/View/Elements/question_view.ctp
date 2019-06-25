@@ -83,6 +83,17 @@ if ($question['Question']['is_resolved'] === true) {
         </div>
         <div class='col-md-4'>
             <?php
+                if ($question['Question']['is_resolved'] === false) {
+                    echo $this->Form->button('編集', [
+                        'class' => 'btn btn-primary btn-block',
+                        'data-toggle' => 'collapse',
+                        'data-target' => '#edit-form',
+                    ]);    
+                }
+            ?>
+        </div>
+        <div class='col-md-4'>
+            <?php
                 echo $this->Form->create('Question', array(
                     'action' => 'delete',
                     'onsubmit' => 'return confirm("この投稿を削除しますか？")',
@@ -95,17 +106,6 @@ if ($question['Question']['is_resolved'] === true) {
                     'class' => 'btn btn-danger btn-block',
                 ]);
                 echo $this->Form->end();
-            ?>
-        </div>
-        <div class='col-md-4'>
-            <?php
-                if ($question['Question']['is_resolved'] === false) {
-                    echo $this->Form->button('編集', [
-                        'class' => 'btn btn-primary btn-block',
-                        'data-toggle' => 'collapse',
-                        'data-target' => '#edit-form',
-                    ]);    
-                }
             ?>
         </div>
     </div>
