@@ -12,13 +12,8 @@ class KnowledgesController extends AppController {
     ];
 
     public $paginate = [
-        // 'contain' => ['KnowledgesComment', 'Bookmark'],
         'limit' => 10,
         'order' => ['id' => 'desc'],
-        // // conditionはsearchプラグイン導入後に削除 
-        // 'conditions' => [
-        //     'OR' => []
-        // ]
     ];
 
     public function isAuthorized($user = null)
@@ -161,10 +156,12 @@ class KnowledgesController extends AppController {
     {
         $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $user_id]]));
 
+        $user = $this->User->find('first', ['conditions' => ['User.id' => $user_id]]);
+        $bookmarked_knowledge_id = Hash::extract($user, 'Knowledge.{n}.id');
         $conditions = [
-            'Bookmark.user_id' => $user_id,
+            'Knowledge.id' => $bookmarked_knowledge_id,
         ];
-        $this->set('bookmarked_knowledges', $this->paginate('Bookmark', $conditions));
+        $this->set('bookmarked_knowledges', $this->paginate('Knowledge', $conditions));
 
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));

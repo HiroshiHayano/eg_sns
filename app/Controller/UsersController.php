@@ -126,14 +126,14 @@ class UsersController extends AppController {
         ]);
         $this->set(compact('answers'));
 
-        $bookmarked_knowledges = $this->Bookmark->find('all', [
-            'order' => 'Bookmark.id DESC',
+        $user = $this->User->find('first', ['conditions' => ['User.id' => $id]]);
+        $bookmarked_knowledge_id = Hash::extract($user, 'Knowledge.{n}.id');
+        $options = [
+            'order' => 'Knowledge.id DESC',
             'limit' => $number_of_display_posts,
-            'conditions' => [
-                'Bookmark.user_id' => $id,
-            ],
-        ]);
-        $this->set(compact('bookmarked_knowledges'));
+            'conditions' => ['Knowledge.id' => $bookmarked_knowledge_id],
+        ];
+        $this->set('bookmarked_knowledges', $this->Knowledge->find('all', $options));
 
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));

@@ -29,8 +29,8 @@
         </p>
         <p class='text-right'>
             <?php
-                echo $this->Upload->uploadImage($knowledge['User'], 'User.image', ['style' => 'small']);
-                echo h($knowledge['User']['name']);
+                echo $this->Upload->uploadImage($knowledge['PostUser'], 'User.image', ['style' => 'small']);
+                echo h($knowledge['PostUser']['name']);
             ?>
         </p>
     </div>

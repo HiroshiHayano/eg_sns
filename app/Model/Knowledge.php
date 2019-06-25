@@ -40,7 +40,7 @@ class Knowledge extends AppModel {
     );
 
     public $belongsTo = [
-        'User' => [
+        'PostUser' => [
             'className' => 'User',
             'foreignKey' => 'user_id',
             'counterCache' => true,
@@ -49,7 +49,7 @@ class Knowledge extends AppModel {
 
     public $hasMany = [
         'KnowledgesComment' => ['dependent' => true],
-        'Bookmark' => ['dependent' => true],
+        // 'Bookmark' => ['dependent' => true],
     ];
 
     public $hasAndBelongsToMany =[
@@ -59,6 +59,13 @@ class Knowledge extends AppModel {
             'foreignKey' => 'knowledge_id',
             'associationForeignKey' => 'tag_id',
             'with' => 'KnowledgesTag',
+        ],
+        'User' => [
+            'classname' => 'User',
+            'joinTable' => 'bookmarks',
+            'foreignKey' => 'knowledge_id',
+            'associationForeignKey' => 'user_id',
+            'with' => 'Bookmark',
         ]
     ];
 
@@ -76,8 +83,8 @@ class Knowledge extends AppModel {
         'name' => [
             'type' => 'like',
             'field' => [
-                'User.name',
-                'User.phonetic'
+                'PostUser.name',
+                'PostUser.phonetic'
             ],
             'connectorAnd' => null,
             'connectorOr' => ' ',

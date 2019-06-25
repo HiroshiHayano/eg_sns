@@ -237,7 +237,7 @@
                         <!-- ブックマークした投稿一覧 -->
                         <div class='page-header'>
                             <h3>
-                                <strong>最近のブックマーク</strong>
+                                <strong>ブックマーク</strong>
                                 <small>
                                     <?php 
                                         $number_of_remaining_bookmarks = (int)($user['User']['bookmark_count'] - count($bookmarked_knowledges));

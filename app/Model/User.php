@@ -92,6 +92,16 @@ class User extends AppModel {
         ),
     );
 
+    public $hasAndBelongsToMany =[
+        'Knowledge' => [
+            'classname' => 'Knowledge',
+            'joinTable' => 'bookmarks',
+            'foreignKey' => 'user_id',
+            'associationForeignKey' => 'knowledge_id',
+            'with' => 'Bookmark',
+        ]
+    ];
+
     public function beforeSave($options = array())
     {
         if (isset($this->data[$this->alias]['password'])) {
