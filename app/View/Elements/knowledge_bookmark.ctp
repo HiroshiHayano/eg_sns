@@ -7,7 +7,6 @@
 <?php endif;?>
 <?php $number_of_bookmarks = count($knowledge['User']);?>
 <span class='badge number_of_comments-kid_<?=$knowledge['Knowledge']['id'];?>'><?=$number_of_bookmarks;?></span>
-<!-- <span class='badge number_of_comments-kid_<?=$knowledge['Knowledge']['id'];?>'><?=$knowledge['Knowledge']['bookmark_count'];?></span> -->
 コメント
 <span class='badge'><?=$knowledge['Knowledge']['knowledges_comment_count'];?></span>
 <script>
@@ -20,7 +19,6 @@ $('.off_kid_<?=$knowledge['Knowledge']['id'];?>').click(function() {
     var knowledge_id = "<?=$knowledge['Knowledge']['id'];?>";
     execAjax(url, user_id, knowledge_id);
     var number_of_comments = <?=in_array($knowledge['Knowledge']['id'], $bookmarks) ? $number_of_bookmarks - 1 : $number_of_bookmarks;?>;
-    // var number_of_comments = <?=in_array($knowledge['Knowledge']['id'], $bookmarks) ? $knowledge['Knowledge']['bookmark_count'] - 1 : $knowledge['Knowledge']['bookmark_count'];?>;
     $('.number_of_comments-kid_<?=$knowledge['Knowledge']['id'];?>').text(number_of_comments);
 });
 $('.on_kid_<?=$knowledge['Knowledge']['id'];?>').click(function() {
@@ -31,7 +29,6 @@ $('.on_kid_<?=$knowledge['Knowledge']['id'];?>').click(function() {
     var knowledge_id = "<?=$knowledge['Knowledge']['id'];?>";
     execAjax(url, user_id, knowledge_id);
     var number_of_comments = <?=in_array($knowledge['Knowledge']['id'], $bookmarks) ? $number_of_bookmarks : $number_of_bookmarks + 1;?>;
-    // var number_of_comments = <?=in_array($knowledge['Knowledge']['id'], $bookmarks) ? $knowledge['Knowledge']['bookmark_count'] : $knowledge['Knowledge']['bookmark_count'] + 1;?>;
     $('.number_of_comments-kid_<?=$knowledge['Knowledge']['id'];?>').text(number_of_comments);
 });
 </script>

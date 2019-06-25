@@ -134,6 +134,8 @@ class UsersController extends AppController {
             'conditions' => ['Knowledge.id' => $bookmarked_knowledge_id],
         ];
         $this->set('bookmarked_knowledges', $this->Knowledge->find('all', $options));
+        $options['limit'] = NULL;
+        $this->set('number_of_bookmark', $this->Knowledge->find('count', $options));
 
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));

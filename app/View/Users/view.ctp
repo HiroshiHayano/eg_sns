@@ -240,7 +240,7 @@
                                 <strong>ブックマーク</strong>
                                 <small>
                                     <?php 
-                                        $number_of_remaining_bookmarks = (int)($user['User']['bookmark_count'] - count($bookmarked_knowledges));
+                                        $number_of_remaining_bookmarks = (int)($number_of_bookmark - count($bookmarked_knowledges));
                                         if ($number_of_remaining_bookmarks > 0) {
                                             $button_label = '他のブックマーク (' . $number_of_remaining_bookmarks . '件)';
                                             echo $this->Form->create('Knowledge', [
