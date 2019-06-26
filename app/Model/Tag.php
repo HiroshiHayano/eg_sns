@@ -13,7 +13,7 @@ class Tag extends AppModel {
                 'message' => '1文字以上、45文字以下でお願いします'
             ],
             'rule3' => [
-                'rule' => ['checkSpace', 'content'],
+                'rule' => ['checkSpace', 'label'],
                 'message' => '全角・半角スペースのみはダメ'
             ]
         ),
