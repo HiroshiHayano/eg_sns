@@ -6,6 +6,8 @@
     <?php echo $this->Html->css('bootstrap/bootstrap'); ?>
     <?php echo $this->Html->css('common'); ?>
     <?php echo $this->html->meta('icon'); ?>
+    <?php echo $this->Html->script('multiselect/bootstrap-multiselect.js'); ?>
+    <?php echo $this->Html->css('multiselect/bootstrap-multiselect'); ?>
     <script>
         function execAjax(url, user_id, knowledge_id) {
             $.ajax({
@@ -33,5 +35,8 @@
                 }
             );
         };
+        $(document).ready(function() {
+            $('#knowledges-tags').multiselect();
+        });
     </script>
 </head>
