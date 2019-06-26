@@ -64,8 +64,8 @@ function exec_tagAjax(url, knowledges_tags_id) {
     </div>
     <!-- bookmark機能 -->
     <div class="panel-footer">
+        <h4>タグ：<?php echo $this->element('knowledge_tag', ['tags' => $knowledge['Tag']]);?></h4>
         <?php echo $this->element('knowledge_bookmark', ['bookmarks' => $bookmarks, 'knowledge' => $knowledge]);?>
-        <?php echo $this->element('knowledge_tag', ['tags' => $knowledge['Tag']]);?>
     </div>
 </div>
 <!-- 編集・削除  -->
@@ -86,7 +86,7 @@ function exec_tagAjax(url, knowledges_tags_id) {
                                     'id' => 'knowledgesTag-id_' . $tag['KnowledgesTag']['id'],
                                 ]);
                                 ?>
-                                <span><?=$tag['label'];?></span>
+                                <span><?=h($tag['label']);?></span>
                             </div>
                         </h5>
                         <script>
