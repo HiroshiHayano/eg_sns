@@ -1,6 +1,34 @@
 <?php
     echo $this->Html->css('view');
 ?>
+<script>
+function exec_tagAjax(url, knowledges_tags_id) {
+    $.ajax({
+        url: url,
+        async: false,
+        type: "POST",
+        data: {
+            knowledges_tags_id: knowledges_tags_id,
+        },
+        dataType: 'text',
+    })
+    .then(
+        // 成功時
+        function (data, textStatus, jqXHR){
+            // console.log('success');
+            // result = data;
+        },
+        // 失敗時
+        function (jqXHR, textStatus, errorThrown){
+            console.log('fail');
+            console.log(textStatus);
+            console.log(jqXHR);
+            console.log(errorThrown);
+        }
+    );
+};
+</script>
+
 <div class='panel panel-default'>
     <div class='panel-heading'>
         <div class='panel-title'>
@@ -43,15 +71,33 @@
 <!-- 編集・削除  -->
 <?php if ($this->Session->read('Auth.User.id') === $knowledge['Knowledge']['user_id']) :?>
     <div class='row collapse' id='tag-form'>
-        <div class='col-md-1'></div>
-        <div class='col-md-10'>
+        <div class='col-md-3'></div>
+        <div class='col-md-6'>
             <div class='panel panel-default'>
-                <div class='panel-body bg-success'>
-                    <h3>
+                <div class='panel-body'>
                     <?php foreach ($knowledge['Tag'] as $tag) :?>
-                        <span class="label label-success"><?=$tag['label'];?></span>
+                        <h5>
+                            <div class="alert alert-success alert-dismissable fade in">
+                                <?php 
+                                echo $this->Form->button('&times;', [
+                                    'class' => 'close', 
+                                    'data-dismiss' => 'alert',
+                                    'aria-label' => 'close',
+                                    'id' => 'knowledgesTag-id_' . $tag['KnowledgesTag']['id'],
+                                ]);
+                                ?>
+                                <span><?=$tag['label'];?></span>
+                            </div>
+                        </h5>
+                        <script>
+                            $('#knowledgesTag-id_<?=$tag["KnowledgesTag"]["id"];?>').click(function(){
+                                var url = "<?=$this->Html->url(['controller' => 'knowledgesTag', 'action' => 'delete']);?>";
+                                var knowledges_tags_id = "<?=$tag["KnowledgesTag"]["id"];?>";
+                                exec_tagAjax(url, knowledges_tags_id);
+                                $('.knowledgesTag-id_<?=$tag['KnowledgesTag']['id']?>').hide();
+                            });
+                        </script>
                     <?php endforeach;?>
-                    </h3>
                     <div class='form-group'>
                         <?php 
                             echo $this->Form->create('Tag', [
@@ -70,7 +116,7 @@
                 </div>
             </div>
         </div>
-        <div class='col-md-1'></div>
+        <div class='col-md-3'></div>
     </div>
     <div class='row'>
         <div class='col-md-4'>
