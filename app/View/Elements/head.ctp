@@ -39,6 +39,7 @@
             // $('#knowledges-tags').multiselect();
             $('#users').multiselect({
                 includeSelectAllOption: true,
+                buttonWidth: '100%'
             });
         });
     </script>
