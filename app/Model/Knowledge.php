@@ -30,13 +30,6 @@ class Knowledge extends AppModel {
                 'allowEmpty' => true,
             ],
         ],
-        // 'name' => [
-        //     'rule1' => [
-        //         'rule' => ['checkSpace', 'name'],
-        //         'message' => '全角・半角スペースのみはダメ',
-        //         'allowEmpty' => true,
-        //     ],
-        // ]
     );
 
     public $belongsTo = [

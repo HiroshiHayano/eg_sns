@@ -37,7 +37,9 @@
         };
         $(document).ready(function() {
             // $('#knowledges-tags').multiselect();
-            $('#users').multiselect();
+            $('#users').multiselect({
+                includeSelectAllOption: true,
+            });
         });
     </script>
 </head>

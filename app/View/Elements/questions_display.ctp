@@ -35,6 +35,9 @@
         </div>
         <!-- 回答数表示 -->
         <div class='panel-footer'>
+            投稿者：<strong><?php echo h($question['User']['name']);?></strong>
+            <?php echo h('投稿日時：'.$question['Question']['created']);?>
+            <br/>
             回答
             <?php $sample_question = empty($question['Answer']) ? '' : 'Answer:'.$question['Answer'][0]['content'];?>
             <span class='badge' data-toggle='tooltip' data-placement='bottom' title=<?php echo h($this->Text->truncate($sample_question, 30));?>>

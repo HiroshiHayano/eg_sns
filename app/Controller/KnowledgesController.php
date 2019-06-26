@@ -56,8 +56,7 @@ class KnowledgesController extends AppController {
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
 
-        $users = $this->User->find('list', ['field' => 'name', 'conditions' => ['is_deleted' => 0]]);
-        // debug($users);
+        $users = $this->User->find('list', ['field' => 'name']);
         $this->set(compact('users'));
     }
 
@@ -85,6 +84,9 @@ class KnowledgesController extends AppController {
         $this->set('users_name', $this->UsersList->getNames());
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
+
+        $users = $this->User->find('list', ['field' => 'name']);
+        $this->set(compact('users'));    
     }
 
     public function add()
@@ -156,14 +158,20 @@ class KnowledgesController extends AppController {
         }
     }
 
-    public function bookmarked_knowledges_view($id = NULL)
+    public function bookmarked_knowledges_view($user_id = NULL)
     {
-        $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));
+        $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $user_id]]));
+
+        $user = $this->User->find('first', ['conditions' => ['User.id' => $user_id]]);
+        $bookmarked_knowledge_id = Hash::extract($user, 'Knowledge.{n}.id');
         $conditions = [
-            'Bookmark.user_id' => $id,
+            'Knowledge.id' => $bookmarked_knowledge_id,
         ];
-        $this->set('bookmarked_knowledges', $this->paginate('Bookmark', $conditions));
+        $this->set('bookmarked_knowledges', $this->paginate('Knowledge', $conditions));
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
+
+        $users = $this->User->find('list', ['field' => 'name']);
+        $this->set(compact('users'));    
     }
 }

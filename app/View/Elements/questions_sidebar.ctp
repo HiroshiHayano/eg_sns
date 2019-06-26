@@ -20,11 +20,13 @@
                 'placeholder' => '検索ワードを入力してください',
                 'class' => 'form-control'
             ]);
-            echo $this->Form->input('name', [
+            echo $this->Form->input('user_id', [
                 'label' => '投稿者を検索:',
-                'type' => 'text',
-                'placeholder' => '投稿者の名前を入力してください',
-                'class' => 'form-control'
+                'type' => 'select', 
+                'multiple'=> TRUE,
+                'options' => $users,
+                'class' => 'form-control',
+                'id' => 'users'
             ]);
             echo $this->Form->input('status_filter', [
                 'label' => '',

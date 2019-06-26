@@ -30,13 +30,6 @@ class Question extends AppModel {
                 'allowEmpty' => true,
             ],
         ],
-        'name' => [
-            'rule1' => [
-                'rule' => ['checkSpace', 'name'],
-                'message' => '全角・半角スペースのみはダメ',
-                'allowEmpty' => true,
-            ],
-        ]
     );
 
     public $hasMany = [
@@ -63,14 +56,11 @@ class Question extends AppModel {
             'connectorAnd' => null,
             'connectorOr' => ' ',
         ],
-        'name' => [
-            'type' => 'like',
+        'user_id' => [
+            'type' => 'value',
             'field' => [
-                'User.name',
-                'User.phonetic'
+                'User.id',
             ],
-            'connectorAnd' => null,
-            'connectorOr' => ' ',
         ],
         'status_filter' => [
             'type' => 'value',

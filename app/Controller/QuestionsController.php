@@ -12,7 +12,7 @@ class QuestionsController extends AppController {
     ];
     public $presetVars = [
         'keyword' => ['type' => 'value', 'empty' => true, 'encode' => true],
-        'name' => ['type' => 'value', 'empty' => true, 'encode' => true],
+        'user_id' => ['type' => 'checkbox', 'empty' => true, 'encode' => true],
         'status_filter' => ['type' => 'checkbox', 'empty' => true, 'encode' => true],
     ];
 
@@ -53,6 +53,9 @@ class QuestionsController extends AppController {
             $this->paginate['conditions'] = $conditions;
         }
         $this->set('questions', $this->paginate());
+
+        $users = $this->User->find('list', ['field' => 'name']);
+        $this->set(compact('users'));
     }
 
     public function view($id=NULL)
@@ -94,6 +97,9 @@ class QuestionsController extends AppController {
                 $comments += array($answer_id => $comments_set);
             }
             $this->set('comments', $comments);
+
+            $users = $this->User->find('list', ['field' => 'name']);
+            $this->set(compact('users'));    
         }
     }
 
@@ -195,5 +201,8 @@ class QuestionsController extends AppController {
             'Answer.user_id' => $id,
         ];
         $this->set('answers', $this->paginate('Answer', $conditions));
+
+        $users = $this->User->find('list', ['field' => 'name']);
+        $this->set(compact('users'));    
     }
 }
