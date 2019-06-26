@@ -30,13 +30,13 @@ class Knowledge extends AppModel {
                 'allowEmpty' => true,
             ],
         ],
-        'name' => [
-            'rule1' => [
-                'rule' => ['checkSpace', 'name'],
-                'message' => '全角・半角スペースのみはダメ',
-                'allowEmpty' => true,
-            ],
-        ]
+        // 'name' => [
+        //     'rule1' => [
+        //         'rule' => ['checkSpace', 'name'],
+        //         'message' => '全角・半角スペースのみはダメ',
+        //         'allowEmpty' => true,
+        //     ],
+        // ]
     );
 
     public $belongsTo = [
@@ -80,14 +80,11 @@ class Knowledge extends AppModel {
             'connectorAnd' => null,
             'connectorOr' => ' ',
         ],
-        'name' => [
-            'type' => 'like',
+        'user_id' => [
+            'type' => 'value',
             'field' => [
-                'PostUser.name',
-                'PostUser.phonetic'
+                'PostUser.id',
             ],
-            'connectorAnd' => null,
-            'connectorOr' => ' ',
         ]
     );
 }

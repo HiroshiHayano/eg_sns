@@ -8,17 +8,12 @@ class KnowledgesController extends AppController {
     public $components = ['UsersList', 'GetBookmarks', 'Search.Prg'];
     public $presetVars = [
         'keyword' => ['type' => 'value', 'empty' => true, 'encode' => true],
-        'name' => ['type' => 'value', 'empty' => true, 'encode' => true],
+        'user_id' => ['type' => 'checkbox', 'empty' => true, 'encode' => true],
     ];
 
     public $paginate = [
-        // 'contain' => ['KnowledgesComment', 'Bookmark'],
         'limit' => 10,
         'order' => ['id' => 'desc'],
-        // conditionはsearchプラグイン導入後に削除 
-        // 'conditions' => [
-        //     'OR' => []
-        // ]
     ];
 
     public function isAuthorized($user = null)
@@ -60,6 +55,10 @@ class KnowledgesController extends AppController {
         $this->set('knowledges', $this->paginate());
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
+
+        $users = $this->User->find('list', ['field' => 'name', 'conditions' => ['is_deleted' => 0]]);
+        // debug($users);
+        $this->set(compact('users'));
     }
 
     public function view($id = NULL)
@@ -156,7 +155,7 @@ class KnowledgesController extends AppController {
             }
         }
     }
-    
+
     public function bookmarked_knowledges_view($id = NULL)
     {
         $this->set('user', $this->User->find('first', ['conditions' => ['User.id' => $id]]));

@@ -171,10 +171,14 @@
                                             echo $this->Form->create('Knowledge', [
                                                 'action' => 'index'
                                             ]);
-                                            echo $this->Form->hidden('name', [
-                                                'value' => $user['User']['name'],
+                                            echo $this->Form->hidden('user_id', [
+                                                'value' => $user['User']['id'],
                                                 'class' => 'form-control'
                                             ]);
+                                            // echo $this->Form->hidden('name', [
+                                            //     'value' => $user['User']['name'],
+                                            //     'class' => 'form-control'
+                                            // ]);
                                             echo $this->Form->submit($text, [
                                                 'class' => ['btn', 'btn-link', 'btn-small']
                                             ]);

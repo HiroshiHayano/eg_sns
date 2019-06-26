@@ -36,7 +36,8 @@
             );
         };
         $(document).ready(function() {
-            $('#knowledges-tags').multiselect();
+            // $('#knowledges-tags').multiselect();
+            $('#users').multiselect();
         });
     </script>
 </head>
