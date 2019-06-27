@@ -4,11 +4,12 @@ class KnowledgesController extends AppController {
     public $autoLayout = false;
 
     public $helpers = array('Html', 'Form', 'Text', 'Paginator', 'UploadPack.Upload');
-    public $uses = array('Knowledge', 'KnowledgesComment', 'User', 'Bookmark');
+    public $uses = array('Knowledge', 'KnowledgesComment', 'User', 'Bookmark', 'Tag');
     public $components = ['UsersList', 'GetBookmarks', 'Search.Prg'];
     public $presetVars = [
         'keyword' => ['type' => 'value', 'empty' => true, 'encode' => true],
         'user_id' => ['type' => 'checkbox', 'empty' => true, 'encode' => true],
+        'tag_id' => ['type' => 'checkbox', 'empty' => true, 'encode' => true],
     ];
 
     public $paginate = [
@@ -56,8 +57,10 @@ class KnowledgesController extends AppController {
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
 
-        $users = $this->User->find('list', ['field' => 'name']);
+        $users = $this->User->find('list', ['fields' => 'name']);
         $this->set(compact('users'));
+        $tags = $this->Tag->find('list', ['fields' => 'label']);
+        $this->set(compact('tags'));
     }
 
     public function view($id = NULL)

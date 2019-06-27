@@ -25,9 +25,15 @@
                 'type' => 'select', 
                 'multiple'=> TRUE,
                 'options' => $users,
-                'class' => 'form-control',
-                'id' => 'users'
+                'class' => 'form-control multiselect',
             ]);
+            echo $this->Form->input('tag_id', array(
+                'label' => 'タグを検索:',
+                'type' => 'select',
+                'multiple' => TRUE,
+                'options' => $tags,
+                'class' => 'form-control multiselect',
+            ));
             echo $this->Form->submit('Search', [
                 'class' => ['btn', 'btn-default', 'btn-block']
             ]);

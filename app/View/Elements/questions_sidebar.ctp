@@ -25,8 +25,7 @@
                 'type' => 'select', 
                 'multiple'=> TRUE,
                 'options' => $users,
-                'class' => 'form-control',
-                'id' => 'users'
+                'class' => 'form-control multiselect',
             ]);
             echo $this->Form->input('status_filter', [
                 'label' => '',

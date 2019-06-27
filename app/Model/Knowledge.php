@@ -52,6 +52,7 @@ class Knowledge extends AppModel {
             'foreignKey' => 'knowledge_id',
             'associationForeignKey' => 'tag_id',
             'with' => 'KnowledgesTag',
+            'unique' => TRUE,
         ],
         'User' => [
             'classname' => 'User',
@@ -62,7 +63,7 @@ class Knowledge extends AppModel {
         ]
     ];
 
-    public $actsAs = array('Search.Searchable');
+    public $actsAs = array('Search.Searchable', 'Containable');
     public $filterArgs = array(
         'keyword' => [
             'type' => 'like',
@@ -78,6 +79,25 @@ class Knowledge extends AppModel {
             'field' => [
                 'PostUser.id',
             ],
+        ],
+        'tag_id' => [
+            'type' => 'subquery',
+            'method' => 'findByTags',
+            'field' => 'Knowledge.id'
         ]
     );
+
+    function findByTags($data = array()) {
+        $this->KnowledgesTag->Behaviors->attach('Containable', ['autoFields' => false]);
+        $this->KnowledgesTag->Behaviors->attach('Search.Searchable');
+
+        $cond = $data['tag_id'];
+        $query = $this->KnowledgesTag->getQuery('all', [
+            'conditions' => ['KnowledgesTag.tag_id' => $cond],
+            'fields' => ['knowledge_id'],
+            'contain' => ['Tag']
+            ]
+        );
+        return $query;
+    }
 }

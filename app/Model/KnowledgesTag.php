@@ -1,7 +1,7 @@
 <?php
 
 class KnowledgesTag extends AppModel {
-    var $belongsTo = array(
+    public $belongsTo = array(
         'Tag' => array(
             'className' => 'Tag',
             'foreignKey' => 'tag_id',

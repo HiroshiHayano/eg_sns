@@ -36,10 +36,12 @@
             );
         };
         $(document).ready(function() {
-            // $('#knowledges-tags').multiselect();
-            $('#users').multiselect({
-                includeSelectAllOption: true,
-                buttonWidth: '100%'
+            $('.multiselect').multiselect({
+                maxHeight: 200,
+                buttonWidth: '100%',
+                includeSelectAllOption:true,
+                enableFiltering: true,
+                filterBehavior: 'text',
             });
         });
     </script>

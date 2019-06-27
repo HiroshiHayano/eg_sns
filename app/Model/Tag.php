@@ -18,6 +18,7 @@ class Tag extends AppModel {
             ]
         ),
     ];
+
     public $hasAndBelongsToMany = [
         'Knowledge' => [
             'classname' => 'Knowledge',
