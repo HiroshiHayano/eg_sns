@@ -40,29 +40,40 @@ class TagsController extends AppController {
             $data = [
                 'KnowledgesTag' => $conditions,
             ];
-            if ($this->KnowledgesTag->find('count', ['conditions' => $conditions]) === 0) {
-                if ($this->KnowledgesTag->save($data)) {
-                    $this->Session->setFlash(
-                        'タグを追加しました',
-                        'default',
-                        ['class' => 'alert alert-success']
-                    );
-                    $this->redirect([
-                        'controller' => 'knowledges', 
-                        'action' => 'view', 
-                        $knowledge_id,
-                    ]);
+            // すでに付加されているか確認
+            if ($this->Tag->isNotAddedTag($conditions)) {
+                // 最大付加タグ数を超えていないか確認
+                if (!$this->Tag->isExeedMaxNumberOfTag($knowledge_id)) {
+                    if ($this->KnowledgesTag->save($data)) {
+                        $this->Session->setFlash(
+                            'タグを追加しました',
+                            'default',
+                            ['class' => 'alert alert-success']
+                        );
+                        $this->redirect([
+                            'controller' => 'knowledges', 
+                            'action' => 'view', 
+                            $knowledge_id,
+                        ]);
+                    } else {
+                        $this->Session->setFlash(
+                            'タグを追加に失敗しました',
+                            'default',
+                            ['class' => 'alert alert-danger']
+                        );
+                        $this->redirect($this->referer());
+                    }                    
                 } else {
                     $this->Session->setFlash(
-                        'タグを追加に失敗しました',
+                        '付加可能なタグの数は'.$this->KnowledgesTag->maxNumberOfTag.'個までです',
                         'default',
                         ['class' => 'alert alert-danger']
                     );
                     $this->redirect($this->referer());
-                }                
+                }
             } else {
                 $this->Session->setFlash(
-                    'すでに登録済みのタグです',
+                    'すでにタグがついてます',
                     'default',
                     ['class' => 'alert alert-danger']
                 );

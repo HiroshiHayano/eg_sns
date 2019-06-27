@@ -1,6 +1,7 @@
 <?php
 
 class KnowledgesTag extends AppModel {
+    public $maxNumberOfTag = 3;
     public $belongsTo = array(
         'Tag' => array(
             'className' => 'Tag',

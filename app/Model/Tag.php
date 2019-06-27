@@ -28,4 +28,14 @@ class Tag extends AppModel {
             'with' => 'KnowledgesTag',
         ]
     ];
+
+    public function isNotAddedTag($conditions)
+    {
+        return $this->KnowledgesTag->find('count', ['conditions' => $conditions]) === 0;
+    }
+
+    public function isExeedMaxNumberOfTag($knowledge_id)
+    {
+        return $this->KnowledgesTag->find('count', ['conditions' => ['KnowledgesTag.knowledge_id' => $knowledge_id]]) >= $this->KnowledgesTag->maxNumberOfTag;
+    }
 }

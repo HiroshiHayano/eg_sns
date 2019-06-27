@@ -5,7 +5,7 @@
         'value' => $tag['id'],
         'label' => '',
     ));?>
-    <?php echo $this->Form->button(h($tag['label']), ['class' => ['btn', 'btn-success', 'btn-sm']]);?>
+    <?php echo $this->Form->button(h($tag['label']), ['class' => ['btn', 'btn-success', 'btn-sm', 'knowledgesTag-id_' . $tag['KnowledgesTag']['id'] ]]);?>
     <?php echo $this->Form->end();?>
 <?php endforeach;?>
 </div>
