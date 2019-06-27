@@ -57,9 +57,9 @@ class KnowledgesController extends AppController {
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
 
-        $users = $this->User->find('list', ['fields' => 'name']);
+        $users = $this->User->find('list', ['fields' => 'name', 'order' => 'phonetic ASC']);
         $this->set(compact('users'));
-        $tags = $this->Tag->find('list', ['fields' => 'label']);
+        $tags = $this->Tag->find('list', ['fields' => 'label', 'order' => 'label ASC']);
         $this->set(compact('tags'));
     }
 
@@ -88,8 +88,10 @@ class KnowledgesController extends AppController {
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
 
-        $users = $this->User->find('list', ['field' => 'name']);
+        $users = $this->User->find('list', ['fields' => 'name', 'order' => 'phonetic ASC']);
         $this->set(compact('users'));    
+        $tags = $this->Tag->find('list', ['fields' => 'label', 'order' => 'label ASC']);
+        $this->set(compact('tags'));
     }
 
     public function add()
@@ -174,7 +176,9 @@ class KnowledgesController extends AppController {
         $bookmarks = $this->GetBookmarks->getLoginUsersBookmarks(); //bookmarkしてるknowledge_idを取得
         $this->set(compact('bookmarks'));
 
-        $users = $this->User->find('list', ['field' => 'name']);
+        $users = $this->User->find('list', ['fields' => 'name', 'order' => 'phonetic ASC']);
         $this->set(compact('users'));    
+        $tags = $this->Tag->find('list', ['fields' => 'label', 'order' => 'label ASC']);
+        $this->set(compact('tags'));
     }
 }
