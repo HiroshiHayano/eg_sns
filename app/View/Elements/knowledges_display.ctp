@@ -1,10 +1,11 @@
 <?php foreach ($knowledges as $knowledge): ?>
     <div class='panel panel-default'>
         <div class='panel-heading'>
+            <h3>
             <strong>
                 <?php 
                     echo $this->Html->link(
-                        $this->Text->truncate($knowledge['Knowledge']['title'], 50), 
+                        $this->Text->truncate($knowledge['Knowledge']['title'], 35), 
                         [
                             'controller' => 'knowledges',
                             'action' => 'view',
@@ -14,6 +15,7 @@
 
                 ?>
             </strong>
+            </h3>
         </div>
         <div class='panel-body'>
             <?php 

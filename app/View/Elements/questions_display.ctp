@@ -11,19 +11,21 @@
             }
         ?>
         <div class='panel-heading'>
-            <span class='glyphicon <?=$question_icon;?>' data-toggle='tooltip' title=<?=$question_state;?>>
-                <strong>
-                    <?php
-                        echo $this->Html->link(
-                            $this->Text->truncate($question['Question']['title'], 20), array(
-                                'controller' => 'Questions',
-                                'action' => 'view',
-                                $question['Question']['id']
-                            )
-                        );
-                    ?>
-                </strong>
-            </span>
+            <h3>
+                <span class='glyphicon <?=$question_icon;?>' data-toggle='tooltip' title=<?=$question_state;?>>
+                    <strong>
+                        <?php
+                            echo $this->Html->link(
+                                $this->Text->truncate($question['Question']['title'], 35), array(
+                                    'controller' => 'Questions',
+                                    'action' => 'view',
+                                    $question['Question']['id']
+                                )
+                            );
+                        ?>
+                    </strong>
+                </span>
+            </h3>
         </div>
         <div class='panel-body <?=$question_color;?>'>
             <?php 

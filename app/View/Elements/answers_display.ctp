@@ -11,6 +11,7 @@
             }
         ?>
         <div class='panel-heading'>
+            <h3>
             <span class='glyphicon <?=$question_icon;?>' data-toggle='tooltip' title=<?=$question_state;?>>
                 <strong>
                     <?php 
@@ -28,6 +29,7 @@
             <small>
                 <?php echo h($this->Text->truncate($answer['Question']['content'], 50));?>
             </small>
+            </h3>
         </div>
         <div class='panel-body <?=$question_color;?>'>
             <?php echo '回答「' . h($this->Text->truncate($answer['Answer']['content'], 100)) . '」';?>
