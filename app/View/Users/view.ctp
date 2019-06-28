@@ -104,13 +104,15 @@
         </div>
     </div>
     <!-- 最近の投稿 -->
-    <style>
-    .carousel{
-        width:100%;  /*サイズ指定*/
-        height:90%;
+    <!-- <style>
+    .row > .carousel{
+        /* width:100%;
+        height:90%; */
+        width:auto;  /*サイズ指定*/
+        height:auto;
         margin:auto;
     }
-    </style>
+    </style> -->
     <div class='row'>
         <div id="postCarousel" class="carousel slide">
             <ol class="carousel-indicators">
@@ -286,3 +288,13 @@
     </div>
 </div>
 <?=$this->element('footer');?>
+<script>
+    var hList=new Array();
+    $("div.item").each(function(idx){
+        hList[idx]=$(this).height();		 
+    });
+    
+    var maxH=Math.max.apply(null,hList);
+    
+    $("div.carousel").css({"height":maxH+"px"});
+</script>
