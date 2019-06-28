@@ -44,3 +44,4 @@
         </span>
     </div>
 </div>
+<?=$this->element('footer');?>

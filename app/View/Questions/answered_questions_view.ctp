@@ -38,3 +38,4 @@
         </div>
     </div>
 </div>
+<?=$this->element('footer');?>
